@@ -1,68 +1,180 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --Colors-EerieBlack-100: #EFEEF0;
+  --Colors-EerieBlack-200: #DBDADD;
+  --Colors-EerieBlack-300: #BCBABF;
+  --Colors-EerieBlack-600: #646069;
+  --Colors-EerieBlack-950: #1C1B1D;
+  --Colors-Lust-050: #FFF4ED;
+  --Colors-Lust-100: #FFE5D5;
+  --Colors-Lust-200: #FDC7AB;
+  --Colors-Lust-300: #FDC7AB;
+  --Colors-Lust-400: #F96E3E;
+  --Colors-Lust-500: #E82F0E;
+  --Colors-Lust-600: #E82F0E;
+  --Colors-Lust-700: #C0200E;
+  --Colors-Lust-800: #991B13;
+  --Colors-Lust-900: #7B1A13;
+  --Colors-Lust-950: #420908;
+  --Colors-MetallicSilver-050: #F6F6F7;
+  --Colors-MetallicSilver-100: #EEEFF1;
+  --Colors-MetallicSilver-200: #DFE0E6;
+  --Colors-MetallicSilver-300: #CCCCD5;
+  --Colors-MetallicSilver-400: #B7B6C3;
+  --Colors-MetallicSilver-500: #A4A2B2;
+  --Colors-MetallicSilver-600: #908D9E;
+  --Colors-MetallicSilver-700: #7C7989;
+  --Colors-MetallicSilver-800: #666370;
+  --Colors-MetallicSilver-900: #54535C;
+  --Colors-MetallicSilver-950: #323036;
+
+  /* Font sizes (Mobile) */
+  --Mobile-XS: 10px; /* Size/10 */
+  --Mobile-S: 12px;  /* Size/12 */
+  --Mobile-M: 14px;  /* Size/14 */
+  --Mobile-L: 16px;  /* Size/16 */
+  --Mobile-XL: 18px; /* Size/18 */
+
+  /* Spacing */
+  --spacing-mobile-xs: 2px;   /* Size/2  */
+  --spacing-mobile-s: 4px;    /* Size/4  */
+  --spacing-mobile-m: 8px;    /* Size/8  */
+  --spacing-mobile-l: 10px;   /* Size/10 */
+  --spacing-mobile-xl: 12px;  /* Size/12 */
+  --spacing-mobile-xxl: 14px; /* Size/14 */
+  --spacing-mobile-xxxl: 16px;/* Size/16 */
+  --spacing-desktop-s: 18px;  /* Size/18 (Desktop-S dans Figma) */
+  --spacing-mobile-margin: 18px; /* Size/18 (Mobile-Margin) */
+
+  font-family: "Mundial", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #213547;
+  background-color: var(--Colors-MetallicSilver-200);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  --Primary: Kanit;
+  --Secondary: Mundial;
+
+  --Neutral-Neutral-400: #888;
+  --Neutral-Neutral-050: #F6F6F6;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  background-color: var(--Colors-MetallicSilver-200);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.kanit-thin {
+  font-family: "Kanit", sans-serif;
+  font-weight: 100;
+  font-style: normal;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+.kanit-extralight {
+  font-family: "Kanit", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.kanit-light {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.kanit-regular {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kanit-medium {
+  font-family: "Kanit", sans-serif;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  font-style: normal;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.kanit-semibold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.kanit-bold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.kanit-extrabold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.kanit-black {
+  font-family: "Kanit", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.kanit-thin-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.kanit-extralight-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.kanit-light-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.kanit-regular-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.kanit-medium-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.kanit-semibold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.kanit-bold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.kanit-extrabold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.kanit-black-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 900;
+  font-style: italic;
 }

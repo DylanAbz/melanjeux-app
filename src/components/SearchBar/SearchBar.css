@@ -1,0 +1,59 @@
+.searchbar {
+    width: 100%;
+    max-width: 500px; /* Example max-width, adjust as needed */
+    margin: 0 auto; /* Center the searchbar */
+}
+
+.searchbar__wrapper {
+    display: flex;
+    padding: var(--spacing-mobile-m, 8px);
+    align-items: center;
+    border-radius: 24px;
+    border: 1px solid var(--Colors-MetallicSilver-100, #EEEFF1);
+    background: var(--Colors-MetallicSilver-050, #F6F6F7);
+}
+
+.searchbar__icon {
+    width: 20px; /* Adjust icon size as needed */
+    height: 20px;
+    margin-right: 10px;
+    color: #555; /* Icon color */
+}
+
+.searchbar__input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    font-family: var(--Secondary), serif;
+    font-size: 20px;
+    font-weight: 400;
+    width: 100%; /* Stabilise la largeur de l'input */
+    caret-color: var(--Colors-EerieBlack-950, #1C1B1D); /* Assure la visibilité du curseur */
+}
+
+/* placeholder */
+.searchbar__input::placeholder {
+    color: var(--Neutral-Neutral-400);
+    font-family: var(--Secondary), serif;
+    font-size: 20px;       /* plus gros comme sur la maquette */
+    font-weight: 400;      /* ou 500/600 si tu as ce weight importé */
+    opacity: 1;            /* utile sur certains navigateurs */
+}
+
+
+.searchbar__clear {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+}
+
+.searchbar__clear:hover {
+    color: #333;
+}
