@@ -1,0 +1,206 @@
+.filter-page {
+    font-family: var(--Primary, Kanit);
+}
+
+.category-title {
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    /* H2 */
+    font-family: var(--Primary, Kanit);
+    font-size: var(--Mobile-L, 20px);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%; /* 24px */
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.subcategory-title {
+    color: var(--Neutral-Neutral-700, #4F4F4F);
+    /* H3 */
+    font-family: var(--Primary, Kanit);
+    font-size: var(--Mobile-M, 18px);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%; /* 21.6px */
+    text-align: left;
+    margin-bottom: 12px;
+}
+
+.separator {
+    width: 100%;
+    height: 1px;
+    background: var(--Neutral-Neutral-300, #B0B0B0);
+    margin: 24px 0;
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-option {
+    display: flex;
+}
+
+.filter-option input[type="checkbox"] {
+    display: none;
+}
+
+.filter-option label {
+    display: flex;
+    height: 48px;
+    padding: var(--XS, 8px) var(--XL, 16px);
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--XXL, 18px);
+    border: 0.5px solid var(--Neutral-Neutral-300, #B0B0B0);
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+
+    color: var(--Colors-Lust-950, #3F0C0B);
+    text-align: center;
+    font-family: var(--Secondary, Mundial);
+    font-size: 16px; /* User request: var(--Mobile-S, 16px) -> 16px */
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 19.2px */
+}
+
+.filter-option input[type="checkbox"]:checked + label {
+    background-color: var(--Colors-Lust-400, #F96E3E);
+    color: black;
+    border-color: var(--Colors-Lust-400, #F96E3E);
+}
+
+.filter-subcategory-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.add-date-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-subcategory-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.add-date-button svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    display: block; /* Helps with alignment */
+}
+
+.selected-dates-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.selected-date-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 18px;
+    background-color: var(--Colors-Lust-400, #F96E3E);
+    color: black;
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+}
+
+.remove-date-btn {
+    background: none;
+    border: none;
+    color: black;
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 0;
+    line-height: 1;
+}
+
+/* =================================
+   Custom Datepicker Styles
+   ================================= */
+
+/* This targets the datepicker when it's inside our Modal */
+.modal-content .react-datepicker {
+    font-family: var(--Secondary, Mundial);
+    border: none;
+    background-color: transparent;
+}
+
+.modal-content .react-datepicker__header {
+    background-color: var(--Colors-Lust-400, #F96E3E);
+    border-bottom: none;
+    padding-top: 15px;
+}
+
+.modal-content .react-datepicker__current-month,
+.modal-content .react-datepicker__day-name {
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    font-family: var(--Primary, Kanit);
+    font-weight: 600;
+}
+
+.modal-content .react-datepicker__navigation--previous,
+.modal-content .react-datepicker__navigation--next {
+    top: 15px;
+}
+
+.modal-content .react-datepicker__day {
+    color: var(--Neutral-Neutral-700, #4F4F4F);
+}
+
+.modal-content .react-datepicker__day:hover {
+    background-color: var(--Colors-Lust-100, #FFE5D5);
+}
+
+.modal-content .react-datepicker__day--selected,
+.modal-content .react-datepicker__day--keyboard-selected {
+    background-color: var(--Colors-Lust-500, #E82F0E);
+    color: white;
+}
+
+.modal-content .react-datepicker__day--disabled {
+    color: var(--Neutral-Neutral-300, #B0B0B0);
+    text-decoration: line-through;
+}
+
+.modal-content .react-datepicker__triangle {
+    display: none; /* Hide the default triangle */
+}
+
+
+.player-counter {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.player-counter button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--Neutral-Neutral-300, #B0B0B0);
+    background: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.player-counter span {
+    font-size: 18px;
+    font-weight: 600;
+}
