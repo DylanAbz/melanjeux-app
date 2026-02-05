@@ -1,7 +1,7 @@
-import searchIcon from "/public/search.svg";
 import debounce from "lodash.debounce";
 import "./SearchBar.css";
-import React, { useState, useMemo } from "react";
+import React, {useState, useMemo, type FormEvent, type ChangeEvent} from "react";
+import {SearchIcon} from "../../../public/SearchIcon.tsx";
 
 
 type SearchBarProps = {
@@ -22,7 +22,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                                                         className = "",
                                                     }) => {
     const [internalValue, setInternalValue] = useState(value ?? "");
-
     const debouncedOnChange = useMemo(
         () =>
             debounce((term: string) => {
@@ -63,7 +62,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         >
 
             <div className="searchbar__wrapper">
-                <img src={searchIcon} alt="Search Icon" className="searchbar__icon" />
+                <span className="searchbar__icon">
+                    <SearchIcon/>
+                </span>
                 <input
                     id="search-input"
                     type="search"

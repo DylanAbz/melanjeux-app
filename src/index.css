@@ -28,22 +28,22 @@
   --Colors-MetallicSilver-950: #323036;
 
   /* Font sizes (Mobile) */
-  --Mobile-XS: 10px; /* Size/10 */
-  --Mobile-S: 12px;  /* Size/12 */
-  --Mobile-M: 14px;  /* Size/14 */
-  --Mobile-L: 16px;  /* Size/16 */
-  --Mobile-XL: 18px; /* Size/18 */
+  --Mobile-XS: 10px;
+  --Mobile-S: 12px;
+  --Mobile-M: 14px;
+  --Mobile-L: 16px;
+  --Mobile-XL: 12px;
 
-  /* Spacing */
-  --spacing-mobile-xs: 2px;   /* Size/2  */
-  --spacing-mobile-s: 4px;    /* Size/4  */
-  --spacing-mobile-m: 8px;    /* Size/8  */
-  --spacing-mobile-l: 10px;   /* Size/10 */
-  --spacing-mobile-xl: 12px;  /* Size/12 */
-  --spacing-mobile-xxl: 14px; /* Size/14 */
-  --spacing-mobile-xxxl: 16px;/* Size/16 */
-  --spacing-desktop-s: 18px;  /* Size/18 (Desktop-S dans Figma) */
-  --spacing-mobile-margin: 18px; /* Size/18 (Mobile-Margin) */
+  /* ²Spacing */
+  --spacing-mobile-xs: 2px;
+  --spacing-mobile-s: 4px;
+  --spacing-mobile-m: 8px;
+  --spacing-mobile-l: 10px;
+  --spacing-mobile-xl: 12px;
+  --spacing-mobile-xxl: 14px;
+  --spacing-mobile-xxxl: 16px;
+  --spacing-desktop-s: 18px;
+  --spacing-mobile-margin: 18px;
 
   font-family: "Mundial", sans-serif;
   line-height: 1.5;

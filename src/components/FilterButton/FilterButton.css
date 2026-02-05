@@ -1,0 +1,22 @@
+.filter-button {
+  display: flex;
+  padding: var(--Mobile-XL, 12px);
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--XXXL, 99px);
+  background: var(--Neutral-Neutral-050, #F6F6F6);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.filter-button:hover {
+  transform: translateY(-2px);
+}
+
+.filter-button svg {
+  width: 24px;
+  height: 24px;
+  color: var(--Primary-Primary-400, #ED6E44); /* Icon color */
+}
