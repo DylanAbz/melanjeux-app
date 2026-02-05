@@ -34,6 +34,11 @@
   --Mobile-L: 16px;
   --Mobile-XL: 12px;
 
+  /* Responsive RoomCard Font Sizes */
+  --room-card-title-size: clamp(14px, 4vw, 20px);
+  --room-card-subtitle-size: clamp(12px, 3vw, 16px);
+  --room-card-location-size: clamp(10px, 2vw, 12px);
+
   /* ²Spacing */
   --spacing-mobile-xs: 2px;
   --spacing-mobile-s: 4px;
