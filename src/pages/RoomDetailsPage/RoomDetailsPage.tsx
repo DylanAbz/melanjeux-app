@@ -72,67 +72,97 @@ const RoomDetailsPage: React.FC = () => {
             <div className="room-details-content-container">
                 {/* Header */}
                 <header className="room-details-header">
-                    <h1 className="room-details-title">{room.title}</h1>
-                    <span className="room-details-category-tag">{room.category}</span>
+                    <div className="room-details-title-and-category-container">
+                        <h1 className="room-details-title">{room.title}</h1>
+                        <span className="room-details-category-tag">{room.category}</span>
+                    </div>
                     <p className="room-details-description">{room.description}</p>
                 </header>
+
+                <div className="room-details-separator" />
 
                 {/* Stats Grid */}
                 <section className="room-details-stats-grid">
                     <div className="room-details-stat-item">
-                        <span className="room-details-stat-label">Fouille</span>
-                        <span className="room-details-stat-note">{room.stats.searchLevel}/5</span>
+                        <div className="room-details-stat-item-text">
+                            <span className="room-details-stat-label">Fouille</span>
+                            <span className="room-details-stat-note">{room.stats.searchLevel}/5</span>
+                        </div>
                         <div className="room-details-stat-icons">
                             {renderStatIcons(room.stats.searchLevel, '/filledKey.svg', '/emptyKey.svg')}
                         </div>
                     </div>
                     <div className="room-details-stat-item">
-                        <span className="room-details-stat-label">Réflexion</span>
-                        <span className="room-details-stat-note">{room.stats.thinkingLevel}/5</span>
+                        <div className="room-details-stat-item-text">
+                            <span className="room-details-stat-label">Réflexion</span>
+                            <span className="room-details-stat-note">{room.stats.thinkingLevel}/5</span>
+                        </div>
                         <div className="room-details-stat-icons">
                             {renderStatIcons(room.stats.thinkingLevel, '/filledBrain.svg', '/emptyBrain.svg')}
                         </div>
                     </div>
                     <div className="room-details-stat-item">
-                        <span className="room-details-stat-label">Manipulation</span>
-                        <span className="room-details-stat-note">{room.stats.manipulationLevel}/5</span>
+                        <div className="room-details-stat-item-text">
+                            <span className="room-details-stat-label">Manipulation</span>
+                            <span className="room-details-stat-note">{room.stats.manipulationLevel}/5</span>
+                        </div>
                         <div className="room-details-stat-icons">
                             {renderStatIcons(room.stats.manipulationLevel, '/filledWrench.svg', '/emptyWrench.svg')}
                         </div>
                     </div>
                     <div className="room-details-stat-item">
-                        <span className="room-details-stat-label">Difficulté</span>
-                        <span className="room-details-stat-note">{room.stats.difficultyLevel}/5</span>
+                        <div className="room-details-stat-item-text">
+                            <span className="room-details-stat-label">Difficulté</span>
+                            <span className="room-details-stat-note">{room.stats.difficultyLevel}/5</span>
+                        </div>
                         <div className="room-details-stat-icons">
                             {renderStatIcons(room.stats.difficultyLevel, '/filledLock.svg', '/emptyLock.svg')}
                         </div>
                     </div>
                 </section>
 
+                <div className="room-details-separator" />
+
                 {/* Practical Info Bar */}
                 <section className="room-details-info-bar">
                     <div className="room-details-info-item">
                         <img src="/time.svg" alt="Durée" />
-                        <span>{room.duration} min.</span>
+                        <div className="room-details-info-item-text-container">
+                            <span className="room-details-info-label">Durée</span>
+                            <span className="room-details-info-value">{room.duration} min.</span>
+                        </div>
                     </div>
                     <div className="room-details-info-item">
                         <img src="/users.svg" alt="Joueurs" />
-                        <span>{room.minPlayers} à {room.maxPlayers}</span>
+                        <div className="room-details-info-item-text-container">
+                            <span className="room-details-info-label">Joueurs</span>
+                            <span className="room-details-info-value">{room.minPlayers} à {room.maxPlayers}</span>
+                        </div>
                     </div>
                     <div className="room-details-info-item">
                         <img src="/price.svg" alt="Prix" />
-                        <span>{room.priceRange}</span>
+                        <div className="room-details-info-item-text-container">
+                            <span className="room-details-info-label">Prix</span>
+                            <span className="room-details-info-value">{room.priceRange}</span>
+                        </div>
                     </div>
                     <div className="room-details-info-item">
                         <img src="/handicapped.svg" alt="Accès PMR" />
-                        <span>{room.isPmrAccessible ? 'Oui' : 'Non'}</span>
+                        <div className="room-details-info-item-text-container">
+                            <span className="room-details-info-label">Accès PMR</span>
+                            <span className="room-details-info-value">{room.isPmrAccessible ? 'Oui' : 'Non'}</span>
+                        </div>
                     </div>
                 </section>
 
+                <div className="room-details-separator" />
+
                 {/* Location Section */}
                 <section className="room-details-location">
-                    <h2 className="room-details-location-name">{room.locationName}</h2>
-                    <p className="room-details-address">{room.address}</p>
+                    <div className="room-details-location-text-container">
+                        <h2 className="room-details-location-name">{room.locationName}</h2>
+                        <p className="room-details-address">{room.address}</p>
+                    </div>
                     <div className="room-details-map-placeholder">
                         {room.coordinates && (
                             <img

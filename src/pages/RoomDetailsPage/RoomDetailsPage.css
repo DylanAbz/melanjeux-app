@@ -5,6 +5,7 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #FFFFFF;
 }
 
 .room-details-hero {
@@ -54,57 +55,89 @@
 }
 
 .room-details-header {
-    margin-bottom: var(--spacing-mobile-l);
+    align-items: center;
+    gap: var(--M, 12px);
+    align-self: stretch;
+}
+.room-details-title-and-category-container {
+    display: flex;
+    align-items: center;
+    gap: var(--M, 12px);
+    align-self: start;
 }
 
 .room-details-title {
-    font-size: var(--font-size-h1-mobile); /* Assuming h1 mobile size variable */
-    font-weight: bold;
-    color: var(--Colors-EerieBlack-950);
-    display: inline-block; /* Allow tag next to it */
-    margin-right: var(--spacing-mobile-s);
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+
+    /* H1 */
+    font-family: var(--Primary, Kanit);
+    font-size: var(--XL, 24px);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%; /* 28.8px */
 }
 
 .room-details-category-tag {
-    display: inline-block;
-    background-color: transparent;
-    border: 1px solid var(--Colors-Primary-Light); /* Placeholder border color */
-    color: var(--Colors-Primary-Dark); /* Placeholder text color */
-    padding: var(--spacing-mobile-xs) var(--spacing-mobile-s);
-    border-radius: 20px; /* Pill shape */
-    font-size: var(--font-size-small); /* Assuming small font size variable */
-    font-weight: 500;
+    display: flex;
+    padding: var(--XS, 8px);
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--S, 12px);
+    border: 0.75px solid var(--Neutral-Neutral-200, #D1D1D1);
 }
 
 .room-details-description {
-    color: var(--Colors-Gray-700); /* Assuming a gray text color variable */
-    font-size: var(--font-size-body); /* Assuming body font size variable */
-    line-height: 1.5;
-    margin-top: var(--spacing-mobile-s);
+    color: var(--Neutral-Neutral-500, #6D6D6D);
+    leading-trim: both;
+    text-edge: cap;
+
+    /* Body/Default */
+    font-family: Mundial;
+    font-size: var(--S, 16px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.room-details-separator {
+    height: 1px;
+    background: var(--Neutral-Neutral-100, #E7E7E7);
+    width: 90%;
+    margin: var(--M, 18px) auto;
 }
 
 .room-details-stats-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-mobile-m);
-    margin-bottom: var(--spacing-mobile-l);
-    padding: var(--spacing-mobile-m) 0;
-    border-top: 1px solid var(--Colors-Gray-300); /* Separator */
-    border-bottom: 1px solid var(--Colors-Gray-300); /* Separator */
 }
 
 .room-details-stat-item {
     display: flex;
+    padding: var(--XXXS, 2px) var(--XS, 8px);
     flex-direction: column;
     align-items: center;
     gap: var(--XXS, 4px);
 }
 
+.room-details-stat-item-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .room-details-stat-label {
-    font-size: var(--font-size-body);
-    font-weight: bold;
-    color: var(--Colors-EerieBlack-950);
-    margin-bottom: var(--spacing-mobile-xs);
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    leading-trim: both;
+    text-edge: cap;
+
+    /* Body/Default */
+    font-family: Mundial;
+    font-size: var(--S, 16px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 19.2px */
 }
 
 .room-details-stat-note {
@@ -131,24 +164,32 @@
 }
 
 .room-details-info-bar {
-    display: flex;
-
-    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
-    justify-content: space-around;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-mobile-m);
-    margin-bottom: var(--spacing-mobile-l);
-    padding: var(--spacing-mobile-m) 0;
-    border-bottom: 1px solid var(--Colors-Gray-300); /* Separator */
+}
+
+@media (max-width: 320px) {
+    .room-details-info-bar {
+        grid-template-columns: 1fr;
+    }
 }
 
 .room-details-info-item {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    text-align: center;
-    width: 45%; /* Adjust for 2 columns on small screens, can go 4 on wider */
-    box-sizing: border-box;
+    gap: var(--XXS, 4px);
+}
+
+.room-details-info-item-text-container {
+    display: flex;
+    max-width: 136px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--XS, 8px);
 }
 
 .room-details-info-item img {
@@ -157,28 +198,43 @@
     margin-bottom: var(--spacing-mobile-xs);
 }
 
-.room-details-info-item span {
-    font-size: var(--font-size-small);
-    color: var(--Colors-EerieBlack-950);
-    font-weight: 500;
-}
-
 .room-details-location {
     margin-bottom: var(--spacing-mobile-l);
 }
 
 .room-details-location-name {
-    font-size: var(--font-size-h2-mobile); /* Assuming h2 mobile size variable */
-    font-weight: bold;
-    color: var(--Colors-EerieBlack-950);
-    margin-bottom: var(--spacing-mobile-s);
+    margin: 0;
+    padding: 0;
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    font-family: "mundial", sans-serif !important;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700 !important;
+    line-height: 1.2;
     text-decoration: underline;
+    text-underline-offset: 3px;
+    margin-bottom: var(--spacing-mobile-s);
 }
 
 .room-details-address {
-    color: var(--Colors-Gray-700);
-    font-size: var(--font-size-body);
-    margin-bottom: var(--spacing-mobile-m);
+    color: var(--Neutral-Neutral-500, #6D6D6D);
+    leading-trim: both;
+    text-edge: cap;
+
+    /* Body/Default */
+    font-family: Mundial;
+    font-size: var(--S, 16px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 19.2px */
+}
+
+.room-details-location-text-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--XS, 8px);
+    margin-bottom: var(--spacing-mobile-l);
+    align-items: start;
 }
 
 .room-details-map-placeholder {
@@ -201,35 +257,66 @@
 }
 
 .room-details-footer {
-    position: sticky;
+    position: fixed;
     bottom: 0;
+    left: 0;
     width: 100%;
-    background-color: var(--Colors-White); /* Background for the footer area */
-    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1); /* Shadow to lift it */
-    z-index: 10;
+    box-sizing: border-box;
+    background-color: var(--Colors-White, #FFFFFF);
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
     display: flex;
     padding: var(--Size-12, 12px) var(--XXXL, 24px);
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
 }
 
 .room-details-cta-button {
+    color: var(--Neutral-Neutral-050, #F6F6F6);
+    text-align: center;
+    font-family: mundial;
+    font-size: var(--XS, 14px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
     width: 100%;
     display: flex;
     padding: var(--M, 12px) var(--L, 14px);
     justify-content: center;
     align-items: center;
     gap: var(--XS, 8px);
-    flex: 1 0 0;
     border-radius: var(--L, 24px);
     background: var(--Primary-Primary-400, #ED6E44);
-    color: var(--Neutral-Neutral-050, #F6F6F6);
+    border: none;
+    cursor: pointer;
+}
+
+.room-details-info-label {
+    color: var(--Neutral-Neutral-900, #3D3D3D);
     text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+
+    /* Body/Default */
     font-family: Mundial;
-    font-size: var(--XS, 14px);
+    font-size: var(--S, 16px);
     font-style: normal;
     font-weight: 400;
-    line-height: 120%; /* 16.8px */
+    line-height: 120%; /* 19.2px */
+}
+
+.room-details-info-value {
+    color: var(--Neutral-Neutral-500, #6D6D6D);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+
+    /* Body/Default */
+    font-family: Mundial;
+    font-size: var(--S, 16px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 19.2px */
 }
 
 /* --- Media Queries for larger screens (Tablet/Desktop) --- */
@@ -265,8 +352,7 @@
     }
 
     .room-details-info-bar {
-        justify-content: space-between; /* Distribute items evenly */
-        flex-wrap: nowrap; /* Prevent wrapping on wider screens */
+        grid-template-columns: repeat(4, 1fr);
     }
 
     .room-details-info-item {
