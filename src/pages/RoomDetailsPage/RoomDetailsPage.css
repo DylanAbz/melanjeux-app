@@ -21,37 +21,39 @@
 }
 
 .room-details-back-button {
-    position: absolute;
-    top: var(--spacing-mobile-m); /* Using global CSS variable for spacing */
-    left: var(--spacing-mobile-m); /* Using global CSS variable for spacing */
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--Colors-White); /* Assuming a white color variable exists */
-    border: none;
+    position: fixed;
+    top: calc(var(--spacing-mobile-m) + env(safe-area-inset-top, 0px));
+    left: var(--spacing-mobile-m);
+    z-index: 1000;
     display: flex;
-    align-items: center;
+    min-height: 48px;
+    width: 48px; /* Maintain circular shape */
+    padding: var(--M, 12px);
     justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: var(--XXL, 999px);
+    background: var(--Neutral-Neutral-050, #F6F6F6);
+    border: none;
     cursor: pointer;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .room-details-back-button img {
-    width: 20px;
-    height: 20px;
-    /* This SVG should be a simple left arrow, if not, adjust */
+    width: 24px;
+    height: 24px;
 }
 
 .room-details-content-container {
-    background-color: var(--Colors-White); /* White background for the content */
-    border-top-left-radius: 25px; /* Large border-radius for top corners */
-    border-top-right-radius: 25px;
-    margin-top: -5vh; /* Overlap with hero section */
+    background: #FFF;
+    border-radius: var(--L, 24px) var(--L, 24px) 0 0;
+    border: 1px solid var(--Neutral-Neutral-100, #E7E7E7);
+    margin-top: -30px; /* Overlap slightly with hero section */
     position: relative;
-    z-index: 1; /* Ensure it's above the hero image */
-    padding: var(--spacing-mobile-l); /* Generous padding */
-    flex-grow: 1; /* Allows content to push footer to bottom */
-    padding-bottom: 80px; /* Space for the fixed footer */
+    z-index: 1;
+    padding: var(--spacing-mobile-l);
+    flex-grow: 1;
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
 }
 
 .room-details-header {
@@ -68,6 +70,7 @@
 
 .room-details-title {
     color: var(--Neutral-Neutral-900, #3D3D3D);
+    text-align: left;
 
     /* H1 */
     font-family: var(--Primary, Kanit);
@@ -90,6 +93,7 @@
     color: var(--Neutral-Neutral-500, #6D6D6D);
     leading-trim: both;
     text-edge: cap;
+    text-align: left;
 
     /* Body/Default */
     font-family: Mundial;
@@ -200,6 +204,7 @@
 
 .room-details-location {
     margin-bottom: var(--spacing-mobile-l);
+    text-align: left;
 }
 
 .room-details-location-name {
@@ -214,6 +219,7 @@
     text-decoration: underline;
     text-underline-offset: 3px;
     margin-bottom: var(--spacing-mobile-s);
+    text-align: left;
 }
 
 .room-details-address {
@@ -227,6 +233,8 @@
     font-style: normal;
     font-weight: 400;
     line-height: 120%; /* 19.2px */
+    margin: 0;
+    padding:  var(--M, 12px) 0;
 }
 
 .room-details-location-text-container {
@@ -246,7 +254,7 @@
     justify-content: center;
     color: var(--Colors-Gray-600);
     font-size: var(--font-size-body);
-    border-radius: var(--border-radius-s); /* Assuming a small border radius variable */
+    border-radius: var(--M, 12px);
     overflow: hidden; /* Ensure content stays within radius */
 }
 
@@ -266,7 +274,7 @@
     box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
     z-index: 100;
     display: flex;
-    padding: var(--Size-12, 12px) var(--XXXL, 24px);
+    padding: var(--Size-12, 12px) var(--XXXL, 24px) calc(var(--Size-12, 12px) + env(safe-area-inset-bottom, 0px));
     justify-content: center;
     align-items: center;
 }

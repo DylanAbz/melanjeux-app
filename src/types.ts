@@ -6,26 +6,30 @@ export interface Filters {
     playerCount: number;
 }
 
-export interface Room {
-    title: string;
-    category: string;
-    description: string;
-    stats: {
-        searchLevel: number;
-        thinkingLevel: number;
-        manipulationLevel: number;
-        difficultyLevel: number;
-    };
-    duration: number; // in minutes
-    minPlayers: number;
-    maxPlayers: number;
-    priceRange: string; // e.g., "Entre 20€ et 30€"
-    isPmrAccessible: boolean;
-    locationName: string;
-    address: string;
-    coordinates: {
+export interface EscapeGame {
+    nom: string;
+    adresse: string;
+    telephone: string;
+    mail: string;
+    coordinates?: {
         lat: number;
         lng: number;
     };
-    image: string; // URL for the hero image
+}
+
+export interface Room {
+    title: string;
+    image: string;
+    category: string;
+    description: string;
+    searchLevel: number;
+    thinkingLevel: number;
+    manipulationLevel: number;
+    difficultyLevel: number;
+    duration: number;
+    minPlayers: number;
+    maxPlayers: number;
+    price: { [participants: number]: number }; // Price per person based on participant count
+    isPmrAccessible: boolean;
+    escapeGame: EscapeGame;
 }

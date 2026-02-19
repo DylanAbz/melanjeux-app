@@ -51,6 +51,15 @@ const RoomDetailsPage: React.FC = () => {
         return icons;
     };
 
+    const getPriceRange = (priceObj: { [key: number]: number }) => {
+        const prices = Object.values(priceObj);
+        if (prices.length === 0) return 'Prix N/A';
+        if (prices.length === 1) return `${prices[0]}€ par joueur`;
+        const minPrice = Math.min(...prices);
+        const maxPrice = Math.max(...prices);
+        return `Entre ${minPrice}€ et ${maxPrice}€ par joueur`;
+    };
+
     if (loading) {
         return <div className="room-details-loading">Chargement...</div>; // Simple loading indicator
     }
@@ -61,11 +70,12 @@ const RoomDetailsPage: React.FC = () => {
 
     return (
         <div className="room-details-page">
+            <button className="room-details-back-button" onClick={handleGoBack}>
+                <img src="/chevronLeft.svg" alt="Back" />
+            </button>
+            
             {/* Hero Section */}
             <div className="room-details-hero" style={{ backgroundImage: `url(${room.image})` }}>
-                <button className="room-details-back-button" onClick={handleGoBack}>
-                    <img src="/arrow-left.svg" alt="Back" />
-                </button>
             </div>
 
             {/* Main Content Container */}
@@ -86,37 +96,37 @@ const RoomDetailsPage: React.FC = () => {
                     <div className="room-details-stat-item">
                         <div className="room-details-stat-item-text">
                             <span className="room-details-stat-label">Fouille</span>
-                            <span className="room-details-stat-note">{room.stats.searchLevel}/5</span>
+                            <span className="room-details-stat-note">{room.searchLevel}/5</span>
                         </div>
                         <div className="room-details-stat-icons">
-                            {renderStatIcons(room.stats.searchLevel, '/filledKey.svg', '/emptyKey.svg')}
+                            {renderStatIcons(room.searchLevel, '/filledKey.svg', '/emptyKey.svg')}
                         </div>
                     </div>
                     <div className="room-details-stat-item">
                         <div className="room-details-stat-item-text">
                             <span className="room-details-stat-label">Réflexion</span>
-                            <span className="room-details-stat-note">{room.stats.thinkingLevel}/5</span>
+                            <span className="room-details-stat-note">{room.thinkingLevel}/5</span>
                         </div>
                         <div className="room-details-stat-icons">
-                            {renderStatIcons(room.stats.thinkingLevel, '/filledBrain.svg', '/emptyBrain.svg')}
+                            {renderStatIcons(room.thinkingLevel, '/filledBrain.svg', '/emptyBrain.svg')}
                         </div>
                     </div>
                     <div className="room-details-stat-item">
                         <div className="room-details-stat-item-text">
                             <span className="room-details-stat-label">Manipulation</span>
-                            <span className="room-details-stat-note">{room.stats.manipulationLevel}/5</span>
+                            <span className="room-details-stat-note">{room.manipulationLevel}/5</span>
                         </div>
                         <div className="room-details-stat-icons">
-                            {renderStatIcons(room.stats.manipulationLevel, '/filledWrench.svg', '/emptyWrench.svg')}
+                            {renderStatIcons(room.manipulationLevel, '/filledWrench.svg', '/emptyWrench.svg')}
                         </div>
                     </div>
                     <div className="room-details-stat-item">
                         <div className="room-details-stat-item-text">
                             <span className="room-details-stat-label">Difficulté</span>
-                            <span className="room-details-stat-note">{room.stats.difficultyLevel}/5</span>
+                            <span className="room-details-stat-note">{room.difficultyLevel}/5</span>
                         </div>
                         <div className="room-details-stat-icons">
-                            {renderStatIcons(room.stats.difficultyLevel, '/filledLock.svg', '/emptyLock.svg')}
+                            {renderStatIcons(room.difficultyLevel, '/filledLock.svg', '/emptyLock.svg')}
                         </div>
                     </div>
                 </section>
@@ -143,7 +153,7 @@ const RoomDetailsPage: React.FC = () => {
                         <img src="/price.svg" alt="Prix" />
                         <div className="room-details-info-item-text-container">
                             <span className="room-details-info-label">Prix</span>
-                            <span className="room-details-info-value">{room.priceRange}</span>
+                            <span className="room-details-info-value">{getPriceRange(room.price)}</span>
                         </div>
                     </div>
                     <div className="room-details-info-item">
@@ -160,16 +170,14 @@ const RoomDetailsPage: React.FC = () => {
                 {/* Location Section */}
                 <section className="room-details-location">
                     <div className="room-details-location-text-container">
-                        <h2 className="room-details-location-name">{room.locationName}</h2>
-                        <p className="room-details-address">{room.address}</p>
+                        <h2 className="room-details-location-name">{room.escapeGame.nom}</h2>
+                        <p className="room-details-address">{room.escapeGame.adresse}</p>
                     </div>
                     <div className="room-details-map-placeholder">
-                        {room.coordinates && (
-                            <img
-                                src={`https://maps.googleapis.com/maps/api/staticmap?center=${room.coordinates.lat},${room.coordinates.lng}&zoom=14&size=600x300&markers=color:red%7C${room.coordinates.lat},${room.coordinates.lng}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}`}
-                                alt={`Map of ${room.locationName}`}
-                            />
-                        )}
+                        <img
+                            src={`https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(room.escapeGame.adresse)}&zoom=15&size=600x300&markers=color:red%7C${encodeURIComponent(room.escapeGame.adresse)}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY || ''}`}
+                            alt={`Map of ${room.escapeGame.nom}`}
+                        />
                     </div>
                 </section>
             </div>
