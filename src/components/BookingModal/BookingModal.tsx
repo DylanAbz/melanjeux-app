@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './BookingModal.css';
 import { dummySessions } from '../../data/dummyRoomData';
 
@@ -9,6 +10,7 @@ interface BookingModalProps {
 }
 
 const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, selectedRoomName }) => {
+    const navigate = useNavigate();
     const [step, setStep] = useState(1);
     const [viewDate, setViewDate] = useState(new Date()); // The month we're viewing
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -21,6 +23,12 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, selectedRo
         } else {
             onClose();
         }
+    };
+
+    const handleTimeSlotSelect = (time: string) => {
+        // In a real app, you'd save this to a global state or pass it via URL
+        onClose();
+        navigate('/recap');
     };
 
     const handleMonthChange = (offset: number) => {
@@ -141,10 +149,13 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, selectedRo
                             const isFull = slot.bookedCount === slot.capacity;
                             const isRecommended = slot.time === recommendedTime;
 
-                            return (
-                                <div key={index} className={`timeslot-card ${isFull ? 'full' : 'available'}`}>
-                                    {isRecommended && !isFull && (
-                                        <div className="timeslot-recommended-banner">Créneau recommandé</div>
+                                                return (
+                                                    <div 
+                                                        key={index} 
+                                                        className={`timeslot-card ${isFull ? 'full' : 'available'}`}
+                                                        onClick={() => !isFull && handleTimeSlotSelect(slot.time)}
+                                                    >
+                                                        {isRecommended && !isFull && (                                        <div className="timeslot-recommended-banner">Créneau recommandé</div>
                                     )}
                                     <div className="timeslot-card-body">
                                         <span className="timeslot-time">{slot.time}</span>

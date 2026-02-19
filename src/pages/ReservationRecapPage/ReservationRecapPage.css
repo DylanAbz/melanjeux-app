@@ -1,0 +1,205 @@
+.reservation-recap-page {
+    min-height: 100vh;
+    background-color: var(--Neutral-Neutral-050, #F6F6F6);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 100px;
+}
+
+.recap-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: var(--XL, 24px);
+}
+
+.recap-back-button {
+    position: absolute;
+    top: calc(var(--spacing-mobile-m) + env(safe-area-inset-top, 0px));
+    left: var(--spacing-mobile-m);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #FFF;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.recap-back-button img {
+    width: 24px;
+    height: 24px;
+}
+
+.recap-room-title {
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    text-align: center;
+
+    /* H1 */
+    font-family: var(--Primary, Kanit);
+    font-size: var(--XL, 24px);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%; /* 28.8px */
+    margin: 0 auto;
+}
+
+.recap-subtitle {
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    leading-trim: both;
+    text-edge: cap;
+
+    /* H2 */
+    font-family: var(--Primary, Kanit);
+    font-size: var(--L, 20px);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%;
+    margin: 0;
+}
+
+.recap-content {
+    padding: var(--spacing-mobile-m);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.recap-card {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+    font-family: var(--Secondary, Mundial);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+.recap-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--M, 12px);
+    align-self: stretch;
+}
+
+.recap-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.recap-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.recap-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: start;
+}
+
+.recap-label {
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    leading-trim: both;
+    text-edge: cap;
+
+    /* Body/Default */
+    font-family: Mundial;
+    font-size: var(--S, 16px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 19.2px */
+}
+
+.recap-value {
+    color: var(--Neutral-Neutral-500, #6D6D6D);
+    leading-trim: both;
+    text-edge: cap;
+
+    /* Body/Default */
+    font-family: Mundial;
+    font-size: var(--S, 16px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 19.2px */
+}
+
+.process-card {
+    margin-top: 8px;
+}
+
+.stepper-container {
+    margin-top: 10px;
+}
+
+/* --- Footer --- */
+.recap-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    gap: 12px;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.05);
+    z-index: 100;
+}
+
+.btn-secondary {
+    display: flex;
+    height: 48px;
+    min-height: 48px;
+    padding: var(--M, 12px) 24px;
+    justify-content: center;
+    align-items: center;
+    gap: var(--XS, 8px);
+    flex: 1 0 0;
+    border-radius: var(--L, 24px);
+    border: 1px solid var(--Neutral-Neutral-900, #3D3D3D);
+    background: #FFFFFF;
+    color: var(--Neutral-Neutral-950, #1A1A1A);
+    text-align: center;
+    font-family: var(--Secondary, Mundial);
+    font-size: var(--XS, 14px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    cursor: pointer;
+}
+
+.btn-primary {
+    display: flex;
+    height: 48px;
+    min-height: 48px;
+    padding: var(--M, 12px) 24px;
+    justify-content: center;
+    align-items: center;
+    gap: var(--XS, 8px);
+    flex: 1 0 0;
+    border-radius: var(--L, 24px);
+    background: var(--Primary-Primary-400, #ED6E44);
+    border: none;
+    color: var(--Neutral-Neutral-050, #F6F6F6);
+    text-align: center;
+    font-family: var(--Secondary, Mundial);
+    font-size: var(--XS, 14px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    cursor: pointer;
+}

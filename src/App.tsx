@@ -6,18 +6,20 @@ import FilterPage from './pages/FilterPage/FilterPage';
 import BookingsPage from './pages/BookingsPage/BookingsPage';
 import MessagesPage from './pages/MessagesPage/MessagesPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'; // Import useLocation
+import ReservationRecapPage from './pages/ReservationRecapPage/ReservationRecapPage';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 
 
 function App() {
-  const location = useLocation(); // Get current location
-  const hideBottomBar = location.pathname.startsWith('/room/'); // Hide if path starts with /room/
+  const location = useLocation();
+  const hideBottomBar = location.pathname.startsWith('/room/') || location.pathname === '/recap';
 
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<SearchPage />} />
         <Route path="/room/:id" element={<RoomDetailsPage />} />
+        <Route path="/recap" element={<ReservationRecapPage />} />
 
         <Route path="/filter" element={<FilterPage />} />
         <Route path="/bookings" element={<BookingsPage />} />

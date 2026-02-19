@@ -1,0 +1,100 @@
+.mobile-stepper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.stepper-item {
+    display: flex;
+    gap: 16px;
+    min-height: 60px;
+}
+
+.stepper-left-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 24px;
+    min-width: 24px;
+    flex-shrink: 0;
+}
+
+.stepper-circle {
+    width: 24px;
+    min-width: 24px;
+    height: 24px;
+    min-height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    flex-shrink: 0;
+}
+
+.stepper-line {
+    width: 2px;
+    flex-grow: 1;
+    margin-top: 4px;
+    margin-bottom: 8px; /* Creating the gap to the next step */
+}
+
+/* States for circle and line */
+.stepper-item.done .stepper-circle,
+.stepper-item.active .stepper-circle {
+    background-color: var(--Primary-Primary-400, #ED6E44);
+}
+
+.stepper-item.inactive .stepper-circle {
+    background-color: var(--Neutral-Neutral-100, #E7E7E7);
+}
+
+.stepper-item.finalized .stepper-circle {
+    background-color: #4CAF50; /* Success Green */
+}
+
+.stepper-line.active {
+    background-color: var(--Primary-Primary-400, #ED6E44);
+}
+
+.stepper-line.inactive {
+    background-color: var(--Neutral-Neutral-100, #E7E7E7);
+}
+
+/* States for text */
+.stepper-right-column {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 24px;
+    text-align: left;
+    align-items: flex-start;
+}
+
+.stepper-title {
+    margin: 0;
+    font-family: var(--Secondary, Mundial);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 113.73%;
+}
+
+.stepper-item.done .stepper-title,
+.stepper-item.active .stepper-title {
+    color: var(--Primary-Primary-400, #ED6E44);
+}
+
+.stepper-item.inactive .stepper-title {
+    color: var(--Neutral-Neutral-500, #6D6D6D);
+}
+
+.stepper-description {
+    margin: 8px 0 0 0;
+    color: var(--Neutral-Neutral-800, #454545);
+    font-family: var(--Secondary, Mundial);
+    font-size: var(--XS, 14px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    text-align: left;
+}
