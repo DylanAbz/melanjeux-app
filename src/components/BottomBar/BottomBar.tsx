@@ -1,10 +1,7 @@
 import React from 'react';
 import './BottomBar.css';
+import { NavLink } from 'react-router-dom';
 
-interface BottomBarProps {
-  activeTab: string;
-  setActiveTab: (tabName: string) => void;
-}
 
 // Helper component to render the correct icon as an inline SVG
 const TabIcon = ({ name }: { name: string }) => {
@@ -45,25 +42,25 @@ const TabIcon = ({ name }: { name: string }) => {
   }
 };
 
-const BottomBar: React.FC<BottomBarProps> = ({ activeTab, setActiveTab }) => {
+const BottomBar: React.FC = () => {
   const tabs = [
-    { name: 'Chercher' },
-    { name: 'Réservations' },
-    { name: 'Messages' },
-    { name: 'Mon compte' },
+    { name: 'Chercher', path: '/' },
+    { name: 'Réservations', path: '/bookings' },
+    { name: 'Messages', path: '/messages' },
+    { name: 'Mon compte', path: '/profile' },
   ];
 
   return (
     <nav className="bottom-bar">
       {tabs.map((tab) => (
-        <div
+        <NavLink
           key={tab.name}
-          className={`bottom-bar-item ${activeTab === tab.name ? 'active' : ''}`}
-          onClick={() => setActiveTab(tab.name)}
+          to={tab.path}
+          className={({ isActive }) => `bottom-bar-item ${isActive ? 'active' : ''}`}
         >
           <TabIcon name={tab.name} />
           <span>{tab.name}</span>
-        </div>
+        </NavLink>
       ))}
     </nav>
   );
