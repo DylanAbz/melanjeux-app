@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import type { Room } from '../../types';
 import './RoomDetailsPage.css';
 import { dummyRoom, dummyRoomPMR } from '../../data/dummyRoomData'; // Import dummy data
+import BookingModal from '../../components/BookingModal/BookingModal';
 
 // Remove RoomDetailsPageProps as room will be fetched internally
 const RoomDetailsPage: React.FC = () => {
@@ -10,6 +11,7 @@ const RoomDetailsPage: React.FC = () => {
     const { id } = useParams<{ id: string }>(); // Get ID from URL
     const [room, setRoom] = useState<Room | null>(null);
     const [loading, setLoading] = useState(true);
+    const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
     useEffect(() => {
         setLoading(true);
@@ -184,8 +186,16 @@ const RoomDetailsPage: React.FC = () => {
 
             {/* Footer */}
             <footer className="room-details-footer">
-                <button className="room-details-cta-button">Réserver un créneau</button>
+                <button className="room-details-cta-button" onClick={() => setIsBookingModalOpen(true)}>Réserver un créneau</button>
             </footer>
+
+            {room && (
+                <BookingModal
+                    isOpen={isBookingModalOpen}
+                    onClose={() => setIsBookingModalOpen(false)}
+                    selectedRoomName={room.title}
+                />
+            )}
         </div>
     );
 };

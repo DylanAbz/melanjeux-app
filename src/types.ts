@@ -17,7 +17,16 @@ export interface EscapeGame {
     };
 }
 
+export interface RoomSession {
+    date: string; // YYYY-MM-DD
+    time: string; // HH:mm
+    bookedCount: number;
+    capacity: number;
+    isRecommended: boolean;
+}
+
 export interface Room {
+    id: string;
     title: string;
     image: string;
     category: string;
@@ -29,7 +38,7 @@ export interface Room {
     duration: number;
     minPlayers: number;
     maxPlayers: number;
-    price: { [participants: number]: number }; // Price per person based on participant count
+    price: { [participants: number]: number };
     isPmrAccessible: boolean;
     escapeGame: EscapeGame;
 }

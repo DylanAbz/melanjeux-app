@@ -1,0 +1,346 @@
+.booking-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #FFFFFF;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.booking-modal-header {
+    padding: calc(var(--spacing-mobile-m) + env(safe-area-inset-top, 0px)) var(--spacing-mobile-m) var(--spacing-mobile-m);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    background: #FFFFFF;
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.booking-modal-back-button {
+    position: absolute;
+    top: calc(var(--spacing-mobile-m) + env(safe-area-inset-top, 0px));
+    left: var(--spacing-mobile-m);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--Neutral-Neutral-050, #F6F6F6);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.booking-modal-back-button img {
+    width: 24px;
+    height: 24px;
+}
+
+.booking-modal-title {
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    text-align: center;
+    font-family: var(--Primary, Kanit);
+    font-size: var(--XL, 24px);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%;
+    margin: 0 auto;
+    margin-top: 8px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.booking-modal-subtitle {
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    font-family: var(--Primary, Kanit);
+    font-size: var(--L, 20px);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%;
+    margin-top: 4px;
+    text-align: center;
+}
+
+.booking-modal-content {
+    flex: 1;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* --- Screen 1: Calendar --- */
+.calendar-container {
+    margin: var(--L, 24px) auto 0;
+    width: 90%;
+    padding-bottom: 20px;
+}
+
+.calendar-month-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--L, 24px);
+    margin-bottom: var(--M, 18px);
+}
+
+.calendar-month-nav span {
+    color: var(--Colors-MetallicSilver-MetallicSilver-950, #323036);
+    font-family: var(--Primary, Kanit);
+    font-size: var(--L, 20px);
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.calendar-month-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.calendar-weekday {
+    font-family: var(--Secondary, Mundial);
+    font-size: 12px;
+    color: var(--Neutral-Neutral-500, #6D6D6D);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.calendar-day-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar-day {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--XXL, 999px);
+    border: none;
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.calendar-day.available {
+    background: var(--Secondary-Secondary-100, #FCE6D8);
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+}
+
+.calendar-day.unavailable {
+    background: var(--Neutral-Neutral-100, #E7E7E7);
+    color: var(--Neutral-Neutral-500, #6D6D6D);
+    cursor: not-allowed;
+}
+
+.calendar-day.outside {
+    background: transparent;
+    color: var(--Neutral-Neutral-100, #E7E7E7);
+    cursor: default;
+}
+
+.calendar-day.selected {
+    border: 2px solid var(--Primary-Primary-400, #ED6E44);
+}
+
+.calendar-legend {
+    margin-top: var(--L, 24px);
+    padding-top: var(--M, 18px);
+    border-top: 1px solid var(--Neutral-Neutral-100, #E7E7E7);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.legend-dot.peach { background: var(--Secondary-Secondary-100, #FCE6D8); }
+.legend-dot.grey { background: var(--Neutral-Neutral-100, #E7E7E7); }
+
+/* --- Screen 2: Time Slots --- */
+.timeslots-view-container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.date-badge-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 8px 0 16px;
+    background: #FFFFFF;
+    flex-shrink: 0;
+}
+
+.date-badge {
+    color: var(--Neutral-Neutral-600, #5D5D5D);
+    text-align: center;
+    font-family: var(--Secondary, Mundial);
+    font-size: var(--XS, 14px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    display: inline-flex;
+    padding: var(--XS, 8px);
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--S, 12px);
+    border: 0.75px solid var(--Neutral-Neutral-200, #D1D1D1);
+}
+
+.timeslots-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.timeslots-list {
+    margin: 0 auto;
+    display: flex;
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--S, 10px);
+    padding-bottom: 24px;
+}
+
+.timeslot-card {
+    width: 100%;
+    border-radius: var(--XS, 8px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.timeslot-card.available {
+    background: #FFF1ED;
+}
+
+.timeslot-card.full {
+    background: var(--Neutral-Neutral-100, #E7E7E7);
+    cursor: not-allowed;
+}
+
+.timeslot-recommended-banner {
+    background: var(--Primary-Primary-400, #ED6E44);
+    color: #FFF;
+    text-align: center;
+    font-family: Mundial;
+    font-size: var(--XS, 14px);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%;
+    padding: 4px 0;
+}
+
+.timeslot-card-body {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.timeslot-time {
+    color: var(--Primary-Primary-950, #3F0C0B);
+    text-align: center;
+    font-family: var(--Secondary, Mundial);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.timeslot-card.full .timeslot-time {
+    color: var(--Neutral-Neutral-700, #4F4F4F);
+}
+
+.timeslot-info {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+}
+
+.timeslot-booked {
+    color: var(--Primary-Primary-950, #3F0C0B);
+    text-align: center;
+    font-family: var(--Secondary, Mundial);
+    font-size: var(--Size-14, 14px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.timeslot-card.full .timeslot-booked {
+    color: var(--Neutral-Neutral-700, #4F4F4F);
+}
+
+.timeslot-remaining {
+    color: var(--Neutral-Neutral-600, #5D5D5D);
+    text-align: center;
+    font-family: var(--Secondary, Mundial);
+    font-size: var(--Size-14, 14px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+/* --- Footer --- */
+.booking-modal-footer {
+    position: sticky;
+    bottom: 0;
+    background: #FFFFFF;
+    padding: var(--spacing-mobile-m) var(--spacing-mobile-m) calc(var(--spacing-mobile-m) + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.05);
+    flex-shrink: 0;
+}
+
+.btn-cancel {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 1px solid var(--Neutral-Neutral-100, #E7E7E7);
+    border-radius: 999px;
+    font-family: var(--Secondary, Mundial);
+    font-size: 16px;
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    cursor: pointer;
+}
