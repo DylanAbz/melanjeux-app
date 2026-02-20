@@ -2,39 +2,37 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { Room } from '../../types';
 import './RoomDetailsPage.css';
-import { dummyRoom, dummyRoomPMR } from '../../data/dummyRoomData'; // Import dummy data
 import BookingModal from '../../components/BookingModal/BookingModal';
 
-// Remove RoomDetailsPageProps as room will be fetched internally
 const RoomDetailsPage: React.FC = () => {
     const navigate = useNavigate();
-    const { id } = useParams<{ id: string }>(); // Get ID from URL
+    const { id } = useParams<{ id: string }>();
     const [room, setRoom] = useState<Room | null>(null);
     const [loading, setLoading] = useState(true);
     const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
     useEffect(() => {
-        setLoading(true);
-        // Simulate data fetching based on ID
-        // In a real app, you would make an API call here.
-        // For now, we'll just use dummy data.
-        let fetchedRoom: Room | null = null;
-        if (id === '1') { // Example: use ID to pick dummy room
-            fetchedRoom = dummyRoom;
-        } else if (id === '2') {
-            fetchedRoom = dummyRoomPMR;
-        } else {
-            fetchedRoom = dummyRoom; // Default to dummyRoom if ID is not 1 or 2
-        }
+        const fetchRoom = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch(`http://localhost:4000/rooms/${id}`);
+                if (!response.ok) throw new Error('Failed to fetch room');
+                const data = await response.json();
+                setRoom(data);
+            } catch (err) {
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-        setTimeout(() => { // Simulate network delay
-            setRoom(fetchedRoom);
-            setLoading(false);
-        }, 500);
-    }, [id]); // Re-run when ID changes
+        if (id) {
+            fetchRoom();
+        }
+    }, [id]);
 
     const handleGoBack = () => {
-        navigate(-1); // Go back to the previous page
+        navigate(-1);
     };
 
     const renderStatIcons = (level: number, filledIcon: string, emptyIcon: string) => {
