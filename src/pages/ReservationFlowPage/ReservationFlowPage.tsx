@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './ReservationFlowPage.css';
 import MobileStepper, { type Step } from '../../components/MobileStepper/MobileStepper';
 import { useAuth } from '../../context/AuthContext';
+import ParticipantDots from '../../components/ParticipantDots/ParticipantDots';
 
 export type ReservationState = 'DRAFT' | 'PRE_REGISTERED';
 
@@ -39,7 +40,6 @@ const ReservationFlowPage: React.FC = () => {
             const data = await response.json();
             setSlot(data);
 
-            // If user is logged in, check if they are already in this slot
             if (isAuthenticated && token) {
                 const playersRes = await fetch(`http://localhost:4000/time-slot-players/by-slot/${slotId}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
@@ -130,7 +130,6 @@ const ReservationFlowPage: React.FC = () => {
 
             if (response.ok) {
                 setStatus('PRE_REGISTERED');
-                // Refresh details to update participant count
                 await fetchSlotDetails();
             } else {
                 const data = await response.json();
@@ -169,13 +168,6 @@ const ReservationFlowPage: React.FC = () => {
     if (loading) return <div className="recap-loading">Chargement du récapitulatif...</div>;
     if (!slot) return <div className="recap-error">Erreur lors de la récupération du créneau.</div>;
 
-    // Logic for participant indicator
-    // Total dots = max_players
-    // Filled dots = current_players_count
-    // We can cap it to a reasonable number if max_players is high, but here we use max_players
-    const totalDots = slot.max_players;
-    const filledDots = slot.current_players_count;
-
     return (
         <div className="reservation-flow-page">
             <header className="recap-header">
@@ -199,9 +191,10 @@ const ReservationFlowPage: React.FC = () => {
                                 <span className="participants-label">participants préinscrits</span>
                             </div>
                             <div className="participants-indicator">
-                                {[...Array(totalDots)].map((_, i) => (
-                                    <div key={i} className={`indicator-dot ${i < filledDots ? 'filled' : 'empty'}`}></div>
-                                ))}
+                                <ParticipantDots 
+                                    filledCount={slot.current_players_count} 
+                                    totalTarget={slot.min_players} 
+                                />
                             </div>
                             {slot.current_players_count < slot.min_players && (
                                 <p className="participants-info">Encore {slot.min_players - slot.current_players_count} joueurs pour valider la session !</p>

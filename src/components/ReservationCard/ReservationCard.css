@@ -1,0 +1,104 @@
+.reservation-card {
+    position: relative;
+    width: 90%; /* Match the width requested for buttons and forms on this page */
+    aspect-ratio: 3/2; /* Match RoomCard aspect ratio */
+    border-radius: 24px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    margin: 0 auto 24px; /* Centered with more bottom spacing */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1.878px 1.878px 1.878px 0 rgba(0, 0, 0, 0.25);
+    border: 0.469px solid #D1D1D1;
+}
+
+.reservation-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.85) 100%);
+    z-index: 1;
+}
+
+.reservation-card-content {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.reservation-card-top {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.reservation-card-title {
+    color: white;
+    font-family: var(--Primary, Kanit);
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.reservation-card-datetime {
+    color: #D1D1D1;
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+    margin: 0 0 4px 0;
+}
+
+.reservation-card-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    margin-top: auto;
+}
+
+.payment-label {
+    color: white;
+    font-family: var(--Secondary, Mundial);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+}
+
+.payment-fraction {
+    color: white;
+    font-family: var(--Secondary, Mundial);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.payment-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.payment-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.payment-dot.filled {
+    background-color: var(--primary);
+}
+
+.payment-dot.empty {
+    border: 1.5px solid var(--primary);
+}

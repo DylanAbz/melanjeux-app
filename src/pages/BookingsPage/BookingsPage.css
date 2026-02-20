@@ -1,8 +1,46 @@
-.bookings-page, .messages-page {
+.bookings-page {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     background-color: var(--bg-light);
+    width: 100%;
+}
+
+.bookings-content {
+    flex: 1;
+    padding: 24px 16px 100px; /* Padding for bottom bar */
+    overflow-y: auto;
+}
+
+.bookings-section {
+    margin-bottom: 32px;
+    width: 100%;
+}
+
+.section-title {
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--Colors-EerieBlack-950);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    padding-left: 4px;
+}
+
+.no-bookings {
+    color: var(--Colors-EerieBlack-400);
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+    padding: 16px 4px;
+}
+
+.bookings-loading {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+    font-family: var(--Secondary, Mundial);
+    color: var(--Colors-EerieBlack-600);
 }
 
 .auth-restricted-container {
@@ -34,8 +72,4 @@
     align-items: center;
     gap: 16px;
     width: 100%;
-}
-
-.page-content {
-    padding: 20px;
 }

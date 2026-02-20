@@ -1,0 +1,21 @@
+.participant-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.participant-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.participant-dot.filled {
+    background-color: var(--primary);
+}
+
+.participant-dot.empty {
+    border: 1.5px solid var(--primary);
+}
