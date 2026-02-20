@@ -69,11 +69,111 @@
   --Neutral-Neutral-050: #F6F6F6;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Brand Colors */
+  --primary: var(--Colors-Lust-500);
+  --primary-hover: var(--Colors-Lust-600);
+  --bg-light: #F6F6F6;
+  --input-bg: #EFEEF0;
 }
 
 body {
   margin: 0;
-  background-color: var(--Colors-MetallicSilver-200);
+  background-color: var(--bg-light);
+  color: var(--Colors-EerieBlack-950);
+}
+
+/* Global Button Styles */
+.btn-pill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 24px;
+    border-radius: 100px;
+    font-family: var(--Primary, Kanit);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 90% !important; /* Force 90% width */
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-secondary {
+    display: flex;
+    min-height: 48px;
+    padding: 12px 14px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 90% !important;
+    border-radius: 24px;
+    border: 1px solid #3D3D3D;
+    background-color: transparent;
+    color: #1A1A1A;
+    text-align: center;
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+/* Global Form Styles */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    color: #6D6D6D;
+    font-family: var(--Secondary, Mundial);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.form-group input, .form-group select {
+    display: flex;
+    height: 48px;
+    padding: 8px 16px; /* Added some horizontal padding for better look */
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 24px;
+    border: 1px solid #D1D1D1;
+    background: #F6F6F6;
+    font-size: 16px;
+    font-family: var(--Secondary, Mundial);
+    color: var(--Colors-EerieBlack-950);
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.form-group input::placeholder {
+    color: #888;
+    font-family: var(--Secondary, Mundial);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.required-star {
+    color: red;
+    margin-left: 2px;
 }
 
 .kanit-thin {

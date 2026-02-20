@@ -1,6 +1,41 @@
-.MessagesPage {
-    padding: 20px;
+.messages-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg-light);
+}
+
+.auth-restricted-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 0;
+    gap: 32px;
+    width: 100%;
+}
+
+.restricted-text {
+    color: var(--Colors-EerieBlack-600);
     text-align: center;
-    font-size: 24px;
-    color: #333;
+    font-family: var(--Secondary, Mundial);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.restricted-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.page-content {
+    padding: 20px;
 }

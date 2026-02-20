@@ -1,48 +1,49 @@
 .search-page {
-  padding: 0; /* Removed all padding from the main page container */
-  max-width: 100vw;
-  display: flex;
-  flex-direction: column;
+    padding: 0; /* Removed all padding from the main page container */
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    background: var(--Neutral-Neutral-050, #F6F6F6);
 }
 
 .search-page-header {
-  padding: calc(var(--safe-top) + 16px) 16px 16px; /* Padding for header content */
-  background-image: url('/public/headerBackground.svg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center top;
-  gap: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%; /* Ensure header takes full width */
-  box-sizing: border-box; /* Include padding in the width calculation */
+    padding: calc(var(--safe-top) + 16px) 16px 16px; /* Padding for header content */
+    background-image: url('/public/headerBackground.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%; /* Ensure header takes full width */
+    box-sizing: border-box; /* Include padding in the width calculation */
 }
 
 .search-page-title {
-  color: var(--Neutral-Neutral-050, #F6F6F6);
-  text-align: center;
-  font-family: var(--Primary, Kanit);
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-block: 0;
+    color: var(--Neutral-Neutral-050, #F6F6F6);
+    text-align: center;
+    font-family: var(--Primary, Kanit);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-block: 0;
 }
 
 /* Optional: Adjust for larger screens if needed, but keeping mobile-first */
 @media (min-width: 768px) {
-  .search-page-title {
-    font-size: 3em;
-    text-align: center; /* Center on larger screens */
-  }
+    .search-page-title {
+        font-size: 3em;
+        text-align: center; /* Center on larger screens */
+    }
 }
 
 .search-options {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  justify-content: space-between;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: space-between;
 }
 
 .room-card-list-container {

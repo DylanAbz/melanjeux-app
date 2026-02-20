@@ -1,9 +1,9 @@
-.reservation-recap-page {
-    min-height: 100vh;
+.reservation-flow-page {
+    height: 100vh;
     background-color: var(--Neutral-Neutral-050, #F6F6F6);
     display: flex;
     flex-direction: column;
-    padding-bottom: 100px;
+    box-sizing: border-box;
 }
 
 .recap-header {
@@ -11,7 +11,9 @@
     flex-direction: column;
     align-items: center;
     position: relative;
-    padding: var(--XL, 24px);
+    padding: var(--XL, 24px) var(--XL, 24px) 8px;
+    background-color: var(--Neutral-Neutral-050, #F6F6F6);
+    z-index: 10;
 }
 
 .recap-back-button {
@@ -66,6 +68,9 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 120px; /* Space for sticky footer */
 }
 
 .recap-card {
@@ -145,6 +150,106 @@
     margin-top: 10px;
 }
 
+/* NEW STYLES FOR PRE_REGISTERED */
+.validation-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+}
+
+.validation-text {
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: var(--Secondary, Mundial);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%;
+    text-align: center;
+}
+
+.participants-card {
+    display: flex;
+    padding: var(--M, 12px);
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+}
+
+.participants-count-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.participants-count {
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: var(--Secondary, Mundial);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%;
+}
+
+.participants-label {
+    color: var(--Neutral-Neutral-500, #6D6D6D);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: var(--Secondary, Mundial);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 19.2px */
+}
+
+.participants-indicator {
+    display: flex;
+    gap: 8px;
+}
+
+.indicator-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid var(--Primary-Primary-400, #ED6E44);
+}
+
+.indicator-dot.filled {
+    background-color: var(--Primary-Primary-400, #ED6E44);
+}
+
+.indicator-dot.empty {
+    background-color: #FFFFFF;
+}
+
+.cancel-pre-reg-btn {
+    display: flex;
+    min-height: 48px;
+    padding: var(--M, 12px) 24px;
+    justify-content: center;
+    align-items: center;
+    gap: var(--XS, 8px);
+    align-self: stretch;
+    border-radius: var(--L, 24px);
+    border: 1px solid var(--Neutral-Neutral-050, #F6F6F6);
+    background: var(--Primary-Primary-700, #B52719);
+    color: var(--Neutral-Neutral-050, #F6F6F6);
+    text-align: center;
+    font-family: Mundial;
+    font-size: var(--XS, 14px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    cursor: pointer;
+    margin-top: 8px;
+    margin-bottom: 24px;
+}
+
 /* --- Footer --- */
 .recap-footer {
     position: fixed;
@@ -164,7 +269,50 @@
     display: flex;
     height: 48px;
     min-height: 48px;
-    padding: var(--M, 12px) 24px;
+    padding: var(--M, 12px) 8px;
+    justify-content: center;
+    align-items: center;
+    gap: var(--XS, 8px);
+    width: 40%;
+    border-radius: var(--L, 24px);
+    border: 1px solid var(--Neutral-Neutral-200, #D9D9D9);
+    color: var(--Neutral-Neutral-950, #1A1A1A);
+    text-align: center;
+    font-family: var(--Secondary, Mundial);
+    font-size: var(--XS, 14px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    cursor: pointer;
+}
+
+.btn-primary {
+    display: flex;
+    height: 48px;
+    min-height: 48px;
+    padding: var(--M, 12px) 8px;
+    justify-content: center;
+    align-items: center;
+    gap: var(--XS, 8px);
+    width: 60%;
+    border-radius: var(--L, 24px);
+    background: var(--Primary-Primary-400, #ED6E44);
+    border: none;
+    color: var(--Neutral-Neutral-050, #F6F6F6);
+    text-align: center;
+    font-family: var(--Secondary, Mundial);
+    font-size: var(--XS, 14px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    cursor: pointer;
+}
+
+.btn-copy {
+    display: flex;
+    height: 48px;
+    min-height: 48px;
+    padding: var(--M, 12px) 14px;
     justify-content: center;
     align-items: center;
     gap: var(--XS, 8px);
@@ -182,11 +330,11 @@
     cursor: pointer;
 }
 
-.btn-primary {
+.btn-chat {
     display: flex;
     height: 48px;
     min-height: 48px;
-    padding: var(--M, 12px) 24px;
+    padding: var(--M, 12px) 14px;
     justify-content: center;
     align-items: center;
     gap: var(--XS, 8px);
@@ -202,4 +350,9 @@
     font-weight: 400;
     line-height: 120%;
     cursor: pointer;
+}
+
+.btn-icon {
+    width: 20px;
+    height: 20px;
 }

@@ -1,3 +1,12 @@
+export interface User {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    pseudo: string;
+    role: 'player' | 'escape_owner';
+}
+
 export interface Filters {
     locations: string[];
     themes: string[];

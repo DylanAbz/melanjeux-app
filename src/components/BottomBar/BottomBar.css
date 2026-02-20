@@ -1,38 +1,40 @@
 .bottom-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: space-around;
-  background-color: var(--Neutral-Neutral-050);
-  padding: 8px 0;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Ensure it stays on top */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    background: var(--Neutral-Neutral-050, #F6F6F6);
+    padding: 8px 0;
+    z-index: 1000; /* Ensure it stays on top */
 }
 
 .bottom-bar-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      padding: 4px 0; /* Add some padding for better click area */
-      color: var(--Neutral-Neutral-300, #B0B0B0); /* Inactive text color */
-      text-align: center;
-      font-family: var(--Secondary, Mundial);
-      font-size: var(--Mobile-XS, 10px);
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      transition: color 0.3s ease; /* Smooth transition for text color */
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 4px 0; /* Add some padding for better click area */
+    color: var(--Neutral-Neutral-300, #B0B0B0); /* Inactive text color */
+    text-align: center;
+    font-family: var(--Secondary, Mundial);
+    font-size: var(--Mobile-XS, 10px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    transition: color 0.3s ease; /* Smooth transition for text color */
+    text-decoration: none;
+}
+
 .bottom-bar-item.active {
-      color: var(--Primary-Primary-400, #ED6E44); /* Active text color */
-      font-weight: 700;
-    }
+    color: var(--Primary-Primary-400, #ED6E44); /* Active text color */
+    font-weight: 700;
+}
+
 .bottom-bar-item svg {
-      width: 24px;
-      height: 24px;
-      margin-bottom: 4px;
-      transition: color 0.3s ease; /* Smooth transition for icon color */
-    }
+    width: 24px;
+    height: 24px;
+    margin-bottom: 4px;
+    transition: color 0.3s ease; /* Smooth transition for icon color */
+}

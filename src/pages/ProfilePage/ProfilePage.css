@@ -1,6 +1,221 @@
-.ProfilePage {
-    padding: 20px;
-    text-align: center;
+.profile-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg-light);
+    width: 100%;
+}
+
+.auth-scroll-container {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 100px;
+    width: 100%;
+}
+
+.auth-content {
+    padding: 32px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* This centers the container's children */
+    gap: 24px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #FFF;
+}
+
+.auth-title {
+    text-align: left; /* Alignment to left for titles */
+    font-family: var(--Primary, Kanit);
     font-size: 24px;
-    color: #333;
+    font-weight: 600;
+    color: var(--Colors-EerieBlack-950);
+    margin: 0;
+    width: 90%;
+}
+
+.btn-social {
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid black !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.google-icon-img {
+    width: 20px;
+    height: 20px;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 90%;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background-color: var(--Colors-EerieBlack-200);
+}
+
+.divider-text {
+    color: var(--Colors-EerieBlack-400);
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.form-group {
+    width: 90% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Ensure labels and inputs are aligned to the left within the group */
+    text-align: left;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 90%;
+    cursor: pointer;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.checkbox-group input {
+    margin-top: 4px;
+    min-width: 18px;
+    min-height: 18px;
+}
+
+.checkbox-group label {
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--Colors-EerieBlack-950);
+}
+
+.underlined {
+    text-decoration: underline;
+}
+
+.auth-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+    width: 100%;
+}
+
+.auth-footer p {
+    font-family: var(--Secondary, Mundial);
+    color: var(--Colors-EerieBlack-600);
+    margin: 0;
+}
+
+/* Logged-in view */
+.profile-logged-content {
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.profile-card {
+    background: white;
+    padding: 24px;
+    border-radius: 20px;
+    width: 90%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Left align content inside card */
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+/* User details should be left-aligned */
+.user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    text-align: left;
+}
+
+/* Force center for logout button in profile card if needed, but since all btn-pill are 90% and centered by margin, it's fine. 
+Actually I removed margin:auto from btn-pill, so I must center it here */
+.profile-card .btn-primary {
+    align-self: center;
+}
+
+.city-autocomplete {
+    position: relative;
+}
+
+.suggestions-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #D1D1D1;
+    border-radius: 12px;
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.suggestions-list li {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+    border-bottom: 1px solid #F6F6F6;
+}
+
+.suggestions-list li:last-child {
+    border-bottom: none;
+}
+
+.suggestions-list li:hover {
+    background-color: #F6F6F6;
+}
+
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.select-wrapper select {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.select-wrapper::after {
+    content: '▼';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 12px;
+    color: var(--Colors-EerieBlack-600);
 }

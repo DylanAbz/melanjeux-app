@@ -6,8 +6,9 @@ import FilterPage from './pages/FilterPage/FilterPage';
 import BookingsPage from './pages/BookingsPage/BookingsPage';
 import MessagesPage from './pages/MessagesPage/MessagesPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
-import ReservationRecapPage from './pages/ReservationRecapPage/ReservationRecapPage';
+import ReservationFlowPage from './pages/ReservationFlowPage/ReservationFlowPage';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<SearchPage />} />
         <Route path="/room/:id" element={<RoomDetailsPage />} />
-        <Route path="/recap" element={<ReservationRecapPage />} />
+        <Route path="/recap" element={<ReservationFlowPage />} />
 
         <Route path="/filter" element={<FilterPage />} />
         <Route path="/bookings" element={<BookingsPage />} />
@@ -33,7 +34,9 @@ function App() {
 
 const WrappedApp = () => (
   <BrowserRouter>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </BrowserRouter>
 );
 
