@@ -192,6 +192,7 @@ const RoomDetailsPage: React.FC = () => {
                     isOpen={isBookingModalOpen}
                     onClose={() => setIsBookingModalOpen(false)}
                     selectedRoomName={room.title}
+                    roomId={room.id}
                 />
             )}
         </div>

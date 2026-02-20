@@ -74,6 +74,9 @@ const ProfilePage: React.FC = () => {
             const data = await response.json();
             if (response.ok) {
                 login(data.token, data.user);
+                const destination = (location.state as any)?.from || '/profile';
+                const slotId = (location.state as any)?.slotId;
+                navigate(destination, { state: { slotId }, replace: true });
             } else {
                 setError(data.error || 'Erreur lors de la connexion');
             }
@@ -103,6 +106,9 @@ const ProfilePage: React.FC = () => {
             const data = await response.json();
             if (response.ok) {
                 login(data.token, data.user);
+                const destination = (location.state as any)?.from || '/profile';
+                const slotId = (location.state as any)?.slotId;
+                navigate(destination, { state: { slotId }, replace: true });
             } else {
                 setError(data.error || 'Erreur lors de l\'inscription');
             }
