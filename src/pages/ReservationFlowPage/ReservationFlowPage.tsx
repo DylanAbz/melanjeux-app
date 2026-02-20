@@ -15,6 +15,8 @@ interface TimeSlotDetails {
     room_name: string;
     price_json: any;
     duration_minutes: number;
+    min_players: number;
+    max_players: number;
     escape_game_nom: string;
     escape_game_adresse: string;
 }
@@ -22,34 +24,46 @@ interface TimeSlotDetails {
 const ReservationFlowPage: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, token, user } = useAuth();
     const slotId = (location.state as any)?.slotId;
 
     const [status, setStatus] = useState<ReservationState>('DRAFT');
     const [slot, setSlot] = useState<TimeSlotDetails | null>(null);
     const [loading, setLoading] = useState(true);
+    const [actionLoading, setActionLoading] = useState(false);
+
+    const fetchSlotDetails = async () => {
+        try {
+            const response = await fetch(`http://localhost:4000/time-slots/${slotId}`);
+            if (!response.ok) throw new Error('Failed to fetch slot');
+            const data = await response.json();
+            setSlot(data);
+
+            // If user is logged in, check if they are already in this slot
+            if (isAuthenticated && token) {
+                const playersRes = await fetch(`http://localhost:4000/time-slot-players/by-slot/${slotId}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (playersRes.ok) {
+                    const players = await playersRes.json();
+                    const isJoined = players.some((p: any) => p.user_id === user?.id && p.status !== 'cancelled');
+                    if (isJoined) setStatus('PRE_REGISTERED');
+                }
+            }
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         if (!slotId) {
             navigate('/');
             return;
         }
-
-        const fetchSlotDetails = async () => {
-            try {
-                const response = await fetch(`http://localhost:4000/time-slots/${slotId}`);
-                if (!response.ok) throw new Error('Failed to fetch slot');
-                const data = await response.json();
-                setSlot(data);
-            } catch (err) {
-                console.error(err);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchSlotDetails();
-    }, [slotId, navigate]);
+    }, [slotId, navigate, isAuthenticated, token, user?.id]);
 
     const isDraft = status === 'DRAFT';
     const isPreRegistered = status === 'PRE_REGISTERED';
@@ -97,18 +111,70 @@ const ReservationFlowPage: React.FC = () => {
 
     const handleBack = () => navigate(-1);
     
-    const handlePreRegister = () => {
+    const handlePreRegister = async () => {
         if (!isAuthenticated) {
             navigate('/profile', { state: { from: location.pathname, slotId: slotId } });
             return;
         }
-        setStatus('PRE_REGISTERED');
+
+        setActionLoading(true);
+        try {
+            const response = await fetch('http://localhost:4000/time-slot-players/join', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ time_slot_id: slotId })
+            });
+
+            if (response.ok) {
+                setStatus('PRE_REGISTERED');
+                // Refresh details to update participant count
+                await fetchSlotDetails();
+            } else {
+                const data = await response.json();
+                alert(data.error || "Erreur lors de la préinscription");
+            }
+        } catch (err) {
+            alert("Erreur de connexion au serveur");
+        } finally {
+            setActionLoading(false);
+        }
     };
 
-    const handleCancelPreRegistration = () => setStatus('DRAFT');
+    const handleCancelPreRegistration = async () => {
+        setActionLoading(true);
+        try {
+            const response = await fetch('http://localhost:4000/time-slot-players/leave', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ time_slot_id: slotId })
+            });
+
+            if (response.ok) {
+                setStatus('DRAFT');
+                await fetchSlotDetails();
+            }
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setActionLoading(false);
+        }
+    };
 
     if (loading) return <div className="recap-loading">Chargement du récapitulatif...</div>;
     if (!slot) return <div className="recap-error">Erreur lors de la récupération du créneau.</div>;
+
+    // Logic for participant indicator
+    // Total dots = max_players
+    // Filled dots = current_players_count
+    // We can cap it to a reasonable number if max_players is high, but here we use max_players
+    const totalDots = slot.max_players;
+    const filledDots = slot.current_players_count;
 
     return (
         <div className="reservation-flow-page">
@@ -129,14 +195,17 @@ const ReservationFlowPage: React.FC = () => {
 
                         <div className="recap-card participants-card">
                             <div className="participants-count-container">
-                                <span className="participants-count">{slot.current_players_count}/4</span>
+                                <span className="participants-count">{slot.current_players_count}/{slot.min_players}</span>
                                 <span className="participants-label">participants préinscrits</span>
                             </div>
                             <div className="participants-indicator">
-                                {[...Array(4)].map((_, i) => (
-                                    <div key={i} className={`indicator-dot ${i < slot.current_players_count ? 'filled' : 'empty'}`}></div>
+                                {[...Array(totalDots)].map((_, i) => (
+                                    <div key={i} className={`indicator-dot ${i < filledDots ? 'filled' : 'empty'}`}></div>
                                 ))}
                             </div>
+                            {slot.current_players_count < slot.min_players && (
+                                <p className="participants-info">Encore {slot.min_players - slot.current_players_count} joueurs pour valider la session !</p>
+                            )}
                         </div>
                     </>
                 )}
@@ -190,8 +259,12 @@ const ReservationFlowPage: React.FC = () => {
                 </section>
 
                 {isPreRegistered && (
-                    <button className="cancel-pre-reg-btn" onClick={handleCancelPreRegistration}>
-                        Annuler ma préinscription
+                    <button 
+                        className="cancel-pre-reg-btn" 
+                        onClick={handleCancelPreRegistration}
+                        disabled={actionLoading}
+                    >
+                        {actionLoading ? "Chargement..." : "Annuler ma préinscription"}
                     </button>
                 )}
             </main>
@@ -200,7 +273,13 @@ const ReservationFlowPage: React.FC = () => {
                 {isDraft ? (
                     <>
                         <button className="btn-secondary" onClick={handleBack}>Annuler</button>
-                        <button className="btn-primary" onClick={handlePreRegister}>Me préinscrire</button>
+                        <button 
+                            className="btn-primary" 
+                            onClick={handlePreRegister}
+                            disabled={actionLoading}
+                        >
+                            {actionLoading ? "Chargement..." : "Me préinscrire"}
+                        </button>
                     </>
                 ) : (
                     <>
