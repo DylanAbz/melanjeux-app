@@ -4,6 +4,7 @@ import './ReservationFlowPage.css';
 import MobileStepper, { type Step } from '../../components/MobileStepper/MobileStepper';
 import { useAuth } from '../../context/AuthContext';
 import ParticipantDots from '../../components/ParticipantDots/ParticipantDots';
+import CancelReservationModal from '../../components/CancelReservationModal/CancelReservationModal';
 
 export type ReservationState = 'DRAFT' | 'PRE_REGISTERED';
 
@@ -32,6 +33,7 @@ const ReservationFlowPage: React.FC = () => {
     const [slot, setSlot] = useState<TimeSlotDetails | null>(null);
     const [loading, setLoading] = useState(true);
     const [actionLoading, setActionLoading] = useState(false);
+    const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
     const fetchSlotDetails = async () => {
         try {
@@ -142,7 +144,11 @@ const ReservationFlowPage: React.FC = () => {
         }
     };
 
-    const handleCancelPreRegistration = async () => {
+    const handleCancelPreRegistration = () => {
+        setIsCancelModalOpen(true);
+    };
+
+    const handleConfirmCancel = async () => {
         setActionLoading(true);
         try {
             const response = await fetch('http://localhost:4000/time-slot-players/leave', {
@@ -155,11 +161,14 @@ const ReservationFlowPage: React.FC = () => {
             });
 
             if (response.ok) {
-                setStatus('DRAFT');
-                await fetchSlotDetails();
+                setIsCancelModalOpen(false);
+                navigate('/', { state: { showCancelSuccess: true } });
+            } else {
+                const data = await response.ok ? null : await response.json();
+                alert(data?.error || "Erreur lors de l'annulation");
             }
         } catch (err) {
-            console.error(err);
+            alert("Erreur de connexion au serveur");
         } finally {
             setActionLoading(false);
         }
@@ -196,9 +205,6 @@ const ReservationFlowPage: React.FC = () => {
                                     totalTarget={slot.min_players} 
                                 />
                             </div>
-                            {slot.current_players_count < slot.min_players && (
-                                <p className="participants-info">Encore {slot.min_players - slot.current_players_count} joueurs pour valider la session !</p>
-                            )}
                         </div>
                     </>
                 )}
@@ -287,6 +293,13 @@ const ReservationFlowPage: React.FC = () => {
                     </>
                 )}
             </footer>
+
+            <CancelReservationModal 
+                isOpen={isCancelModalOpen}
+                onClose={() => setIsCancelModalOpen(false)}
+                onConfirm={handleConfirmCancel}
+                isLoading={actionLoading}
+            />
         </div>
     );
 };

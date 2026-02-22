@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './SearchPage.css';
 import { SearchBar } from "../../components/SearchBar/SearchBar.tsx";
 import FilterButton from "../../components/FilterButton/FilterButton.tsx";
 import BottomSheetBar from "../../components/BottomSheetBar/BottomSheetBar.tsx";
 import FilterPage from '../FilterPage/FilterPage.tsx';
 import RoomCard from "../../components/RoomCard/RoomCard.tsx";
+import Toast from "../../components/Toast/Toast.tsx";
 import type { Filters, Room } from "../../types.ts";
 
 const SearchPage: React.FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [rooms, setRooms] = useState<Room[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   const [filters, setFilters] = useState<Filters>({
       locations: [],
       themes: [],
@@ -19,6 +24,18 @@ const SearchPage: React.FC = () => {
       dates: [],
       playerCount: 0,
   });
+
+  useEffect(() => {
+    if ((location.state as any)?.showCancelSuccess) {
+        setShowToast(true);
+        // Clear state to avoid showing toast again on refresh
+        // Delay slightly to ensure state is caught but cleaned
+        const timer = setTimeout(() => {
+            navigate(location.pathname, { replace: true, state: {} });
+        }, 100);
+        return () => clearTimeout(timer);
+    }
+  }, [location, navigate]);
 
   useEffect(() => {
     const fetchRooms = async () => {
@@ -108,6 +125,12 @@ const SearchPage: React.FC = () => {
           isOpen={isFilterOpen}
         />
       </BottomSheetBar>
+
+      <Toast 
+        message="Vous avez quitté la session avec succès" 
+        show={showToast} 
+        onClose={() => setShowToast(false)} 
+      />
     </div>
   );
 };
