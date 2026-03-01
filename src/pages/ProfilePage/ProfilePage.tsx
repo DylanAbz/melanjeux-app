@@ -66,7 +66,7 @@ const ProfilePage: React.FC = () => {
         e.preventDefault();
         setError(null);
         try {
-            const response = await fetch('http://localhost:4000/auth/login', {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: formData.email, password: formData.password })
@@ -98,7 +98,7 @@ const ProfilePage: React.FC = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:4000/auth/signup', {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/signup`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)

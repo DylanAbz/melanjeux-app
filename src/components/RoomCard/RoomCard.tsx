@@ -39,3 +39,4 @@ const RoomCard: React.FC<RoomCardProps> = ({ imageUrl, title, subtitle, location
 };
 
 export default RoomCard;
+

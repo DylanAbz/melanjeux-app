@@ -41,7 +41,7 @@ const SearchPage: React.FC = () => {
     const fetchRooms = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:4000/rooms');
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/rooms`);
         if (!response.ok) throw new Error('Failed to fetch rooms');
         const data = await response.json();
         setRooms(data);
@@ -136,4 +136,5 @@ const SearchPage: React.FC = () => {
 };
 
 export default SearchPage;
+
 

@@ -53,13 +53,13 @@ const ReservationFlowPage: React.FC = () => {
 
     const fetchSlotDetails = async () => {
         try {
-            const response = await fetch(`http://localhost:4000/time-slots/${slotId}`);
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/time-slots/${slotId}`);
             if (!response.ok) throw new Error('Failed to fetch slot');
             const data = await response.json();
             setSlot(data);
 
             if (isAuthenticated && token && user) {
-                const playersRes = await fetch(`http://localhost:4000/time-slot-players/by-slot/${slotId}`, {
+                const playersRes = await fetch(`${import.meta.env.VITE_BACKEND_URL}/time-slot-players/by-slot/${slotId}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (playersRes.ok) {
@@ -190,7 +190,7 @@ const ReservationFlowPage: React.FC = () => {
 
         setActionLoading(true);
         try {
-            const response = await fetch('http://localhost:4000/time-slot-players/join', {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/time-slot-players/join`, {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -233,7 +233,7 @@ const ReservationFlowPage: React.FC = () => {
     const handleConfirmCancel = async () => {
         setActionLoading(true);
         try {
-            const response = await fetch('http://localhost:4000/time-slot-players/leave', {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/time-slot-players/leave`, {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -272,7 +272,7 @@ const ReservationFlowPage: React.FC = () => {
         // Simuler un délai de traitement
         setTimeout(async () => {
             try {
-                const response = await fetch('http://localhost:4000/time-slot-players/pay', {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/time-slot-players/pay`, {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json',
@@ -581,3 +581,5 @@ const ReservationFlowPage: React.FC = () => {
 };
 
 export default ReservationFlowPage;
+
+

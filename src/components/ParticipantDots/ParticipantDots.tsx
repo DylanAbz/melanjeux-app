@@ -24,3 +24,4 @@ const ParticipantDots: React.FC<ParticipantDotsProps> = ({ filledCount, totalTar
 };
 
 export default ParticipantDots;
+

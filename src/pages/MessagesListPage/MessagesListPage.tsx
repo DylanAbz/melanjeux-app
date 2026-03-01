@@ -31,7 +31,7 @@ const MessagesListPage: React.FC = () => {
         const fetchAndFilterChats = async () => {
             try {
                 // 1. Récupérer les réservations SQL
-                const bookingsRes = await fetch('http://localhost:4000/time-slot-players/my-bookings', {
+                const bookingsRes = await fetch(`${import.meta.env.VITE_BACKEND_URL}/time-slot-players/my-bookings`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 
@@ -142,3 +142,4 @@ const MessagesListPage: React.FC = () => {
 };
 
 export default MessagesListPage;
+

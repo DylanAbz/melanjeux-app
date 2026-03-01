@@ -33,7 +33,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, selectedRo
         if (isOpen && roomId) {
             const fetchDates = async () => {
                 try {
-                    const response = await fetch(`http://localhost:4000/time-slots/available-dates?room_id=${roomId}`);
+                    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/time-slots/available-dates?room_id=${roomId}`);
                     if (!response.ok) throw new Error('Failed to fetch dates');
                     const data = await response.json();
                     // Format dates to YYYY-MM-DD to match our calendar logic
@@ -53,7 +53,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, selectedRo
             const fetchSlots = async () => {
                 setLoading(true);
                 try {
-                    const response = await fetch(`http://localhost:4000/time-slots?room_id=${roomId}&date=${selectedDate}`);
+                    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/time-slots?room_id=${roomId}&date=${selectedDate}`);
                     if (!response.ok) throw new Error('Failed to fetch slots');
                     const data = await response.json();
                     setTimeSlots(data);
@@ -246,3 +246,4 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, selectedRo
 };
 
 export default BookingModal;
+

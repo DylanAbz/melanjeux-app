@@ -15,7 +15,7 @@ const RoomDetailsPage: React.FC = () => {
         const fetchRoom = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`http://localhost:4000/rooms/${id}`);
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/rooms/${id}`);
                 if (!response.ok) throw new Error('Failed to fetch room');
                 const data = await response.json();
                 setRoom(data);
@@ -200,3 +200,4 @@ const RoomDetailsPage: React.FC = () => {
 };
 
 export default RoomDetailsPage;
+

@@ -38,7 +38,7 @@ const ChatRoomPage: React.FC = () => {
         if (!chatId) return;
         const fetchSlotInfo = async () => {
             try {
-                const res = await fetch(`http://localhost:4000/time-slots/${chatId}`);
+                const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/time-slots/${chatId}`);
                 if (res.ok) {
                     const data = await res.json();
                     setRoomName(data.room_name);
@@ -189,3 +189,4 @@ const ChatRoomPage: React.FC = () => {
 };
 
 export default ChatRoomPage;
+

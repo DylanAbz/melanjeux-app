@@ -42,7 +42,7 @@ const BookingsPage: React.FC = () => {
 
     const fetchBookings = async () => {
         try {
-            const response = await fetch('http://localhost:4000/time-slot-players/my-bookings', {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/time-slot-players/my-bookings`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!response.ok) throw new Error('Failed to fetch bookings');
@@ -200,3 +200,4 @@ const BookingsPage: React.FC = () => {
 };
 
 export default BookingsPage;
+
