@@ -32,7 +32,7 @@
 }
 
 .waiting-payment .status-dot {
-    background-color: var(--primary); /* Orange */
+    background-color: var(--Primary-Primary-400, #ED6E44);; /* Orange */
 }
 
 .confirmed .status-dot {
@@ -44,5 +44,5 @@
 }
 
 .cancelled .status-dot {
-    background-color: #EB5757; /* Rouge */
+    background-color: var(--Utils-Error, #FF4040); /* Rouge */
 }

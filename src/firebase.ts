@@ -1,11 +1,11 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { initializeAuth, browserLocalPersistence } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: import.meta.env.FIREBASE_API_KEY,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "melanjeux-dev.firebaseapp.com",
   projectId: "melanjeux-dev",
   storageBucket: "melanjeux-dev.firebasestorage.app",
@@ -16,4 +16,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-export const auth = getAuth(app);
+
+// Initialize Auth without the automatic iframe dependencies to avoid the hanging request
+export const auth = initializeAuth(app, {
+  persistence: browserLocalPersistence
+});

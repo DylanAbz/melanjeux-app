@@ -29,20 +29,33 @@ const ChatRoomPage: React.FC = () => {
     const navigate = useNavigate();
     const [messages, setMessages] = useState<Message[]>([]);
     const [roomName, setRoomName] = useState('Chargement...');
+    const [isChatActive, setIsChatActive] = useState(true);
     const [newMessage, setNewMessage] = useState('');
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    // Récupérer les infos de la salle
+    // Récupérer les infos de la salle depuis le backend
     useEffect(() => {
         if (!chatId) return;
-        const fetchRoomInfo = async () => {
-            const chatRef = doc(db, 'chats', chatId);
-            const chatSnap = await getDoc(chatRef);
-            if (chatSnap.exists()) {
-                setRoomName(chatSnap.data().roomName);
+        const fetchSlotInfo = async () => {
+            try {
+                const res = await fetch(`http://localhost:4000/time-slots/${chatId}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setRoomName(data.room_name);
+                    setIsChatActive(data.is_chat_active);
+                } else {
+                    // Fallback sur Firestore si le backend échoue
+                    const chatRef = doc(db, 'chats', chatId);
+                    const chatSnap = await getDoc(chatRef);
+                    if (chatSnap.exists()) {
+                        setRoomName(chatSnap.data().roomName);
+                    }
+                }
+            } catch (error) {
+                console.error("Erreur fetching slot info:", error);
             }
         };
-        fetchRoomInfo();
+        fetchSlotInfo();
     }, [chatId]);
 
     // Écouter les messages en temps réel
@@ -70,7 +83,7 @@ const ChatRoomPage: React.FC = () => {
 
     const handleSendMessage = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!newMessage.trim() || !user || !chatId) return;
+        if (!newMessage.trim() || !user || !chatId || !isChatActive) return;
 
         const messageText = newMessage;
         setNewMessage('');
@@ -143,26 +156,33 @@ const ChatRoomPage: React.FC = () => {
                 })}
                 <div ref={messagesEndRef} />
                 
-                {/* Message informatif style maquette */}
-                {/*<div className="chat-info-message">*/}
-                {/*    Lili n'a pas activé le chat, elle ne verra pas vos messages.*/}
-                {/*</div>*/}
+                {!isChatActive && (
+                    <div className="chat-info-message">
+                        Cette conversation est maintenant close.
+                    </div>
+                )}
             </div>
 
             {/* Footer de saisie */}
             <footer className="chat-input-area">
-                <form className="input-container" onSubmit={handleSendMessage}>
-                    <input 
-                        type="text" 
-                        className="pill-input" 
-                        placeholder="Écrire un message..."
-                        value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
-                    />
-                    <button type="submit" className="send-button">
-                        <img src="/send.svg" alt="Envoyer" className="send-icon" />
-                    </button>
-                </form>
+                {isChatActive ? (
+                    <form className="input-container" onSubmit={handleSendMessage}>
+                        <input 
+                            type="text" 
+                            className="pill-input" 
+                            placeholder="Écrire un message..."
+                            value={newMessage}
+                            onChange={(e) => setNewMessage(e.target.value)}
+                        />
+                        <button type="submit" className="send-button">
+                            <img src="/send.svg" alt="Envoyer" className="send-icon" />
+                        </button>
+                    </form>
+                ) : (
+                    <div className="input-container disabled">
+                        <div className="pill-input disabled">Discussion terminée</div>
+                    </div>
+                )}
             </footer>
         </div>
     );

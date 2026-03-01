@@ -12,6 +12,7 @@ interface BookingFromAPI {
     start_time: string;
     slot_status: string;
     current_players_count: number;
+    paid_players_count: number;
     room_title: string;
     room_image: string;
     min_players: number;
@@ -55,20 +56,39 @@ const BookingsPage: React.FC = () => {
                 let statusType: StatusType = 'WAITING_PLAYERS';
                 let statusText = 'Recherche de joueurs';
 
-                if (b.slot_status === 'filling' || b.slot_status === 'empty') {
-                    if (b.current_players_count >= b.min_players) {
-                        statusType = 'WAITING_PAYMENT';
-                        statusText = 'En attente de paiement';
-                    } else {
+                switch (b.slot_status) {
+                    case 'empty':
+                    case 'filling':
                         statusType = 'WAITING_PLAYERS';
                         statusText = 'En recherche de joueurs';
-                    }
-                } else if (b.slot_status === 'confirmed') {
-                    statusType = 'CONFIRMED';
-                    statusText = 'Réservation validée';
-                } else if (isPast) {
-                    statusType = 'FINISHED';
-                    statusText = 'Terminé';
+                        break;
+                    case 'payment_pending':
+                        statusType = 'WAITING_PAYMENT';
+                        statusText = 'En attente de paiement';
+                        break;
+                    case 'waiting_validation':
+                        statusType = 'WAITING_VALIDATION';
+                        statusText = 'En attente de validation';
+                        break;
+                    case 'confirmed':
+                    case 'confirmed_by_escape':
+                        statusType = 'CONFIRMED';
+                        statusText = 'Inscription validée';
+                        break;
+                    case 'finished':
+                        statusType = 'FINISHED';
+                        statusText = 'Terminé';
+                        break;
+                    case 'cancelled':
+                        statusType = 'CANCELLED';
+                        statusText = 'Annulé';
+                        break;
+                    default:
+                        // Fallback safety
+                        if (isPast) {
+                            statusType = 'FINISHED';
+                            statusText = 'Terminé';
+                        }
                 }
 
                 return {
@@ -80,6 +100,8 @@ const BookingsPage: React.FC = () => {
                     statusText,
                     currentPlayers: b.current_players_count,
                     minPlayers: b.min_players,
+                    paidCount: b.paid_players_count,
+                    totalCount: b.current_players_count,
                     isPast
                 };
             });

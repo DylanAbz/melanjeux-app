@@ -189,6 +189,17 @@
   outline: none;
 }
 
+.pill-input.disabled {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  text-align: center;
+  font-style: italic;
+}
+
+.input-container.disabled {
+  justify-content: center;
+}
+
 .send-button {
   background: none;
   border: none;

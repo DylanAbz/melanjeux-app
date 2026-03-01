@@ -4,6 +4,8 @@ import './MobileStepper.css';
 export interface Step {
     title: string;
     description?: string;
+    isDone?: boolean;
+    showDescriptionIfDone?: boolean;
 }
 
 interface MobileStepperProps {
@@ -15,17 +17,19 @@ const MobileStepper: React.FC<MobileStepperProps> = ({ steps, currentStep }) => 
     return (
         <div className="mobile-stepper">
             {steps.map((step, index) => {
-                const isDone = index < currentStep;
+                const isDone = step.isDone ?? (index < currentStep);
                 const isActive = index === currentStep;
                 const isLast = index === steps.length - 1;
                 const isFinalized = isLast && currentStep >= steps.length;
 
                 let stateClass = 'inactive';
                 if (isFinalized) stateClass = 'finalized';
-                else if (isDone) stateClass = 'done';
+                else if (isDone) {
+                    stateClass = isLast ? 'success' : 'done';
+                }
                 else if (isActive) stateClass = 'active';
 
-                const nextStepIsActiveOrDone = index + 1 <= currentStep;
+                const nextStepIsActiveOrDone = index + 1 <= currentStep || (index < steps.length - 1 && steps[index+1].isDone) || isDone;
 
                 return (
                     <div key={index} className={`stepper-item ${stateClass}`}>
@@ -43,7 +47,9 @@ const MobileStepper: React.FC<MobileStepperProps> = ({ steps, currentStep }) => 
                         </div>
                         <div className="stepper-right-column">
                             <h4 className="stepper-title">{step.title}</h4>
-                            {step.description && isActive && <p className="stepper-description">{step.description}</p>}
+                            {step.description && (isActive || (isDone && step.showDescriptionIfDone)) && (
+                                <p className="stepper-description">{step.description}</p>
+                            )}
                         </div>
                     </div>
                 );

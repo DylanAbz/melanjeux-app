@@ -49,8 +49,13 @@
     background-color: var(--Neutral-Neutral-100, #E7E7E7);
 }
 
-.stepper-item.finalized .stepper-circle {
+.stepper-item.finalized .stepper-circle,
+.stepper-item.success .stepper-circle {
     background-color: #4CAF50; /* Success Green */
+}
+
+.stepper-item.success .stepper-title {
+    color: #4CAF50;
 }
 
 .stepper-line.active {
