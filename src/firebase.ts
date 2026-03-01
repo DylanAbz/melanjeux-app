@@ -5,7 +5,7 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAiAPO3d_n_xIljqOaACZ3meQKANueyStc",
+  apiKey: import.meta.env.FIREBASE_API_KEY,
   authDomain: "melanjeux-dev.firebaseapp.com",
   projectId: "melanjeux-dev",
   storageBucket: "melanjeux-dev.firebasestorage.app",
