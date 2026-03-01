@@ -10,6 +10,8 @@ import {
     doc, 
     getDoc,
     updateDoc,
+} from 'firebase/firestore';
+import type {
     QuerySnapshot,
     DocumentData,
     QueryDocumentSnapshot
