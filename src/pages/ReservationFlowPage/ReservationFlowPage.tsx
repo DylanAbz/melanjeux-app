@@ -5,6 +5,7 @@ import MobileStepper, { type Step } from '../../components/MobileStepper/MobileS
 import { useAuth } from '../../context/AuthContext';
 import ParticipantDots from '../../components/ParticipantDots/ParticipantDots';
 import CancelReservationModal from '../../components/CancelReservationModal/CancelReservationModal';
+import { ensureChatRoomExists } from '../../chatUtils';
 
 export type ReservationState = 'DRAFT' | 'PRE_REGISTERED';
 
@@ -42,14 +43,18 @@ const ReservationFlowPage: React.FC = () => {
             const data = await response.json();
             setSlot(data);
 
-            if (isAuthenticated && token) {
+            if (isAuthenticated && token && user) {
                 const playersRes = await fetch(`http://localhost:4000/time-slot-players/by-slot/${slotId}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (playersRes.ok) {
                     const players = await playersRes.json();
                     const isJoined = players.some((p: any) => p.user_id === user?.id && p.status !== 'cancelled');
-                    if (isJoined) setStatus('PRE_REGISTERED');
+                    if (isJoined) {
+                        setStatus('PRE_REGISTERED');
+                        // On s'assure que le chat existe s'il est déjà inscrit
+                        await ensureChatRoomExists(data.id, data.room_name, user.id);
+                    }
                 }
             }
         } catch (err) {
@@ -112,9 +117,9 @@ const ReservationFlowPage: React.FC = () => {
     ];
 
     const handleBack = () => navigate(-1);
-    
+
     const handlePreRegister = async () => {
-        if (!isAuthenticated) {
+        if (!isAuthenticated || !user) {
             navigate('/profile', { state: { from: location.pathname, slotId: slotId } });
             return;
         }
@@ -131,6 +136,9 @@ const ReservationFlowPage: React.FC = () => {
             });
 
             if (response.ok) {
+                if (slot) {
+                    await ensureChatRoomExists(slot.id, slot.room_name, user.id);
+                }
                 setStatus('PRE_REGISTERED');
                 await fetchSlotDetails();
             } else {
@@ -139,6 +147,17 @@ const ReservationFlowPage: React.FC = () => {
             }
         } catch (err) {
             alert("Erreur de connexion au serveur");
+        } finally {
+            setActionLoading(false);
+        }
+    };
+
+    const handleOpenChat = async () => {
+        if (!slot || !user) return;
+        setActionLoading(true);
+        try {
+            await ensureChatRoomExists(slot.id, slot.room_name, user.id);
+            navigate(`/messages/${slot.id}`);
         } finally {
             setActionLoading(false);
         }
@@ -286,7 +305,7 @@ const ReservationFlowPage: React.FC = () => {
                             <img src="/copy.svg" alt="" className="btn-icon" />
                             Copier le lien
                         </button>
-                        <button className="btn-chat">
+                        <button className="btn-chat" onClick={handleOpenChat} disabled={actionLoading}>
                             <img src="/chat.svg" alt="" className="btn-icon" />
                             Accéder au chat
                         </button>

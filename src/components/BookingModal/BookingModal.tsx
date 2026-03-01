@@ -81,7 +81,6 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, selectedRo
 
     const handleTimeSlotSelect = (slot: TimeSlot) => {
         // Here we'd typically go to the reservation flow with the slot ID
-        console.log('Selected slot:', slot);
         onClose();
         navigate('/recap', { state: { slotId: slot.id } });
     };

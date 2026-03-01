@@ -5,6 +5,7 @@ import PageHeader from '../../components/PageHeader/PageHeader';
 import ReservationCard from '../../components/ReservationCard/ReservationCard';
 import { useNavigate } from 'react-router-dom';
 import type {StatusType} from '../../components/StatusBadge/StatusBadge';
+import { ensureChatRoomExists } from '../../chatUtils';
 
 interface BookingFromAPI {
     slot_id: string;
@@ -33,7 +34,7 @@ interface BookingData {
 }
 
 const BookingsPage: React.FC = () => {
-    const { isAuthenticated, token } = useAuth();
+    const { isAuthenticated, token, user } = useAuth();
     const navigate = useNavigate();
     const [bookings, setBookings] = useState<BookingData[]>([]);
     const [loading, setLoading] = useState(true);
@@ -99,6 +100,18 @@ const BookingsPage: React.FC = () => {
         }
     }, [isAuthenticated, token]);
 
+    const handleChatClick = async (booking: BookingData) => {
+        if (!user) return;
+        const success = await ensureChatRoomExists(booking.id, booking.title, user.id);
+        if (success) {
+            navigate(`/messages/${booking.id}`);
+        }
+    };
+
+    const handleCardClick = (slotId: string) => {
+        navigate('/recap', { state: { slotId } });
+    };
+
     if (!isAuthenticated) {
         return (
             <div className="bookings-page">
@@ -130,7 +143,12 @@ const BookingsPage: React.FC = () => {
                             <h2 className="section-title">À venir</h2>
                             {upcomingBookings.length > 0 ? (
                                 upcomingBookings.map(booking => (
-                                    <ReservationCard key={booking.id} {...booking} />
+                                    <div key={booking.id} onClick={() => handleCardClick(booking.id)} style={{ cursor: 'pointer' }}>
+                                        <ReservationCard 
+                                            {...booking} 
+                                            onChatClick={() => handleChatClick(booking)}
+                                        />
+                                    </div>
                                 ))
                             ) : (
                                 <p className="no-bookings">Aucune réservation à venir.</p>
@@ -141,7 +159,12 @@ const BookingsPage: React.FC = () => {
                             <h2 className="section-title">Passées</h2>
                             {pastBookings.length > 0 ? (
                                 pastBookings.map(booking => (
-                                    <ReservationCard key={booking.id} {...booking} />
+                                    <div key={booking.id} onClick={() => handleCardClick(booking.id)} style={{ cursor: 'pointer' }}>
+                                        <ReservationCard 
+                                            {...booking} 
+                                            onChatClick={() => handleChatClick(booking)}
+                                        />
+                                    </div>
                                 ))
                             ) : (
                                 <p className="no-bookings">Aucune réservation passée.</p>

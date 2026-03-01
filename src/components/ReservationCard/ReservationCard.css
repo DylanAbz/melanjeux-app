@@ -41,6 +41,13 @@
     gap: 6px;
 }
 
+.reservation-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
 .reservation-card-title {
     color: white;
     font-family: var(--Primary, Kanit);
@@ -48,6 +55,32 @@
     font-weight: 600;
     margin: 0;
     line-height: 1.2;
+    flex: 1;
+}
+
+.reservation-chat-button {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-left: 10px;
+    flex-shrink: 0;
+}
+
+.reservation-chat-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.reservation-chat-button img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
 }
 
 .reservation-card-datetime {

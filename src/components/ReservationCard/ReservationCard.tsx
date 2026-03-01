@@ -13,6 +13,7 @@ interface ReservationCardProps {
     totalCount?: number;
     currentPlayers?: number;
     minPlayers?: number;
+    onChatClick?: () => void;
 }
 
 const ReservationCard: React.FC<ReservationCardProps> = ({
@@ -59,7 +60,9 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
             
             <div className="reservation-card-content">
                 <div className="reservation-card-top">
-                    <h3 className="reservation-card-title">{title}</h3>
+                    <div className="reservation-card-header">
+                        <h3 className="reservation-card-title">{title}</h3>
+                    </div>
                     <p className="reservation-card-datetime">{datetime}</p>
                     <StatusBadge statusType={statusType} text={statusText} />
                 </div>

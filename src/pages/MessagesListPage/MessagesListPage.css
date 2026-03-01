@@ -1,0 +1,87 @@
+.messages-list-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f9f9f9; /* Gris très clair */
+}
+
+.messages-list-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 70px; /* Espace pour la bottom bar */
+}
+
+.message-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background-color: white;
+  border-bottom: 1px solid #eeeeee; /* Séparateur fin */
+  cursor: pointer;
+}
+
+.message-item:active {
+  background-color: #f0f0f0;
+}
+
+.message-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 12px;
+  flex-shrink: 0;
+  background-color: #eee;
+}
+
+.message-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary);
+  color: white;
+  font-weight: bold;
+}
+
+.message-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.room-name {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.last-message {
+  font-size: 14px;
+  color: #888; /* Texte gris */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.message-date {
+  font-size: 12px;
+  color: var(--primary); /* Date en orange */
+  align-self: flex-start;
+  margin-left: 8px;
+}
+
+.loading-message, .empty-message {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+}
