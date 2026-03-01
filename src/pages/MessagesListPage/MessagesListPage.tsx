@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { collection, query, where, onSnapshot, orderBy } from 'firebase/firestore';
+import { collection, query, where, onSnapshot, orderBy, QuerySnapshot, DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useAuth } from '../../context/AuthContext';
 import PageHeader from '../../components/PageHeader/PageHeader';
@@ -14,6 +14,14 @@ interface ChatRoom {
     roomImage?: string;
     participantIds: string[];
     sessionDate?: string;
+}
+
+interface ActiveBooking {
+    slot_id: string;
+    room_title: string;
+    room_image: string;
+    start_time: string;
+    is_chat_active: boolean;
 }
 
 const MessagesListPage: React.FC = () => {
@@ -36,12 +44,13 @@ const MessagesListPage: React.FC = () => {
                 });
                 
                 if (!bookingsRes.ok) throw new Error('Erreur SQL');
-                const bookings = await bookingsRes.json();
+                const bookings: ActiveBooking[] = await bookingsRes.json();
+                
                 // Map des bookings actifs (is_chat_active = true ET date < 24h passée)
-                const activeBookingsMap = new Map();
+                const activeBookingsMap = new Map<string, ActiveBooking>();
                 const now = new Date().getTime();
 
-                bookings.forEach((b: any) => {
+                bookings.forEach((b: ActiveBooking) => {
                     const startTime = new Date(b.start_time).getTime();
                     const isTooOld = (now - startTime) > (24 * 60 * 60 * 1000);
                     
@@ -58,9 +67,9 @@ const MessagesListPage: React.FC = () => {
                     orderBy('lastMessageTimestamp', 'desc')
                 );
 
-                const unsubscribe = onSnapshot(q, (snapshot) => {
+                const unsubscribe = onSnapshot(q, (snapshot: QuerySnapshot<DocumentData>) => {
                     const chatList = snapshot.docs
-                        .map(doc => {
+                        .map((doc: QueryDocumentSnapshot<DocumentData>) => {
                             const data = doc.data();
                             const bookingInfo = activeBookingsMap.get(doc.id);
                             
@@ -73,9 +82,9 @@ const MessagesListPage: React.FC = () => {
                                 roomName: bookingInfo.room_title,
                                 roomImage: bookingInfo.room_image,
                                 sessionDate: bookingInfo.start_time
-                            };
+                            } as ChatRoom;
                         })
-                        .filter(chat => chat !== null) as ChatRoom[];
+                        .filter((chat): chat is ChatRoom => chat !== null);
                     
                     setChats(chatList);
                     setLoading(false);
@@ -114,7 +123,7 @@ const MessagesListPage: React.FC = () => {
                     <div className="empty-message">Aucune conversation pour le moment.</div>
                 )}
 
-                {chats.map((chat) => (
+                {chats.map((chat: ChatRoom) => (
                     <div key={chat.id} className="message-item" onClick={() => handleChatClick(chat.id)}>
                         <div className="message-avatar">
                             {chat.roomImage ? (
@@ -142,4 +151,3 @@ const MessagesListPage: React.FC = () => {
 };
 
 export default MessagesListPage;
-

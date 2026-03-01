@@ -9,7 +9,10 @@ import {
     serverTimestamp, 
     doc, 
     getDoc,
-    updateDoc 
+    updateDoc,
+    QuerySnapshot,
+    DocumentData,
+    QueryDocumentSnapshot
 } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useAuth } from '../../context/AuthContext';
@@ -65,8 +68,8 @@ const ChatRoomPage: React.FC = () => {
         const messagesRef = collection(db, 'chats', chatId, 'messages');
         const q = query(messagesRef, orderBy('createdAt', 'asc'));
 
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            const msgs = snapshot.docs.map(doc => ({
+        const unsubscribe = onSnapshot(q, (snapshot: QuerySnapshot<DocumentData>) => {
+            const msgs = snapshot.docs.map((doc: QueryDocumentSnapshot<DocumentData>) => ({
                 id: doc.id,
                 ...doc.data()
             })) as Message[];
@@ -189,4 +192,3 @@ const ChatRoomPage: React.FC = () => {
 };
 
 export default ChatRoomPage;
-
