@@ -1,0 +1,23 @@
+.page-header {
+    padding: calc(var(--safe-top) + 40px) 16px 40px;
+    background-image: url('/headerBackground.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.page-header-title {
+    color: white;
+    text-align: center;
+    font-family: var(--Primary, Kanit);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 0;
+}

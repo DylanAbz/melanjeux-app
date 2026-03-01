@@ -1,68 +1,288 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --Colors-EerieBlack-100: #EFEEF0;
+  --Colors-EerieBlack-200: #DBDADD;
+  --Colors-EerieBlack-300: #BCBABF;
+  --Colors-EerieBlack-600: #646069;
+  --Colors-EerieBlack-950: #1C1B1D;
+  --Colors-Lust-050: #FFF4ED;
+  --Colors-Lust-100: #FFE5D5;
+  --Colors-Lust-200: #FDC7AB;
+  --Colors-Lust-300: #FDC7AB;
+  --Colors-Lust-400: #F96E3E;
+  --Colors-Lust-500: #E82F0E;
+  --Colors-Lust-600: #E82F0E;
+  --Colors-Lust-700: #C0200E;
+  --Colors-Lust-800: #991B13;
+  --Colors-Lust-900: #7B1A13;
+  --Colors-Lust-950: #420908;
+  --Colors-MetallicSilver-050: #F6F6F7;
+  --Colors-MetallicSilver-100: #EEEFF1;
+  --Colors-MetallicSilver-200: #DFE0E6;
+  --Colors-MetallicSilver-300: #CCCCD5;
+  --Colors-MetallicSilver-400: #B7B6C3;
+  --Colors-MetallicSilver-500: #A4A2B2;
+  --Colors-MetallicSilver-600: #908D9E;
+  --Colors-MetallicSilver-700: #7C7989;
+  --Colors-MetallicSilver-800: #666370;
+  --Colors-MetallicSilver-900: #54535C;
+  --Colors-MetallicSilver-950: #323036;
+
+  /* Font sizes (Mobile) */
+  --Mobile-XS: 10px;
+  --Mobile-S: 12px;
+  --Mobile-M: 14px;
+  --Mobile-L: 16px;
+  --Mobile-XL: 12px;
+
+  /* Responsive RoomCard Font Sizes */
+  --room-card-title-size: clamp(14px, 4vw, 20px);
+  --room-card-subtitle-size: clamp(12px, 3vw, 16px);
+  --room-card-location-size: clamp(10px, 2vw, 12px);
+
+  /* ²Spacing */
+  --spacing-mobile-xs: 2px;
+  --spacing-mobile-s: 4px;
+  --spacing-mobile-m: 8px;
+  --spacing-mobile-l: 10px;
+  --spacing-mobile-xl: 12px;
+  --spacing-mobile-xxl: 14px;
+  --spacing-mobile-xxxl: 16px;
+  --spacing-desktop-s: 18px;
+  --spacing-mobile-margin: 18px;
+
+  font-family: "Mundial", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #213547;
+  background-color: var(--Colors-MetallicSilver-200);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --Primary: Kanit;
+  --Secondary: Mundial;
+
+  --Neutral-Neutral-400: #888;
+  --Neutral-Neutral-050: #F6F6F6;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Brand Colors */
+  --primary: var(--Colors-Lust-500);
+  --primary-hover: var(--Colors-Lust-600);
+  --bg-light: #F6F6F6;
+  --input-bg: #EFEEF0;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
+html, body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: var(--bg-light);
+  color: var(--Colors-EerieBlack-950);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Global Button Styles */
+.btn-pill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 24px;
+    border-radius: 100px;
+    font-family: var(--Primary, Kanit);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 90% !important; /* Force 90% width */
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    border: none;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-secondary {
+    display: flex;
+    min-height: 48px;
+    padding: 12px 14px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 90% !important;
+    border-radius: 24px;
+    border: 1px solid #3D3D3D;
+    background-color: transparent;
+    color: #1A1A1A;
+    text-align: center;
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+/* Global Form Styles */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    color: #6D6D6D;
+    font-family: var(--Secondary, Mundial);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.form-group input, .form-group select {
+    display: flex;
+    height: 48px;
+    padding: 8px 16px; /* Added some horizontal padding for better look */
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 24px;
+    border: 1px solid #D1D1D1;
+    background: #F6F6F6;
+    font-size: 16px;
+    font-family: var(--Secondary, Mundial);
+    color: var(--Colors-EerieBlack-950);
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.form-group input::placeholder {
+    color: #888;
+    font-family: var(--Secondary, Mundial);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.required-star {
+    color: red;
+    margin-left: 2px;
+}
+
+.kanit-thin {
+  font-family: "Kanit", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.kanit-extralight {
+  font-family: "Kanit", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.kanit-light {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.kanit-regular {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kanit-medium {
+  font-family: "Kanit", sans-serif;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  font-style: normal;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.kanit-semibold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.kanit-bold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.kanit-extrabold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.kanit-black {
+  font-family: "Kanit", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.kanit-thin-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.kanit-extralight-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.kanit-light-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.kanit-regular-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.kanit-medium-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.kanit-semibold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.kanit-bold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.kanit-extrabold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.kanit-black-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 900;
+  font-style: italic;
 }

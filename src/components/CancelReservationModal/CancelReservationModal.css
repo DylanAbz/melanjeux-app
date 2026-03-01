@@ -1,0 +1,105 @@
+.cancel-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.cancel-modal-card {
+    background: white;
+    width: 85%;
+    max-width: 340px;
+    border-radius: 40px; /* Important border-radius */
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cancel-modal-title {
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    text-align: center;
+
+    /* H1 */
+    font-family: var(--Primary, Kanit);
+    font-size: var(--XL, 24px);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%; /* 28.8px */
+}
+
+.cancel-modal-message {
+    color: var(--Neutral-Neutral-500, #6D6D6D);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+
+    /* Body/Default */
+    font-family: Mundial;
+    font-size: var(--S, 16px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 19.2px */
+}
+
+.cancel-modal-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    width: 100%;
+}
+
+.cancel-btn-cancel {
+    color: var(--Neutral-Neutral-950, #1A1A1A);
+    text-align: center;
+    font-family: Mundial;
+    font-size: var(--XS, 14px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 16.8px */
+    display: flex;
+    min-height: 48px;
+    padding: var(--M, 12px) var(--L, 14px);
+    justify-content: center;
+    align-items: center;
+    gap: var(--XS, 8px);
+    flex: 1 0 0;
+    border-radius: var(--L, 24px);
+    border: 1px solid var(--Neutral-Neutral-900, #3D3D3D);
+    background: transparent;
+    cursor: pointer;
+}
+
+.cancel-btn-confirm {
+    display: flex;
+    height: 48px;
+    min-height: 48px;
+    padding: var(--M, 12px) var(--L, 14px);
+    justify-content: center;
+    align-items: center;
+    gap: var(--XS, 8px);
+    border-radius: var(--L, 24px);
+    background: var(--Primary-Primary-700, #B52719);
+    color: var(--Neutral-Neutral-050, #F6F6F6);
+    text-align: center;
+    font-family: Mundial;
+    font-size: var(--XS, 14px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 16.8px */
+    border: var(--Primary-Primary-700, #B52719);
+    cursor: pointer;
+}
+
+.cancel-btn-cancel:disabled,
+.cancel-btn-confirm:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

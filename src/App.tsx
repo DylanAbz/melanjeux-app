@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import BottomBar from './components/BottomBar/BottomBar';
+import SearchPage from './pages/SearchPage/SearchPage';
+import RoomDetailsPage from './pages/RoomDetailsPage/RoomDetailsPage';
+import FilterPage from './pages/FilterPage/FilterPage';
+import BookingsPage from './pages/BookingsPage/BookingsPage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
+import ReservationFlowPage from './pages/ReservationFlowPage/ReservationFlowPage';
+import MessagesListPage from './pages/MessagesListPage/MessagesListPage';
+import ChatRoomPage from './pages/ChatRoomPage/ChatRoomPage';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const location = useLocation();
+  const hideBottomBar = location.pathname.startsWith('/room/') || location.pathname === '/recap' || location.pathname.match(/^\/messages\/[^/]+$/);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<SearchPage />} />
+        <Route path="/room/:id" element={<RoomDetailsPage />} />
+        <Route path="/recap" element={<ReservationFlowPage />} />
+
+        <Route path="/filter" element={<FilterPage />} />
+        <Route path="/bookings" element={<BookingsPage />} />
+        <Route path="/messages" element={<MessagesListPage />} />
+        <Route path="/messages/:chatId" element={<ChatRoomPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+      </Routes>
+      {!hideBottomBar && <BottomBar />}
+    </div>
+  );
 }
 
-export default App
+const WrappedApp = () => (
+  <BrowserRouter>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </BrowserRouter>
+);
+
+export default WrappedApp;
