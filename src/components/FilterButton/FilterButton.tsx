@@ -6,7 +6,7 @@ interface FilterButtonProps {
   filterCount?: number;
 }
 
-const FilterButton: React.FC<FilterButtonProps> = ({ onClick, filterCount }) => {
+const FilterButton: React.FC<FilterButtonProps> = ({ onClick, filterCount = 0 }) => {
   return (
     <button className="filter-button" onClick={onClick}>
       <img src="/filter.svg" alt="Filtres" />

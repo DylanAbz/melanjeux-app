@@ -59,7 +59,7 @@ export const dummyRoomPMR: Room = {
 };
 
 // --- SESSION DATA GENERATION ---
-export const generateSessions = (roomId: string): RoomSession[] => {
+export const generateSessions = (): RoomSession[] => {
     const sessions: RoomSession[] = [];
     const times = ["11:00", "14:00", "15:30", "17:00", "18:30", "21:00", "23:00"];
     const today = new Date();
@@ -84,4 +84,4 @@ export const generateSessions = (roomId: string): RoomSession[] => {
     return sessions;
 };
 
-export const dummySessions = generateSessions("1");
+export const dummySessions = generateSessions();

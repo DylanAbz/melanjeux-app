@@ -17,13 +17,13 @@ const SearchPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const [filters, setFilters] = useState<Filters>({
+  const filters: Filters = {
       locations: [],
       themes: [],
       accessibility: false,
       dates: [],
       playerCount: 0,
-  });
+  };
 
   useEffect(() => {
     if ((location.state as any)?.showCancelSuccess) {
@@ -55,11 +55,6 @@ const SearchPage: React.FC = () => {
 
     fetchRooms();
   }, []);
-
-  const handleApplyFilters = (newFilters: Filters) => {
-      setFilters(newFilters);
-      console.log("Filters applied:", newFilters);
-  };
 
   const handleOpenFilters = () => {
     setIsFilterOpen(true);
@@ -119,11 +114,7 @@ const SearchPage: React.FC = () => {
         onClose={handleCloseFilters}
         title="Filtrer"
       >
-        <FilterPage
-          initialFilters={filters}
-          onApplyFilters={handleApplyFilters}
-          isOpen={isFilterOpen}
-        />
+        <FilterPage />
       </BottomSheetBar>
 
       <Toast 

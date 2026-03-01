@@ -48,7 +48,7 @@ export default defineConfig({
         runtimeCaching: [
           {
             urlPattern: ({ url }) =>
-                url.origin === self.location.origin &&
+                url.origin === (globalThis as any).location.origin &&
                 url.pathname.startsWith('/assets'),
             handler: 'CacheFirst',
             options: {
@@ -57,7 +57,7 @@ export default defineConfig({
           },
           {
             urlPattern: ({ url }) =>
-                url.origin === self.location.origin &&
+                url.origin === (globalThis as any).location.origin &&
                 url.pathname.startsWith('/api'),
             handler: 'NetworkFirst',
             options: {

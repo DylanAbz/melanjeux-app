@@ -33,7 +33,6 @@ const ReservationFlowPage: React.FC = () => {
     const slotId = (location.state as any)?.slotId;
 
     const [status, setStatus] = useState<ReservationState>('DRAFT');
-    const [playerStatus, setPlayerStatus] = useState<string | null>(null);
     const [slot, setSlot] = useState<TimeSlotDetails | null>(null);
     const [loading, setLoading] = useState(true);
     const [actionLoading, setActionLoading] = useState(false);
@@ -67,8 +66,6 @@ const ReservationFlowPage: React.FC = () => {
                     const me = players.find((p: any) => p.user_id === user?.id && p.status !== 'cancelled');
                     
                     if (me) {
-                        setPlayerStatus(me.status);
-                        
                         if (data.status === 'confirmed' || data.status === 'confirmed_by_escape') {
                             setStatus('CONFIRMED');
                         } else if (data.status === 'waiting_validation') {
@@ -85,7 +82,6 @@ const ReservationFlowPage: React.FC = () => {
                         await ensureChatRoomExists(data.id, data.room_name, user.id);
                     } else {
                         setStatus('DRAFT');
-                        setPlayerStatus(null);
                     }
                 }
             }
