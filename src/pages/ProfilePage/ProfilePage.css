@@ -17,7 +17,7 @@
     padding: 32px 0;
     display: flex;
     flex-direction: column;
-    align-items: center; /* This centers the container's children */
+    align-items: center;
     gap: 24px;
     width: 100%;
     box-sizing: border-box;
@@ -25,13 +25,371 @@
 }
 
 .auth-title {
-    text-align: left; /* Alignment to left for titles */
+    text-align: left;
     font-family: var(--Primary, Kanit);
     font-size: 24px;
     font-weight: 600;
     color: var(--Colors-EerieBlack-950);
     margin: 0;
     width: 90%;
+}
+
+/* Logged-in Header */
+.profile-header-container {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--Colors-Lust-400); /* Fallback */
+}
+
+.profile-header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-header-title {
+    position: relative;
+    z-index: 1;
+    color: white;
+    font-family: var(--Primary, Kanit);
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Tabs */
+.profile-tabs {
+    padding: 16px;
+    background-color: var(--bg-light);
+}
+
+.tabs-container {
+    display: flex;
+    background: white;
+    border-radius: 12px;
+    padding: 4px;
+    gap: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.tab-btn {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 12px;
+    border-radius: 10px;
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--Colors-EerieBlack-600);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+    border-radius: var(--S, 12px);
+    border: 1px solid var(--Primary-Primary-950, #3F0C0B);
+    background: var(--Primary-Primary-200, #F8C8B0);
+}
+
+/* Content Area */
+.profile-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 20px 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.informations-tab, .parametres-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.section-title {
+    font-family: var(--Primary, Kanit);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--Colors-EerieBlack-950);
+    text-align: left;
+    margin: 24px 0 16px;
+}
+
+/* Profile Info Card */
+.profile-info-card {
+    background: white;
+    border-radius: 24px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+
+.avatar-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #FFF0E6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.profile-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-pseudo-display {
+    font-family: var(--Primary, Kanit);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--Colors-EerieBlack-950);
+    margin: 0 0 16px;
+}
+
+.profile-stats-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.profile-stat-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--Colors-EerieBlack-600);
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+}
+
+.stat-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.profile-tags-container {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.profile-tag {
+    padding: 6px 16px;
+    border-radius: 100px;
+    border: 1px solid var(--Colors-EerieBlack-200);
+    color: var(--Colors-EerieBlack-600);
+    font-family: var(--Secondary, Mundial);
+    font-size: 12px;
+}
+
+/* Modifier Profil Button */
+.modifier-profil-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--Colors-Lust-400);
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 16px;
+    cursor: pointer;
+}
+
+.edit-icon {
+    width: 18px;
+    height: 18px;
+}
+
+/* Personal Info Card */
+.personal-info-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.info-text {
+    text-align: left;
+}
+
+.info-label {
+    font-family: var(--Primary, Kanit);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--Colors-EerieBlack-950);
+}
+
+.info-value {
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+    color: var(--Colors-EerieBlack-600);
+    margin-top: 2px;
+}
+
+.chevron-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--Colors-EerieBlack-950);
+}
+
+/* Paramètres Tab */
+.parametres-tab {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 380px);
+}
+
+.settings-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.settings-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.settings-info {
+    text-align: left;
+    flex: 1;
+}
+
+.settings-label {
+    font-family: var(--Primary, Kanit);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--Colors-EerieBlack-950);
+}
+
+.settings-desc {
+    font-family: var(--Secondary, Mundial);
+    font-size: 13px;
+    color: var(--Colors-EerieBlack-600);
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #eee;
+  transition: .4s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #4CAF50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+/* Logout Button */
+.deconnexion-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: 20px;
+    padding: 16px;
+    border-radius: 24px;
+    border: 1px solid var(--Colors-EerieBlack-950);
+    background: transparent;
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--Colors-EerieBlack-950);
+    cursor: pointer;
+}
+
+.logout-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Reuse existing auth styles */
+.btn-pill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 24px;
+    border-radius: 100px;
+    font-family: var(--Primary, Kanit);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 90% !important;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    border: none;
 }
 
 .btn-social {
@@ -80,7 +438,7 @@
     width: 90% !important;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Ensure labels and inputs are aligned to the left within the group */
+    align-items: flex-start;
     text-align: left;
 }
 
@@ -92,12 +450,6 @@
     cursor: pointer;
     margin-bottom: 16px;
     text-align: left;
-}
-
-.checkbox-group input {
-    margin-top: 4px;
-    min-width: 18px;
-    min-height: 18px;
 }
 
 .checkbox-group label {
@@ -126,96 +478,11 @@
     margin: 0;
 }
 
-/* Logged-in view */
-.profile-logged-content {
-    padding: 24px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
-.profile-card {
-    background: white;
-    padding: 24px;
-    border-radius: 20px;
+.error-message {
+    color: #e74c3c;
+    background-color: #fdeaea;
+    padding: 12px;
+    border-radius: 8px;
     width: 90%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Left align content inside card */
-    gap: 20px;
-    box-sizing: border-box;
-}
-
-/* User details should be left-aligned */
-.user-details {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    text-align: left;
-}
-
-/* Force center for logout button in profile card if needed, but since all btn-pill are 90% and centered by margin, it's fine. 
-Actually I removed margin:auto from btn-pill, so I must center it here */
-.profile-card .btn-primary {
-    align-self: center;
-}
-
-.city-autocomplete {
-    position: relative;
-}
-
-.suggestions-list {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 1px solid #D1D1D1;
-    border-radius: 12px;
-    margin: 4px 0 0;
-    padding: 0;
-    list-style: none;
-    z-index: 10;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.suggestions-list li {
-    padding: 12px 16px;
-    cursor: pointer;
-    font-family: var(--Secondary, Mundial);
     font-size: 14px;
-    border-bottom: 1px solid #F6F6F6;
-}
-
-.suggestions-list li:last-child {
-    border-bottom: none;
-}
-
-.suggestions-list li:hover {
-    background-color: #F6F6F6;
-}
-
-.select-wrapper {
-    position: relative;
-    width: 100%;
-}
-
-.select-wrapper select {
-    width: 100%;
-    appearance: none;
-    -webkit-appearance: none;
-}
-
-.select-wrapper::after {
-    content: '▼';
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    font-size: 12px;
-    color: var(--Colors-EerieBlack-600);
 }
