@@ -323,8 +323,10 @@
     }
 
     .room-details-back-button {
+        position: fixed;
         top: 100px;
-        left: 40px;
+        left: 280px; /* 240px sidebar + 40px padding */
+        z-index: 1001;
     }
 
     .room-details-stats-grid {
