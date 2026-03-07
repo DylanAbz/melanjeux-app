@@ -25,6 +25,8 @@ export interface Filters {
 export interface EscapeGame {
     nom: string;
     adresse: string;
+    ville?: string;
+    codePostal?: string;
     telephone: string;
     mail: string;
     coordinates?: {
