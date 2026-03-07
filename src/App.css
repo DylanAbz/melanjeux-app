@@ -1,42 +1,101 @@
-#root {
-  width: 100%;
+:root {
+  --Primary: 'Kanit', sans-serif;
+  --Secondary: 'Mundial', sans-serif;
+  --bg-light: #F9F9F9;
+  --Colors-Lust-400: #F96E3E;
+  --Colors-Lust-100: #FFF5F2;
+  --Colors-Lust-900: #3F0C0B;
+  --Colors-EerieBlack-950: #1A1A1A;
+  --Colors-EerieBlack-600: #6D6D6D;
+  --Colors-EerieBlack-400: #9E9E9E;
+  --Colors-EerieBlack-200: #EFEFEF;
+}
+
+body {
   margin: 0;
   padding: 0;
-  text-align: center;
+  background-color: var(--bg-light);
+  overflow-x: hidden;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Layout Desktop */
+.desktop-layout-header {
+    display: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+@media (min-width: 1025px) {
+    .desktop-layout-header {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1100;
+    }
+
+    .orange-search-bar {
+        background-color: var(--Colors-Lust-400);
+        height: 80px;
+        padding: 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    .desktop-search-wrapper {
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .app-body-layout {
+        display: flex;
+        flex: 1;
+        margin-top: 80px; /* Seulement la hauteur de la barre orange */
+    }
+
+    .main-content-layout {
+        flex: 1;
+        margin-left: 240px;
+        background-color: white;
+        min-height: calc(100vh - 80px);
+    }
 }
 
-.card {
-  padding: 2em;
+/* Layout Mobile */
+@media (max-width: 1024px) {
+    .App {
+        display: block;
+    }
+    
+    .app-body-layout {
+        display: block;
+    }
+
+    .main-content-layout {
+        width: 100%;
+        padding-bottom: 70px;
+        background-color: white;
+    }
+
+    /* Cache la barre du bas sur desktop via CSS pour être sûr */
+    .bottom-bar {
+        display: flex;
+    }
 }
 
-.read-the-docs {
-  color: #888;
+@media (min-width: 1025px) {
+    .bottom-bar {
+        display: none !important;
+    }
 }
