@@ -1,105 +1,145 @@
 .mobile-stepper {
     display: flex;
-    flex-direction: column;
     width: 100%;
+    box-sizing: border-box;
 }
 
-.stepper-item {
-    display: flex;
-    gap: 16px;
-    min-height: 60px;
-}
-
-.stepper-left-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 24px;
-    min-width: 24px;
-    flex-shrink: 0;
-}
-
+/* --- COMMON ELEMENTS --- */
 .stepper-circle {
     width: 24px;
-    min-width: 24px;
     height: 24px;
-    min-height: 24px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 2;
     flex-shrink: 0;
+    background-color: var(--Neutral-Neutral-100, #E7E7E7);
 }
 
 .stepper-line {
-    width: 2px;
-    flex-grow: 1;
-    margin-top: 4px;
-    margin-bottom: 8px; /* Creating the gap to the next step */
+    background-color: var(--Neutral-Neutral-100, #E7E7E7);
 }
 
-/* States for circle and line */
+.stepper-line.active {
+    background-color: var(--Colors-Lust-400, #F96E3E);
+}
+
 .stepper-item.done .stepper-circle,
 .stepper-item.active .stepper-circle {
-    background-color: var(--Primary-Primary-400, #ED6E44);
-}
-
-.stepper-item.inactive .stepper-circle {
-    background-color: var(--Neutral-Neutral-100, #E7E7E7);
+    background-color: var(--Colors-Lust-400, #F96E3E);
 }
 
 .stepper-item.finalized .stepper-circle,
 .stepper-item.success .stepper-circle {
-    background-color: #4CAF50; /* Success Green */
+    background-color: #4CAF50;
 }
 
-.stepper-item.success .stepper-title {
-    color: #4CAF50;
+/* --- VERTICAL (Mobile) --- */
+.mobile-stepper.vertical {
+    flex-direction: column;
 }
 
-.stepper-line.active {
-    background-color: var(--Primary-Primary-400, #ED6E44);
+.mobile-stepper.vertical .stepper-item {
+    display: flex;
+    gap: 16px;
+    min-height: 80px;
 }
 
-.stepper-line.inactive {
-    background-color: var(--Neutral-Neutral-100, #E7E7E7);
+.mobile-stepper.vertical .stepper-indicator-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 24px;
+    flex-shrink: 0;
 }
 
-/* States for text */
-.stepper-right-column {
+.mobile-stepper.vertical .stepper-line {
+    width: 2px;
+    flex-grow: 1;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.mobile-stepper.vertical .stepper-text-content {
     display: flex;
     flex-direction: column;
     padding-bottom: 24px;
     text-align: left;
-    align-items: flex-start;
 }
 
+/* --- HORIZONTAL (Desktop) --- */
+.mobile-stepper.horizontal {
+    flex-direction: row;
+    padding-top: 20px;
+    justify-content: space-between;
+}
+
+.mobile-stepper.horizontal .stepper-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.mobile-stepper.horizontal .stepper-indicator-column {
+    height: 24px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.mobile-stepper.horizontal .stepper-line {
+    position: absolute;
+    top: 50%;
+    left: calc(50% + 12px); /* Start after circle */
+    width: calc(100% - 24px); /* Bridge the gap to next circle */
+    height: 2px;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.mobile-stepper.horizontal .stepper-text-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 10px;
+}
+
+/* --- COMMON TEXT STYLES --- */
 .stepper-title {
-    margin: 0;
     font-family: var(--Secondary, Mundial);
     font-size: 16px;
-    font-style: normal;
     font-weight: 600;
-    line-height: 113.73%;
+    margin: 0;
+    line-height: 1.2;
+    color: var(--Neutral-Neutral-900, #3D3D3D);
 }
 
-.stepper-item.done .stepper-title,
-.stepper-item.active .stepper-title {
-    color: var(--Primary-Primary-400, #ED6E44);
+.mobile-stepper.horizontal .stepper-title {
+    font-size: 14px;
 }
 
-.stepper-item.inactive .stepper-title {
-    color: var(--Neutral-Neutral-500, #6D6D6D);
+.stepper-item.active .stepper-title,
+.stepper-item.done .stepper-title {
+    color: var(--Colors-Lust-400, #F96E3E);
 }
 
 .stepper-description {
-    margin: 8px 0 0 0;
-    color: var(--Neutral-Neutral-800, #454545);
     font-family: var(--Secondary, Mundial);
-    font-size: var(--XS, 14px);
-    font-style: normal;
-    font-weight: 400;
-    line-height: 120%;
+    font-size: 14px;
+    margin-top: 8px;
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    line-height: 1.4;
+}
+
+.mobile-stepper.horizontal .stepper-description {
+    font-size: 12px;
+    max-width: 200px;
     text-align: left;
 }

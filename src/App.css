@@ -56,6 +56,15 @@ body {
         display: flex;
         align-items: center;
         gap: 15px;
+        justify-content: center;
+    }
+
+    .desktop-page-title {
+        color: white;
+        font-family: var(--Primary, Kanit);
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0;
     }
 
     .app-body-layout {

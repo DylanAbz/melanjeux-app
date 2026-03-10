@@ -45,10 +45,13 @@ const ReservationFlowPage: React.FC = () => {
     const [showPaymentSuccessModal, setShowPaymentSuccessModal] = useState(false);
 
     // Mock Card state
-    const [cardNumber, setCardNumber] = useState('');
-    const [expiry, setExpiry] = useState('');
-    const [cvc, setCvc] = useState('');
-    const [cardName, setCardName] = useState('');
+    const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
+
+    useEffect(() => {
+        const handleResize = () => setIsDesktop(window.innerWidth > 1024);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const fetchSlotDetails = async () => {
         try {
@@ -390,164 +393,174 @@ const ReservationFlowPage: React.FC = () => {
     else if (isWaitingValidation) currentStepIndex = 3;
 
     return (
-        <div className="reservation-flow-page">
-            <header className="recap-header">
-                <button className="recap-back-button" onClick={handleBack}>
-                    <img src="/chevronLeft.svg" alt="Back" />
-                </button>
-                <h1 className="recap-room-title">{slot.room_name}</h1>
-                <h2 className="recap-subtitle">{isPaymentPending ? "Paiement" : isConfirmed ? "Inscription validée" : (isPaid || isWaitingValidation) ? "Attente validation" : "Préinscription"}</h2>
-            </header>
-
-            <main className="recap-content">
-                {(isPreRegistered || isPaymentPending || isPaid || isWaitingValidation || isConfirmed) && (
-                    <>
-                        <div className={`recap-card validation-card ${(isPaid || isWaitingValidation || isConfirmed) ? 'paid' : ''}`}>
-                            <span className="validation-text">
-                                {isConfirmed ? "Inscription validée" : (isPaid || isWaitingValidation) ? "Paiement validé" : "Préinscription validée"}
-                            </span>
-                        </div>
-
-                        <div className="recap-card participants-card">
-                            <div className="participants-count-container">
-                                {(isPaid || isWaitingValidation || isConfirmed) ? (
-                                    <>
-                                        <span className={`participants-count ${(isConfirmed || slot.paid_players_count === slot.current_players_count) ? 'success' : ''}`}>
-                                            {isConfirmed ? slot.current_players_count : slot.paid_players_count}/{slot.current_players_count}
-                                        </span>
-                                        <span className="participants-label">participants ayant réglé</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <span className="participants-count">{slot.current_players_count}/{slot.min_players}</span>
-                                        <span className="participants-label">participants préinscrits</span>
-                                    </>
-                                )}
-                            </div>
-                            <div className="participants-indicator">
-                                <ParticipantDots 
-                                    filledCount={(isPaid || isWaitingValidation || isConfirmed) ? (isConfirmed ? slot.current_players_count : slot.paid_players_count) : slot.current_players_count} 
-                                    totalTarget={(isPaid || isWaitingValidation || isConfirmed) ? slot.current_players_count : slot.min_players} 
-                                />
-                            </div>
-                        </div>
-                    </>
-                )}
-
-                <section className="recap-card">
-                    <h3 className="card-title">Récap</h3>
-                    <div className="recap-details">
-                        <div className="recap-row">
-                            <img src="/ticket.svg" alt="" className="recap-icon" />
-                            <div className="recap-text">
-                                <span className="recap-label">Salle</span>
-                                <span className="recap-value">{slot.room_name}, {slot.escape_game_nom}</span>
-                            </div>
-                        </div>
-                        <div className="recap-row">
-                            <img src="/calendar.svg" alt="" className="recap-icon" />
-                            <div className="recap-text">
-                                <span className="recap-label">Date</span>
-                                <span className="recap-value" style={{ textTransform: 'capitalize' }}>{formatDate(slot.start_time)}</span>
-                            </div>
-                        </div>
-                        <div className="recap-row">
-                            <img src="/time.svg" alt="" className="recap-icon"  />
-                            <div className="recap-text">
-                                <span className="recap-label">Créneau</span>
-                                <span className="recap-value">{formatTime(slot.start_time, slot.duration_minutes)}</span>
-                            </div>
-                        </div>
-                        <div className="recap-row">
-                            <img src="/price.svg" alt="" className="recap-icon" />
-                            <div className="recap-text">
-                                <span className="recap-label">Prix</span>
-                                <span className="recap-value">{priceRange.text}</span>
-                            </div>
-                        </div>
-                        <div className="recap-row">
-                            <img src="/users.svg" alt="" className="recap-icon" />
-                            <div className="recap-text">
-                                <span className="recap-label">Joueurs actuellement préinscrits</span>
-                                <span className="recap-value">{slot.current_players_count}</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section className="recap-card process-card">
-                    <h3 className="card-title">Processus de réservation</h3>
-                    <div className="stepper-container">
-                        <MobileStepper steps={steps} currentStep={currentStepIndex} />
-                    </div>
-                </section>
-
-                {(isPreRegistered || isPaymentPending) && (
-                    <button 
-                        className="cancel-pre-reg-btn" 
-                        onClick={handleCancelPreRegistration}
-                        disabled={actionLoading}
-                    >
-                        {actionLoading ? "Chargement..." : "Annuler ma préinscription"}
+        <div className={`reservation-flow-page ${isDesktop ? 'desktop' : ''}`}>
+            <div className="reservation-flow-container">
+                <header className="recap-header">
+                    <button className="recap-back-button" onClick={handleBack}>
+                        <img src="/chevronLeft.svg" alt="Back" />
                     </button>
-                )}
+                    <div className="recap-title-container">
+                        <h1 className="recap-room-title">{slot.room_name}</h1>
+                        <h2 className="recap-subtitle">{isPaymentPending ? "Paiement" : isConfirmed ? "Inscription validée" : (isPaid || isWaitingValidation) ? "Attente validation" : "Préinscription"}</h2>
+                    </div>
+                </header>
 
-                {(isPaid || isWaitingValidation || isConfirmed) && (
-                    <button className="cancel-pre-reg-btn" onClick={() => navigate('/')}>
-                        Quitter
-                    </button>
-                )}
-            </main>
+                <main className="recap-content">
+                    {(isPreRegistered || isPaymentPending || isPaid || isWaitingValidation || isConfirmed) && (
+                        <>
+                            <div className={`recap-card validation-card ${(isPaid || isWaitingValidation || isConfirmed) ? 'paid' : ''}`}>
+                                <span className="validation-text">
+                                    {isConfirmed ? "Inscription validée" : (isPaid || isWaitingValidation) ? "Paiement validé" : "Préinscription validée"}
+                                </span>
+                            </div>
 
-            <footer className="recap-footer">
-                {isDraft ? (
-                    <>
-                        <button className="btn-secondary" onClick={handleBack}>Annuler</button>
+                            <div className="recap-card participants-card">
+                                <div className="participants-count-container">
+                                    {(isPaid || isWaitingValidation || isConfirmed) ? (
+                                        <>
+                                            <span className={`participants-count ${(isConfirmed || slot.paid_players_count === slot.current_players_count) ? 'success' : ''}`}>
+                                                {isConfirmed ? slot.current_players_count : slot.paid_players_count}/{slot.current_players_count}
+                                            </span>
+                                            <span className="participants-label">participants ayant réglé</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <span className="participants-count">{slot.current_players_count}/{slot.min_players}</span>
+                                            <span className="participants-label">participants préinscrits</span>
+                                        </>
+                                    )}
+                                </div>
+                                <div className="participants-indicator">
+                                    <ParticipantDots 
+                                        filledCount={(isPaid || isWaitingValidation || isConfirmed) ? (isConfirmed ? slot.current_players_count : slot.paid_players_count) : slot.current_players_count} 
+                                        totalTarget={(isPaid || isWaitingValidation || isConfirmed) ? slot.current_players_count : slot.min_players} 
+                                    />
+                                </div>
+                            </div>
+                        </>
+                    )}
+
+                    <section className="recap-card">
+                        <h3 className="card-title">Récap</h3>
+                        <div className="recap-details">
+                            <div className="recap-grid-desktop">
+                                <div className="recap-row">
+                                    <img src="/ticket.svg" alt="" className="recap-icon" />
+                                    <div className="recap-text">
+                                        <span className="recap-label">Salle</span>
+                                        <span className="recap-value">{slot.room_name}, {slot.escape_game_nom}</span>
+                                    </div>
+                                </div>
+                                <div className="recap-row">
+                                    <img src="/time.svg" alt="" className="recap-icon"  />
+                                    <div className="recap-text">
+                                        <span className="recap-label">Créneau</span>
+                                        <span className="recap-value">{formatTime(slot.start_time, slot.duration_minutes)}</span>
+                                    </div>
+                                </div>
+                                <div className="recap-row">
+                                    <img src="/users.svg" alt="" className="recap-icon" />
+                                    <div className="recap-text">
+                                        <span className="recap-label">Joueurs actuellement préinscrits</span>
+                                        <span className="recap-value">{slot.current_players_count}</span>
+                                    </div>
+                                </div>
+                                <div className="recap-row">
+                                    <img src="/calendar.svg" alt="" className="recap-icon" />
+                                    <div className="recap-text">
+                                        <span className="recap-label">Date</span>
+                                        <span className="recap-value" style={{ textTransform: 'capitalize' }}>{formatDate(slot.start_time)}</span>
+                                    </div>
+                                </div>
+                                <div className="recap-row">
+                                    <img src="/price.svg" alt="" className="recap-icon" />
+                                    <div className="recap-text">
+                                        <span className="recap-label">Prix</span>
+                                        <span className="recap-value">{priceRange.text}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="recap-card process-card">
+                        <h3 className="card-title">Processus de réservation</h3>
+                        <div className="stepper-container">
+                            <MobileStepper 
+                                steps={steps} 
+                                currentStep={currentStepIndex} 
+                                direction={isDesktop ? 'horizontal' : 'vertical'} 
+                            />
+                        </div>
+                    </section>
+
+                    {!isDesktop && (isPreRegistered || isPaymentPending) && (
                         <button 
-                            className="btn-primary" 
-                            onClick={handlePreRegister}
+                            className="cancel-pre-reg-btn" 
+                            onClick={handleCancelPreRegistration}
                             disabled={actionLoading}
                         >
-                            {actionLoading ? "Chargement..." : "Me préinscrire"}
+                            {actionLoading ? "Chargement..." : "Annuler ma préinscription"}
                         </button>
-                    </>
-                ) : isPaymentPending ? (
-                    <div className="payment-actions">
-                        <div className="action-buttons-row">
+                    )}
+
+                    {!isDesktop && (isPaid || isWaitingValidation || isConfirmed) && (
+                        <button className="cancel-pre-reg-btn" onClick={() => navigate('/')}>
+                            Quitter
+                        </button>
+                    )}
+                </main>
+
+                <footer className="recap-footer">
+                    {isDraft ? (
+                        <>
+                            <button className="btn-secondary-pill" onClick={handleBack}>Annuler</button>
                             <button 
-                                className="btn-icon-circle" 
-                                onClick={handleOpenChat}
-                                disabled={actionLoading || (slot?.current_players_count || 0) < 2}
-                                style={{ opacity: (slot?.current_players_count || 0) < 2 ? 0.5 : 1 }}
+                                className="btn-primary-pill" 
+                                onClick={handlePreRegister}
+                                disabled={actionLoading}
                             >
-                                <img src="/chat_black.svg" alt="Chat" />
+                                {actionLoading ? "Chargement..." : "Me préinscrire"}
                             </button>
-                            <button className="btn-icon-circle">
-                                <img src="/share.svg" alt="Share"  />
-                            </button>
-                            <button className="btn-primary flex-1" onClick={handleStartPayment}>
-                                Payer
-                            </button>
+                        </>
+                    ) : isPaymentPending ? (
+                        <div className="payment-actions">
+                            <div className="action-buttons-row">
+                                <button 
+                                    className="btn-icon-circle" 
+                                    onClick={handleOpenChat}
+                                    disabled={actionLoading || (slot?.current_players_count || 0) < 2}
+                                    style={{ opacity: (slot?.current_players_count || 0) < 2 ? 0.5 : 1 }}
+                                >
+                                    <img src="/chat_black.svg" alt="Chat" />
+                                </button>
+                                <button className="btn-icon-circle">
+                                    <img src="/share.svg" alt="Share"  />
+                                </button>
+                                <button className="btn-primary flex-1" onClick={handleStartPayment}>
+                                    Payer
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                ) : (
-                    <>
-                        <button className="btn-copy">
-                            <img src="/copy.svg" alt="" className="btn-icon" />
-                            Copier le lien
-                        </button>
-                        <button 
-                            className="btn-chat" 
-                            onClick={handleOpenChat} 
-                            disabled={actionLoading || (slot?.current_players_count || 0) < 2}
-                            title={(slot?.current_players_count || 0) < 2 ? "Le chat s'activera dès qu'un autre joueur rejoindra le créneau" : ""}
-                        >
-                            <img src="/chat.svg" alt="" className="btn-icon" />
-                            {(slot?.current_players_count || 0) < 2 ? "Chat (attente joueurs)" : "Accéder au chat"}
-                        </button>
-                    </>
-                )}
-            </footer>
+                    ) : (
+                        <>
+                            <button className="btn-copy">
+                                <img src="/copy.svg" alt="" className="btn-icon" />
+                                Copier le lien
+                            </button>
+                            <button 
+                                className="btn-chat" 
+                                onClick={handleOpenChat} 
+                                disabled={actionLoading || (slot?.current_players_count || 0) < 2}
+                                title={(slot?.current_players_count || 0) < 2 ? "Le chat s'activera dès qu'un autre joueur rejoindra le créneau" : ""}
+                            >
+                                <img src="/chat.svg" alt="" className="btn-icon" />
+                                {(slot?.current_players_count || 0) < 2 ? "Chat (attente joueurs)" : "Accéder au chat"}
+                            </button>
+                        </>
+                    )}
+                </footer>
+            </div>
 
             <CancelReservationModal 
                 isOpen={isCancelModalOpen}

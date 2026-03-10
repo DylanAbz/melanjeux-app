@@ -40,8 +40,14 @@ function App() {
       <header className="desktop-layout-header">
         <div className="orange-search-bar">
           <div className="desktop-search-wrapper">
-             <SearchBar placeholder="Rechercher une salle" />
-             <FilterButton onClick={() => {}} filterCount={0} />
+             {location.pathname === '/recap' ? (
+                <h1 className="desktop-page-title">Réserver</h1>
+             ) : (
+                <>
+                  <SearchBar placeholder="Rechercher une salle" />
+                  <FilterButton onClick={() => {}} filterCount={0} />
+                </>
+             )}
           </div>
         </div>
       </header>
