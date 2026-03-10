@@ -452,20 +452,6 @@ const ReservationFlowPage: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className="recap-row">
-                                    <img src="/time.svg" alt="" className="recap-icon"  />
-                                    <div className="recap-text">
-                                        <span className="recap-label">Créneau</span>
-                                        <span className="recap-value">{formatTime(slot.start_time, slot.duration_minutes)}</span>
-                                    </div>
-                                </div>
-                                <div className="recap-row">
-                                    <img src="/users.svg" alt="" className="recap-icon" />
-                                    <div className="recap-text">
-                                        <span className="recap-label">Joueurs actuellement préinscrits</span>
-                                        <span className="recap-value">{slot.current_players_count}</span>
-                                    </div>
-                                </div>
-                                <div className="recap-row">
                                     <img src="/calendar.svg" alt="" className="recap-icon" />
                                     <div className="recap-text">
                                         <span className="recap-label">Date</span>
@@ -473,10 +459,24 @@ const ReservationFlowPage: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className="recap-row">
+                                    <img src="/time.svg" alt="" className="recap-icon"  />
+                                    <div className="recap-text">
+                                        <span className="recap-label">Créneau</span>
+                                        <span className="recap-value">{formatTime(slot.start_time, slot.duration_minutes)}</span>
+                                    </div>
+                                </div>
+                                <div className="recap-row">
                                     <img src="/price.svg" alt="" className="recap-icon" />
                                     <div className="recap-text">
                                         <span className="recap-label">Prix</span>
                                         <span className="recap-value">{priceRange.text}</span>
+                                    </div>
+                                </div>
+                                <div className="recap-row">
+                                    <img src="/users.svg" alt="" className="recap-icon" />
+                                    <div className="recap-text">
+                                        <span className="recap-label">Joueurs actuellement préinscrits</span>
+                                        <span className="recap-value">{slot.current_players_count}</span>
                                     </div>
                                 </div>
                             </div>
@@ -494,7 +494,7 @@ const ReservationFlowPage: React.FC = () => {
                         </div>
                     </section>
 
-                    {!isDesktop && (isPreRegistered || isPaymentPending) && (
+                    {(isPreRegistered || isPaymentPending) && (
                         <button 
                             className="cancel-pre-reg-btn" 
                             onClick={handleCancelPreRegistration}
@@ -504,8 +504,8 @@ const ReservationFlowPage: React.FC = () => {
                         </button>
                     )}
 
-                    {!isDesktop && (isPaid || isWaitingValidation || isConfirmed) && (
-                        <button className="cancel-pre-reg-btn" onClick={() => navigate('/')}>
+                    {(isPaid || isWaitingValidation || isConfirmed) && (
+                        <button className="cancel-pre-reg-btn" style={{ background: '#6D6D6D' }} onClick={() => navigate('/')}>
                             Quitter
                         </button>
                     )}
@@ -514,9 +514,9 @@ const ReservationFlowPage: React.FC = () => {
                 <footer className="recap-footer">
                     {isDraft ? (
                         <>
-                            <button className="btn-secondary-pill" onClick={handleBack}>Annuler</button>
+                            <button className="btn-secondary" onClick={handleBack}>Annuler</button>
                             <button 
-                                className="btn-primary-pill" 
+                                className="btn-primary" 
                                 onClick={handlePreRegister}
                                 disabled={actionLoading}
                             >
