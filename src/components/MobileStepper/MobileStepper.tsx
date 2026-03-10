@@ -6,6 +6,7 @@ export interface Step {
     description?: string;
     isDone?: boolean;
     showDescriptionIfDone?: boolean;
+    forceShowDescription?: boolean;
 }
 
 interface MobileStepperProps {
@@ -50,7 +51,7 @@ const MobileStepper: React.FC<MobileStepperProps> = ({ steps, currentStep, direc
                         </div>
                         <div className="stepper-text-content">
                             <h4 className="stepper-title">{step.title}</h4>
-                            {step.description && (isActive || (isDone && step.showDescriptionIfDone)) && (
+                            {step.description && (isActive || (isDone && step.showDescriptionIfDone) || step.forceShowDescription) && (
                                 <p className="stepper-description">{step.description}</p>
                             )}
                         </div>
