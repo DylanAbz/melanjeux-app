@@ -197,18 +197,18 @@
 .cancel-pre-reg-btn {
     display: flex;
     min-height: 48px;
-    padding: var(--M, 12px) 24px;
+    padding: 12px 24px;
     justify-content: center;
     align-items: center;
-    gap: var(--XS, 8px);
+    gap: 8px;
     align-self: stretch;
-    border-radius: var(--L, 24px);
+    border-radius: 24px;
     border: 1px solid var(--Neutral-Neutral-050, #F6F6F6);
     background: var(--Primary-Primary-700, #B52719);
     color: var(--Neutral-Neutral-050, #F6F6F6);
     text-align: center;
     font-family: Mundial;
-    font-size: var(--XS, 14px);
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: 120%;
@@ -273,40 +273,50 @@
     height: 20px;
 }
 
-/* --- DESKTOP --- */
+/* --- DESKTOP LAYOUT --- */
 @media (min-width: 1025px) {
     .reservation-flow-page.desktop {
-        background-color: #E7E7E7;
+        background-color: #F6F6F6;
         height: calc(100vh - 80px);
         padding-bottom: 40px;
         overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .reservation-flow-page.desktop .reservation-flow-container {
         width: 95%;
         max-width: 1200px;
         margin: 40px auto;
-        background: #F6F6F6;
+        background: #F6F6F6; /* Header area is white */
         border-radius: 12px;
-        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-        min-height: 800px;
-        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: min-content;
+        overflow: visible;
     }
 
     .reservation-flow-page.desktop .recap-header {
-        background: white;
+        background: #F6F6F6;
         padding: 40px 40px 20px;
+        border-radius: 12px 12px 0 0;
     }
 
     .reservation-flow-page.desktop .recap-content {
         padding: 40px 60px;
-        background: #F6F6F6;
+        background: #F6F6F6; /* Container inside is grey */
         gap: 32px;
+        display: flex;
+        flex-direction: column;
+        overflow: visible;
     }
 
     .reservation-flow-page.desktop .recap-card {
         border-radius: 24px;
-        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+        box-shadow: none;
+        border: 1px solid #F0F0F0;
+        background: #FFFFFF;
     }
 
     .reservation-flow-page.desktop .card-title {
@@ -314,25 +324,30 @@
     }
 
     .reservation-flow-page.desktop .recap-footer {
-        position: relative;
+        position: static;
         padding: 40px 60px;
         background: #F6F6F6;
+        display: flex;
         justify-content: space-between;
         box-shadow: none;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 0 0 12px 12px;
     }
 
     .reservation-flow-page.desktop .btn-copy,
-    .reservation-flow-page.desktop .btn-chat {
-        flex: 0 1 auto;
+    .reservation-flow-page.desktop .btn-chat,
+    .reservation-flow-page.desktop .btn-primary,
+    .reservation-flow-page.desktop .btn-secondary {
         min-width: 200px;
         height: 56px;
         border-radius: 28px;
     }
 
-    .recap-grid-desktop {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 32px;
-        width: 100%;
+    /* Red button desktop layout */
+    .reservation-flow-page.desktop .cancel-pre-reg-btn {
+        width: auto;
+        min-width: 250px;
+        align-self: flex-start;
     }
 }

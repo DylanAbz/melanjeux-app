@@ -1,6 +1,6 @@
 .room-card {
     display: flex;
-    width: 100%;
+    width: 95%;
     padding: 12px;
     flex-direction: column;
     justify-content: flex-end;
