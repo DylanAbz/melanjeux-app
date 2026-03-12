@@ -149,7 +149,7 @@ const ReservationFlowPage: React.FC = () => {
         { 
             title: "Paiement",
             isDone: isPaid || isWaitingValidation || isConfirmed,
-            showDescriptionIfDone: isPaid || isWaitingValidation,
+            showDescriptionIfDone: isPaid,
             forceShowDescription: isPreRegistered,
             description: isPreRegistered 
                 ? "Tu pourras payer une fois le nombre minimal de participants pré-inscrits atteint."
@@ -418,18 +418,19 @@ const ReservationFlowPage: React.FC = () => {
                                         <div className="participants-count-container">
                                             {(isPaid || isWaitingValidation || isConfirmed) ? (
                                                 <>
-                                                    <span className={`participants-count ${(isConfirmed || slot.paid_players_count === slot.current_players_count) ? 'success' : ''}`}>
+                                                    <span className={`participants-count ${(isConfirmed || Number(slot.paid_players_count) === Number(slot.current_players_count)) ? 'success' : ''}`}>
                                                         {isConfirmed ? slot.current_players_count : slot.paid_players_count}/{slot.current_players_count}
                                                     </span>
                                                     <span className="participants-label">participants ayant réglé</span>
                                                 </>
                                             ) : (
                                                 <>
-                                                    <span className="participants-count">{slot.current_players_count}/{slot.min_players}</span>
+                                                    <span className={`participants-count ${Number(slot.current_players_count) >= Number(slot.min_players) ? 'success' : ''}`}>
+                                                        {slot.current_players_count}/{slot.min_players}
+                                                    </span>
                                                     <span className="participants-label">participants pré-inscrits</span>
                                                 </>
-                                            )}
-                                        </div>
+                                            )}                                        </div>
                                         <div className="participants-indicator">
                                             <ParticipantDots 
                                                 filledCount={(isPaid || isWaitingValidation || isConfirmed) ? (isConfirmed ? slot.current_players_count : slot.paid_players_count) : slot.current_players_count} 
@@ -595,7 +596,7 @@ const ReservationFlowPage: React.FC = () => {
                 isLoading={actionLoading}
             />
 
-            <Modal isOpen={showInfoModal} onClose={() => setShowInfoModal(false)}>
+            <Modal isOpen={showInfoModal} onClose={() => setShowInfoModal(false)} noCloseButton>
                 <div className="payment-info-modal">
                     <h2>Avant de continuer</h2>
                     <p>Le prix par personne est variable et sera compris entre {priceRange.min}€ et {priceRange.max}€, selon le nombre final de participants.</p>

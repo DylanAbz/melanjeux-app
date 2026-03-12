@@ -188,6 +188,10 @@
     line-height: 120%;
 }
 
+span.participants-count.success {
+    color: var(--Utils-Success, #39B230) !important;
+}
+
 .participants-label {
     color: var(--Neutral-Neutral-500, #6D6D6D);
     font-family: var(--Secondary, Mundial);
@@ -220,7 +224,7 @@
     align-items: center;
     gap: 8px;
     align-self: stretch;
-    border-radius: 24px;
+    border-radius: 999px;
     border: 1px solid var(--Neutral-Neutral-050, #F6F6F6);
     background: var(--Primary-Primary-700, #B52719);
     color: var(--Neutral-Neutral-050, #F6F6F6);
@@ -256,18 +260,29 @@
     gap: 12px;
 }
 
+.payment-actions {
+    width: 100%;
+}
+
+.action-buttons-row {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    align-items: center;
+}
+
 .btn-secondary, .btn-copy {
     display: flex;
     height: 48px;
-    padding: 0 16px;
+    padding: 0 24px;
     justify-content: center;
     align-items: center;
     gap: 8px;
     flex: 1;
-    border-radius: 24px;
-    border: 1px solid #1A1A1A;
+    border-radius: 999px;
+    border: 1px solid var(--Neutral-Neutral-900, #3D3D3D);
     background: #FFFFFF;
-    color: #1A1A1A;
+    color: var(--Neutral-Neutral-900, #3D3D3D);
     font-family: var(--Secondary, Mundial);
     font-size: 14px;
     font-weight: 600;
@@ -277,12 +292,12 @@
 .btn-primary, .btn-chat {
     display: flex;
     height: 48px;
-    padding: 0 16px;
+    padding: 0 24px;
     justify-content: center;
     align-items: center;
     gap: 8px;
     flex: 1;
-    border-radius: 24px;
+    border-radius: 999px;
     background: var(--Colors-Lust-400, #F96E3E);
     border: none;
     color: #FFFFFF;
@@ -290,6 +305,25 @@
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
+}
+
+.btn-icon-circle {
+    display: flex;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 999px;
+    border: 1px solid var(--Neutral-Neutral-900, #3D3D3D);
+    background: #FFFFFF;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+}
+
+.btn-icon-circle img {
+    width: 24px;
+    height: 24px;
 }
 
 .btn-icon {
@@ -367,7 +401,13 @@
     .reservation-flow-page.desktop .btn-secondary {
         min-width: 200px;
         height: 56px;
-        border-radius: 28px;
+        border-radius: 999px;
+    }
+
+    .reservation-flow-page.desktop .btn-icon-circle {
+        width: 56px;
+        height: 56px;
+        min-width: 56px;
     }
 
     /* Red button desktop layout */
@@ -376,6 +416,7 @@
         min-width: 250px;
         align-self: flex-start;
         margin: 0;
+        height: 56px;
     }
 
     .reservation-flow-page.desktop .recap-main-grid {
@@ -440,4 +481,94 @@
         height: 32px;
         filter: brightness(0);
     }
+}
+
+/* Payment Info Modal */
+.payment-info-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 10px;
+}
+
+.payment-info-modal h2 {
+    text-align: center;
+    font-family: var(--Primary, Kanit);
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: #3D3D3D;
+}
+
+.payment-info-modal p {
+    text-align: left;
+    font-family: var(--Secondary, Mundial);
+    font-size: 16px;
+    line-height: 1.4;
+    margin: 0;
+    color: #3D3D3D;
+}
+
+.payment-info-modal .modal-actions-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.payment-info-modal .btn-secondary,
+.payment-info-modal .btn-primary {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Payment Success Modal */
+.payment-success-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    padding: 10px;
+}
+
+.payment-success-modal .success-icon-circle {
+    width: 64px;
+    height: 64px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.payment-success-modal .success-icon-circle img {
+    width: 32px;
+    height: 32px;
+    filter: brightness(0) invert(1);
+}
+
+.payment-success-modal h3 {
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    text-align: center;
+    font-family: var(--Primary, Kanit);
+    font-size: var(--XL, 24px);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%;
+    margin: 0;
+}
+
+.payment-success-modal p {
+    color: var(--Neutral-Neutral-900, #3D3D3D);
+    font-family: var(--Secondary, Mundial);
+    font-size: 16px;
+    line-height: 1.4;
+    margin: 0;
+    text-align: left;
+}
+
+.payment-success-modal .btn-secondary {
+    width: 100%;
+    margin-top: 16px;
 }
