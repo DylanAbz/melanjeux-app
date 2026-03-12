@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import BottomBar from './components/BottomBar/BottomBar';
 import Sidebar from './components/Sidebar/Sidebar';
@@ -29,6 +30,14 @@ const getPageTitle = (pathname: string) => {
 
 function App() {
   const location = useLocation();
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth > 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const hideBottomBar = location.pathname.startsWith('/room/') || 
                        location.pathname === '/recap' || 
                        location.pathname.match(/^\/messages\/[^/]+$/) ||
@@ -40,8 +49,11 @@ function App() {
       <header className="desktop-layout-header">
         <div className="orange-search-bar">
           <div className="desktop-search-wrapper">
-             {location.pathname === '/recap' || location.pathname === '/bookings' ? (
-                <h1 className="desktop-page-title">{location.pathname === '/recap' ? 'Réserver' : 'Réservations'}</h1>
+             {location.pathname === '/recap' || location.pathname === '/bookings' || location.pathname.startsWith('/messages') ? (
+                <h1 className="desktop-page-title">
+                  {location.pathname === '/recap' ? 'Réserver' : 
+                   location.pathname === '/bookings' ? 'Réservations' : 'Messages'}
+                </h1>
              ) : (
                 <>
                   <SearchBar placeholder="Rechercher une salle" />
@@ -63,7 +75,7 @@ function App() {
             <Route path="/filter" element={<FilterPage />} />
             <Route path="/bookings" element={<BookingsPage />} />
             <Route path="/messages" element={<MessagesListPage />} />
-            <Route path="/messages/:chatId" element={<ChatRoomPage />} />
+            <Route path="/messages/:chatId" element={isDesktop ? <MessagesListPage /> : <ChatRoomPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/profile/edit" element={<EditProfilePage />} />
             <Route path="/profile/edit/name" element={<EditName />} />

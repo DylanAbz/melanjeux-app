@@ -2,7 +2,21 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #f9f9f9;
+  background-color: #FFF9F3;
+  width: 100%;
+}
+
+.messages-layout-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.messages-sidebar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
 /* On override le PageHeader pour qu'il soit orange */
@@ -19,14 +33,13 @@
   flex: 1;
   overflow-y: auto;
   padding-bottom: 80px; /* Bottom bar space */
-  background-color: #f9f9f9;
 }
 
 .message-item {
   display: flex;
   align-items: center;
   padding: 16px 20px;
-  background-color: white;
+  background-color: transparent;
   border-bottom: 1px solid #eeeeee;
   cursor: pointer;
 }
@@ -106,4 +119,59 @@
   padding: 40px;
   color: #888;
   font-family: var(--Secondary, Mundial);
+}
+
+/* --- DESKTOP STYLES --- */
+@media (min-width: 1025px) {
+  .messages-list-page.desktop {
+      height: calc(100vh - 80px); /* Adjust for orange header */
+  }
+
+  .messages-sidebar {
+      width: 350px;
+      min-width: 350px;
+      border-right: 1px solid #E7E7E7;
+      background-color: #FFF9F3;
+  }
+
+  .sidebar-section-title {
+      padding: 24px 24px 16px;
+      font-family: var(--Primary, Kanit);
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0;
+      color: #3D3D3D;
+  }
+
+  .messages-list-content {
+      padding: 0 16px;
+  }
+
+  .message-item {
+      border-bottom: none;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      background-color: transparent;
+  }
+
+  .message-item.active {
+      background-color: #FFE6D5;
+  }
+
+  .chat-main-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background-color: #FFF9F3;
+      position: relative;
+  }
+
+  .no-chat-selected {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6D6D6D;
+      font-family: var(--Secondary, Mundial);
+  }
 }
