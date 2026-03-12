@@ -107,3 +107,63 @@ body {
         display: none !important;
     }
 }
+
+/* Common Autocomplete & Input with Icon */
+.input-with-icon {
+    position: relative;
+    width: 100%;
+}
+
+.input-with-icon input {
+    padding-right: 45px;
+}
+
+.clear-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6D6D6D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.suggestions-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #D1D1D1;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.suggestions-list li {
+    padding: 12px 20px;
+    cursor: pointer;
+    font-family: var(--Secondary, Mundial);
+    font-size: 14px;
+    color: var(--Colors-EerieBlack-950);
+    border-bottom: 1px solid #F0F0F0;
+    text-align: left;
+}
+
+.suggestions-list li:last-child {
+    border-bottom: none;
+}
+
+.suggestions-list li:hover {
+    background-color: #F9F9F9;
+}

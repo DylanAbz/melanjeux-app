@@ -64,6 +64,13 @@ const ProfilePage: React.FC = () => {
     );
     const [activeTab, setActiveTab] = useState<'informations' | 'parametres'>('informations');
     const [error, setError] = useState<string | null>(null);
+    const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
+
+    useEffect(() => {
+        const handleResize = () => setIsDesktop(window.innerWidth > 1024);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     // City autocomplete states
     const [cityInput, setCityInput] = useState('');
@@ -170,11 +177,13 @@ const ProfilePage: React.FC = () => {
 
     if (isAuthenticated && user) {
         return (
-            <div className="profile-page">
-                <div className="profile-header-container">
-                    <img src="/headerBackground.svg" alt="" className="profile-header-bg" />
-                    <h1 className="profile-header-title">Mon Compte</h1>
-                </div>
+            <div className={`profile-page ${isDesktop ? 'desktop' : ''}`}>
+                {!isDesktop && (
+                    <div className="profile-header-container">
+                        <img src="/headerBackground.svg" alt="" className="profile-header-bg" />
+                        <h1 className="profile-header-title">Mon Compte</h1>
+                    </div>
+                )}
 
                 <div className="profile-tabs">
                     <div className="tabs-container">
@@ -304,8 +313,8 @@ const ProfilePage: React.FC = () => {
     }
 
     return (
-        <div className="profile-page">
-            <PageHeader title="Mon compte" />
+        <div className={`profile-page ${isDesktop ? 'desktop' : ''}`}>
+            {!isDesktop && <PageHeader title="Mon compte" />}
             <div className="auth-scroll-container">
                 <div className="auth-content">
                     {view === 'login' ? (
@@ -406,22 +415,24 @@ const ProfilePage: React.FC = () => {
 
                                 <div className="form-group city-autocomplete">
                                     <label htmlFor="city">Ville (Optionnel)</label>
-                                    <input 
-                                        type="text" 
-                                        id="city" 
-                                        placeholder="Rechercher une ville" 
-                                        value={cityInput} 
-                                        onChange={(e) => setCityInput(e.target.value)} 
-                                    />
-                                    {citySuggestions.length > 0 && (
-                                        <ul className="suggestions-list">
-                                            {citySuggestions.map((c, i) => (
-                                                <li key={i} onClick={() => handleCitySelect(c)}>
-                                                    {c.nom} ({c.codesPostaux?.[0]?.substring(0, 2)})
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )}
+                                    <div className="input-with-icon">
+                                        <input 
+                                            type="text" 
+                                            id="city" 
+                                            placeholder="Rechercher une ville" 
+                                            value={cityInput} 
+                                            onChange={(e) => setCityInput(e.target.value)} 
+                                        />
+                                        {citySuggestions.length > 0 && (
+                                            <ul className="suggestions-list">
+                                                {citySuggestions.map((c, i) => (
+                                                    <li key={i} onClick={() => handleCitySelect(c)}>
+                                                        {c.nom} ({c.codesPostaux?.[0]?.substring(0, 2)})
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </div>
                                 </div>
 
                                 <div className="form-group">

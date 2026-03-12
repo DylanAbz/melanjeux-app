@@ -248,39 +248,3 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(20px);
 }
-
-/* Autocomplete Suggestions */
-.suggestions-list {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: white;
-    border: 1px solid #D1D1D1;
-    border-top: none;
-    border-radius: 0 0 12px 12px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    z-index: 100;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-.suggestions-list li {
-    padding: 12px 20px;
-    cursor: pointer;
-    font-family: var(--Secondary, Mundial);
-    font-size: 14px;
-    color: var(--Colors-EerieBlack-950);
-    border-bottom: 1px solid #F0F0F0;
-}
-
-.suggestions-list li:last-child {
-    border-bottom: none;
-}
-
-.suggestions-list li:hover {
-    background-color: #F9F9F9;
-}

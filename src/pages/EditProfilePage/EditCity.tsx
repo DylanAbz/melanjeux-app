@@ -88,16 +88,16 @@ const EditCity: React.FC = () => {
                                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                             </svg>
                         </div>
+                        {citySuggestions.length > 0 && (
+                            <ul className="suggestions-list">
+                                {citySuggestions.map((c, i) => (
+                                    <li key={i} onClick={() => handleCitySelect(c)}>
+                                        {c.nom} ({c.codesPostaux?.[0]?.substring(0, 2)})
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                     </div>
-                    {citySuggestions.length > 0 && (
-                        <ul className="suggestions-list">
-                            {citySuggestions.map((c, i) => (
-                                <li key={i} onClick={() => handleCitySelect(c)}>
-                                    {c.nom} ({c.codesPostaux?.[0]?.substring(0, 2)})
-                                </li>
-                            ))}
-                        </ul>
-                    )}
                 </div>
 
                 <div style={{ flex: 1 }}></div>

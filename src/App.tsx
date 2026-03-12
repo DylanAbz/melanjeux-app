@@ -49,10 +49,11 @@ function App() {
       <header className="desktop-layout-header">
         <div className="orange-search-bar">
           <div className="desktop-search-wrapper">
-             {location.pathname === '/recap' || location.pathname === '/bookings' || location.pathname.startsWith('/messages') ? (
+             {location.pathname === '/recap' || location.pathname === '/bookings' || location.pathname.startsWith('/messages') || location.pathname === '/profile' ? (
                 <h1 className="desktop-page-title">
                   {location.pathname === '/recap' ? 'Réserver' : 
-                   location.pathname === '/bookings' ? 'Réservations' : 'Messages'}
+                   location.pathname === '/bookings' ? 'Réservations' : 
+                   location.pathname.startsWith('/messages') ? 'Messages' : 'Mon Compte'}
                 </h1>
              ) : (
                 <>
