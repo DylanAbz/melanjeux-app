@@ -25,6 +25,7 @@ interface Message {
     text: string;
     senderId: string;
     senderName: string;
+    senderAvatar?: string;
     createdAt: any;
 }
 
@@ -83,11 +84,17 @@ const ChatRoomPage: React.FC = () => {
                 ...doc.data()
             })) as Message[];
             setMessages(msgs);
-            scrollToBottom();
         });
 
         return () => unsubscribe();
     }, [chatId]);
+
+    // Scroll to bottom whenever messages change
+    useEffect(() => {
+        if (messages.length > 0) {
+            scrollToBottom();
+        }
+    }, [messages]);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -109,6 +116,7 @@ const ChatRoomPage: React.FC = () => {
                 text: messageText,
                 senderId: String(user.id),
                 senderName: senderDisplayName,
+                senderAvatar: user.avatarUrl || '/avatars/avatar0.svg',
                 createdAt: serverTimestamp()
             });
 
@@ -158,7 +166,7 @@ const ChatRoomPage: React.FC = () => {
                                 {!isMine && (
                                     <div className="bubble-avatar">
                                         <div className="avatar-circle">
-                                            <img src="/user.svg" alt="" />
+                                            <img src={msg.senderAvatar || '/user.svg'} alt="" />
                                         </div>
                                     </div>
                                 )}
