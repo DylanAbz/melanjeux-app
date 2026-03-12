@@ -40,8 +40,8 @@ function App() {
       <header className="desktop-layout-header">
         <div className="orange-search-bar">
           <div className="desktop-search-wrapper">
-             {location.pathname === '/recap' ? (
-                <h1 className="desktop-page-title">Réserver</h1>
+             {location.pathname === '/recap' || location.pathname === '/bookings' ? (
+                <h1 className="desktop-page-title">{location.pathname === '/recap' ? 'Réserver' : 'Réservations'}</h1>
              ) : (
                 <>
                   <SearchBar placeholder="Rechercher une salle" />

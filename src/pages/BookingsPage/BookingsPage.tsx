@@ -161,11 +161,7 @@ const BookingsPage: React.FC = () => {
 
     return (
         <div className={`bookings-page ${isDesktop ? 'desktop' : ''}`}>
-            {!isDesktop ? <PageHeader title="Réservations" /> : (
-                <header className="bookings-desktop-header">
-                    <h1>Réservations</h1>
-                </header>
-            )}
+            {!isDesktop && <PageHeader title="Réservations" />}
             
             <main className="bookings-content">
                 {loading ? (
