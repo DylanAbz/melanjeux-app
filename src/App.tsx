@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import BottomBar from './components/BottomBar/BottomBar';
 import Sidebar from './components/Sidebar/Sidebar';
@@ -18,15 +18,6 @@ import { BrowserRouter, Routes, Route, useLocation, useSearchParams, useNavigate
 import { AuthProvider } from './context/AuthContext';
 import { SearchBar } from './components/SearchBar/SearchBar';
 import FilterButton from './components/FilterButton/FilterButton';
-
-const getPageTitle = (pathname: string) => {
-    if (pathname === '/') return 'Recherche';
-    if (pathname === '/bookings') return 'Réservations';
-    if (pathname === '/messages') return 'Messages';
-    if (pathname === '/profile') return 'Mon Compte';
-    if (pathname.startsWith('/room/')) return 'Détails de la salle';
-    return 'Mélanjeux';
-};
 
 function App() {
   const location = useLocation();

@@ -16,8 +16,6 @@ interface MobileStepperProps {
 }
 
 const MobileStepper: React.FC<MobileStepperProps> = ({ steps, currentStep, direction = 'vertical' }) => {
-    const isHorizontal = direction === 'horizontal';
-
     return (
         <div className={`mobile-stepper ${direction}`}>
             {steps.map((step, index) => {

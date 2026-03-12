@@ -1,7 +1,6 @@
 import React from 'react';
 import './Sidebar.css';
 import { NavLink } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
 
 const SidebarIcon = ({ name }: { name: string }) => {
   const commonProps = {
