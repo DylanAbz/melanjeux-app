@@ -385,6 +385,10 @@
         width: 100%;
     }
 
+    .reservation-flow-page.desktop .recap-main-grid.is-draft {
+        grid-template-columns: 1fr;
+    }
+
     .reservation-flow-page.desktop .recap-left-column {
         display: flex;
         flex-direction: column;

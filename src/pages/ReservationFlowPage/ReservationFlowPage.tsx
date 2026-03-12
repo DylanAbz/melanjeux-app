@@ -402,42 +402,44 @@ const ReservationFlowPage: React.FC = () => {
                 </header>
 
                 <main className="recap-content">
-                    <div className="recap-main-grid">
-                        <div className="recap-left-column">
-                            {(isPreRegistered || isPaymentPending || isPaid || isWaitingValidation || isConfirmed) && (
-                                <div className={`recap-card validation-card ${(isPaid || isWaitingValidation || isConfirmed) ? 'paid' : ''}`}>
-                                    <span className="validation-text">
-                                        {isConfirmed ? "Inscription validée" : (isPaid || isWaitingValidation) ? "Paiement validé" : "Pré-inscription validée"}
-                                    </span>
-                                </div>
-                            )}
+                    <div className={`recap-main-grid ${isDraft ? 'is-draft' : ''}`}>
+                        {!isDraft && (
+                            <div className="recap-left-column">
+                                {(isPreRegistered || isPaymentPending || isPaid || isWaitingValidation || isConfirmed) && (
+                                    <div className={`recap-card validation-card ${(isPaid || isWaitingValidation || isConfirmed) ? 'paid' : ''}`}>
+                                        <span className="validation-text">
+                                            {isConfirmed ? "Inscription validée" : (isPaid || isWaitingValidation) ? "Paiement validé" : "Pré-inscription validée"}
+                                        </span>
+                                    </div>
+                                )}
 
-                            {(isPreRegistered || isPaymentPending || isPaid || isWaitingValidation || isConfirmed) && (
-                                <div className="recap-card participants-card">
-                                    <div className="participants-count-container">
-                                        {(isPaid || isWaitingValidation || isConfirmed) ? (
-                                            <>
-                                                <span className={`participants-count ${(isConfirmed || slot.paid_players_count === slot.current_players_count) ? 'success' : ''}`}>
-                                                    {isConfirmed ? slot.current_players_count : slot.paid_players_count}/{slot.current_players_count}
-                                                </span>
-                                                <span className="participants-label">participants ayant réglé</span>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <span className="participants-count">{slot.current_players_count}/{slot.min_players}</span>
-                                                <span className="participants-label">participants pré-inscrits</span>
-                                            </>
-                                        )}
+                                {(isPreRegistered || isPaymentPending || isPaid || isWaitingValidation || isConfirmed) && (
+                                    <div className="recap-card participants-card">
+                                        <div className="participants-count-container">
+                                            {(isPaid || isWaitingValidation || isConfirmed) ? (
+                                                <>
+                                                    <span className={`participants-count ${(isConfirmed || slot.paid_players_count === slot.current_players_count) ? 'success' : ''}`}>
+                                                        {isConfirmed ? slot.current_players_count : slot.paid_players_count}/{slot.current_players_count}
+                                                    </span>
+                                                    <span className="participants-label">participants ayant réglé</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <span className="participants-count">{slot.current_players_count}/{slot.min_players}</span>
+                                                    <span className="participants-label">participants pré-inscrits</span>
+                                                </>
+                                            )}
+                                        </div>
+                                        <div className="participants-indicator">
+                                            <ParticipantDots 
+                                                filledCount={(isPaid || isWaitingValidation || isConfirmed) ? (isConfirmed ? slot.current_players_count : slot.paid_players_count) : slot.current_players_count} 
+                                                totalTarget={(isPaid || isWaitingValidation || isConfirmed) ? slot.current_players_count : slot.min_players} 
+                                            />
+                                        </div>
                                     </div>
-                                    <div className="participants-indicator">
-                                        <ParticipantDots 
-                                            filledCount={(isPaid || isWaitingValidation || isConfirmed) ? (isConfirmed ? slot.current_players_count : slot.paid_players_count) : slot.current_players_count} 
-                                            totalTarget={(isPaid || isWaitingValidation || isConfirmed) ? slot.current_players_count : slot.min_players} 
-                                        />
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+                                )}
+                            </div>
+                        )}
 
                         <div className="recap-right-column">
                             <section className="recap-card recap-details-card">
