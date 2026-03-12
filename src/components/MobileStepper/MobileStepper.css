@@ -32,7 +32,7 @@
 
 .stepper-item.finalized .stepper-circle,
 .stepper-item.success .stepper-circle {
-    background-color: #4CAF50;
+    background-color: var(--Utils-Success, #39B230);
 }
 
 /* --- VERTICAL (Mobile) --- */
@@ -128,6 +128,11 @@
 .stepper-item.active .stepper-title,
 .stepper-item.done .stepper-title {
     color: var(--Colors-Lust-400, #F96E3E);
+}
+
+.stepper-item.finalized .stepper-title,
+.stepper-item.success .stepper-title {
+    color: var(--Utils-Success, #39B230);
 }
 
 .stepper-description {
