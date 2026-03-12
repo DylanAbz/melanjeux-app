@@ -13,6 +13,13 @@
     border: 0.469px solid #D1D1D1;
 }
 
+@media (min-width: 1025px) {
+    .reservation-card {
+        width: 100%;
+        margin: 0;
+    }
+}
+
 .reservation-card-overlay {
     position: absolute;
     top: 0;

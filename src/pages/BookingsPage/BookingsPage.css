@@ -73,3 +73,60 @@
     gap: 16px;
     width: 100%;
 }
+
+/* --- DESKTOP STYLES --- */
+@media (min-width: 1025px) {
+    .bookings-page.desktop {
+        background-color: #F6F6F6;
+    }
+
+    .bookings-desktop-header {
+        background-color: #F96E3E;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .bookings-desktop-header h1 {
+        color: white;
+        font-family: var(--Primary, Kanit);
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .bookings-page.desktop .bookings-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 60px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .bookings-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        width: 100%;
+    }
+
+    .bookings-page.desktop .section-title {
+        font-size: 18px;
+        margin-bottom: 24px;
+        text-transform: none;
+        letter-spacing: normal;
+        color: #3D3D3D;
+    }
+
+    .bookings-page.desktop .bookings-section {
+        margin-bottom: 48px;
+        border-bottom: 1px solid #E7E7E7;
+        padding-bottom: 32px;
+    }
+
+    .bookings-page.desktop .bookings-section:last-child {
+        border-bottom: none;
+    }
+}

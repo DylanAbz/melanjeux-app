@@ -224,23 +224,34 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, selectedRo
 
     return (
         <div className="booking-modal-overlay">
-            <header className="booking-modal-header">
-                <button className="booking-modal-back-button" onClick={handleBack}>
-                    <img src="/chevronLeft.svg" alt="Back" />
-                </button>
-                <h2 className="booking-modal-title">{selectedRoomName}</h2>
-                <span className="booking-modal-subtitle">
-                    {step === 1 ? "Choisissez votre date" : "Choisissez votre créneau"}
-                </span>
-            </header>
+            <button className="booking-modal-back-button" onClick={handleBack}>
+                <img src="/chevronLeft.svg" alt="Back" />
+            </button>
+            <div className="booking-modal-container">
+                <header className="booking-modal-header">
+                    <div className="booking-modal-header-titles">
+                        <h2 className="booking-modal-desktop-title">Réserver</h2>
+                        <h2 className="booking-modal-title">{selectedRoomName}</h2>
+                        <span className="booking-modal-subtitle">
+                            {step === 1 ? "Choisissez votre date" : "Choisissez votre créneau"}
+                        </span>
+                    </div>
+                </header>
 
-            <main className="booking-modal-content">
-                {step === 1 ? renderCalendar() : renderTimeSlots()}
-            </main>
+                <main className="booking-modal-content">
+                    <div className="booking-modal-desktop-content-header">
+                        <h2 className="booking-modal-desktop-room-title">{selectedRoomName}</h2>
+                        <span className="booking-modal-desktop-subtitle">
+                            {step === 1 ? "Choisissez votre date" : "Sélectionnez un créneau"}
+                        </span>
+                    </div>
+                    {step === 1 ? renderCalendar() : renderTimeSlots()}
+                </main>
 
-            <footer className="booking-modal-footer">
-                <button className="btn-cancel" onClick={onClose}>Annuler</button>
-            </footer>
+                <footer className="booking-modal-footer">
+                    <button className="btn-cancel" onClick={onClose}>Annuler</button>
+                </footer>
+            </div>
         </div>
     );
 };

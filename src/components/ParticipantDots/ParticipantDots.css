@@ -13,9 +13,9 @@
 }
 
 .participant-dot.filled {
-    background-color: var(--primary);
+    background-color: var(--Primary-Primary-400, #ED6E44);
 }
 
 .participant-dot.empty {
-    border: 1.5px solid var(--primary);
+    border: 1.5px solid var(--Primary-Primary-400, #ED6E44);
 }

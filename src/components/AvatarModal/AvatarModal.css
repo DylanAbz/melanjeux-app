@@ -1,0 +1,60 @@
+.avatar-modal-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 10px;
+}
+
+.avatars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    justify-items: center;
+}
+
+.avatar-item {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    overflow: hidden;
+}
+
+.avatar-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-item.selected {
+    border-color: var(--Colors-Lust-400, #F96E3E);
+}
+
+.avatar-modal-actions {
+    display: flex;
+    gap: 16px;
+}
+
+.avatar-modal-actions button {
+    flex: 1;
+    height: 48px;
+    border-radius: 24px;
+    font-family: var(--Primary, Kanit);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-annuler {
+    background: white;
+    border: 1px solid var(--Colors-EerieBlack-950, #1C1B1D);
+    color: var(--Colors-EerieBlack-950, #1C1B1D);
+}
+
+.btn-valider {
+    background: var(--Colors-Lust-400, #F96E3E);
+    border: none;
+    color: white;
+}

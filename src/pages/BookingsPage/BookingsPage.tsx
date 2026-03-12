@@ -39,6 +39,13 @@ const BookingsPage: React.FC = () => {
     const navigate = useNavigate();
     const [bookings, setBookings] = useState<BookingData[]>([]);
     const [loading, setLoading] = useState(true);
+    const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
+
+    useEffect(() => {
+        const handleResize = () => setIsDesktop(window.innerWidth > 1024);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const fetchBookings = async () => {
         try {
@@ -153,8 +160,8 @@ const BookingsPage: React.FC = () => {
     const pastBookings = bookings.filter(b => b.isPast);
 
     return (
-        <div className="bookings-page">
-            <PageHeader title="Réservations" />
+        <div className={`bookings-page ${isDesktop ? 'desktop' : ''}`}>
+            {!isDesktop && <PageHeader title="Réservations" />}
             
             <main className="bookings-content">
                 {loading ? (
@@ -163,34 +170,38 @@ const BookingsPage: React.FC = () => {
                     <>
                         <section className="bookings-section">
                             <h2 className="section-title">À venir</h2>
-                            {upcomingBookings.length > 0 ? (
-                                upcomingBookings.map(booking => (
-                                    <div key={booking.id} onClick={() => handleCardClick(booking.id)} style={{ cursor: 'pointer' }}>
-                                        <ReservationCard 
-                                            {...booking} 
-                                            onChatClick={() => handleChatClick(booking)}
-                                        />
-                                    </div>
-                                ))
-                            ) : (
-                                <p className="no-bookings">Aucune réservation à venir.</p>
-                            )}
+                            <div className="bookings-grid">
+                                {upcomingBookings.length > 0 ? (
+                                    upcomingBookings.map(booking => (
+                                        <div key={booking.id} onClick={() => handleCardClick(booking.id)} style={{ cursor: 'pointer' }}>
+                                            <ReservationCard 
+                                                {...booking} 
+                                                onChatClick={() => handleChatClick(booking)}
+                                            />
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p className="no-bookings">Aucune réservation à venir.</p>
+                                )}
+                            </div>
                         </section>
 
                         <section className="bookings-section">
                             <h2 className="section-title">Passées</h2>
-                            {pastBookings.length > 0 ? (
-                                pastBookings.map(booking => (
-                                    <div key={booking.id} onClick={() => handleCardClick(booking.id)} style={{ cursor: 'pointer' }}>
-                                        <ReservationCard 
-                                            {...booking} 
-                                            onChatClick={() => handleChatClick(booking)}
-                                        />
-                                    </div>
-                                ))
-                            ) : (
-                                <p className="no-bookings">Aucune réservation passée.</p>
-                            )}
+                            <div className="bookings-grid">
+                                {pastBookings.length > 0 ? (
+                                    pastBookings.map(booking => (
+                                        <div key={booking.id} onClick={() => handleCardClick(booking.id)} style={{ cursor: 'pointer' }}>
+                                            <ReservationCard 
+                                                {...booking} 
+                                                onChatClick={() => handleChatClick(booking)}
+                                            />
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p className="no-bookings">Aucune réservation passée.</p>
+                                )}
+                            </div>
                         </section>
                     </>
                 )}

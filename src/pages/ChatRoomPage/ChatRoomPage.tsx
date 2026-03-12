@@ -25,6 +25,7 @@ interface Message {
     text: string;
     senderId: string;
     senderName: string;
+    senderAvatar?: string;
     createdAt: any;
 }
 
@@ -36,7 +37,14 @@ const ChatRoomPage: React.FC = () => {
     const [roomName, setRoomName] = useState('Chargement...');
     const [isChatActive, setIsChatActive] = useState(true);
     const [newMessage, setNewMessage] = useState('');
+    const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleResize = () => setIsDesktop(window.innerWidth > 1024);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     // Récupérer les infos de la salle depuis le backend
     useEffect(() => {
@@ -76,11 +84,17 @@ const ChatRoomPage: React.FC = () => {
                 ...doc.data()
             })) as Message[];
             setMessages(msgs);
-            scrollToBottom();
         });
 
         return () => unsubscribe();
     }, [chatId]);
+
+    // Scroll to bottom whenever messages change
+    useEffect(() => {
+        if (messages.length > 0) {
+            scrollToBottom();
+        }
+    }, [messages]);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -102,6 +116,7 @@ const ChatRoomPage: React.FC = () => {
                 text: messageText,
                 senderId: String(user.id),
                 senderName: senderDisplayName,
+                senderAvatar: user.avatarUrl || '/avatars/avatar0.svg',
                 createdAt: serverTimestamp()
             });
 
@@ -117,12 +132,15 @@ const ChatRoomPage: React.FC = () => {
     };
 
     return (
-        <div className="chat-room-page">
-            {/* Header Fixe */}
+        <div className={`chat-room-page ${isDesktop ? 'desktop' : ''}`}>
+            {/* Header Fixe - only on mobile or as subheader on desktop if needed, 
+                but maquette shows room name in a white bar */}
             <header className="chat-header">
-                <button className="back-button-circle" onClick={() => navigate(-1)}>
-                    <img src="/chevronLeft.svg" alt="Retour" />
-                </button>
+                {!isDesktop && (
+                    <button className="back-button-circle" onClick={() => navigate(-1)}>
+                        <img src="/chevronLeft.svg" alt="Retour" />
+                    </button>
+                )}
                 <h1 className="chat-title">{roomName}</h1>
                 <button className="group-button-circle">
                     <img src="/users.svg" alt="Participants" />
@@ -148,7 +166,7 @@ const ChatRoomPage: React.FC = () => {
                                 {!isMine && (
                                     <div className="bubble-avatar">
                                         <div className="avatar-circle">
-                                            <img src="/user.svg" alt="" />
+                                            <img src={msg.senderAvatar || '/user.svg'} alt="" />
                                         </div>
                                     </div>
                                 )}

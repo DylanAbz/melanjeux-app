@@ -5,6 +5,13 @@ export interface User {
     lastName: string;
     pseudo: string;
     role: 'player' | 'escape_owner';
+    birthDate?: string;
+    city?: string;
+    isAgePublic?: boolean;
+    roomsExplored?: string;
+    favoriteHobby?: string;
+    characteristics?: string[];
+    avatarUrl?: string;
 }
 
 export interface Filters {
@@ -18,6 +25,8 @@ export interface Filters {
 export interface EscapeGame {
     nom: string;
     adresse: string;
+    ville?: string;
+    codePostal?: string;
     telephone: string;
     mail: string;
     coordinates?: {

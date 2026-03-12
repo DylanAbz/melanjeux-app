@@ -215,3 +215,54 @@
   height: 28px;
   filter: brightness(0) invert(1);
 }
+
+/* --- DESKTOP STYLES --- */
+@media (min-width: 1025px) {
+  .chat-room-page.desktop {
+      height: 100%;
+      background-color: #FFF5EE;
+      background-image: url('/headerBackground.svg');
+      background-size: cover;
+      background-blend-mode: overlay;
+  }
+
+  .chat-room-page.desktop .chat-header {
+      background-color: #FBE3D2;
+      height: 64px;
+      padding: 0 24px;
+      border-bottom: 1px solid #E7E7E7;
+  }
+
+  .chat-room-page.desktop .chat-title {
+      font-size: 20px;
+  }
+
+  .chat-room-page.desktop .group-button-circle {
+      background: #F6F6F6;
+      width: 40px;
+      height: 40px;
+  }
+
+  .chat-room-page.desktop .group-button-circle img {
+      filter: brightness(0);
+  }
+
+  .chat-room-page.desktop .chat-input-area {
+      background-color: transparent;
+      padding: 24px;
+      border-top: 1px solid #E7E7E7;
+  }
+
+  .chat-room-page.desktop .pill-input {
+      background-color: #FFFFFF;
+      border: 1px solid #E7E7E7;
+  }
+
+  .chat-room-page.desktop .send-icon {
+      filter: none;
+  }
+
+  .chat-room-page.desktop .messages-area {
+      padding: 32px;
+  }
+}
