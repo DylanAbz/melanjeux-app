@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import BottomBar from './components/BottomBar/BottomBar';
 import Sidebar from './components/Sidebar/Sidebar';
@@ -14,7 +14,7 @@ import EditCity from './pages/EditProfilePage/EditCity';
 import ReservationFlowPage from './pages/ReservationFlowPage/ReservationFlowPage';
 import MessagesListPage from './pages/MessagesListPage/MessagesListPage';
 import ChatRoomPage from './pages/ChatRoomPage/ChatRoomPage';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, useSearchParams, useNavigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { SearchBar } from './components/SearchBar/SearchBar';
 import FilterButton from './components/FilterButton/FilterButton';
@@ -30,6 +30,10 @@ const getPageTitle = (pathname: string) => {
 
 function App() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get('q') || '';
+  
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
 
   useEffect(() => {
@@ -42,6 +46,20 @@ function App() {
                        location.pathname === '/recap' || 
                        location.pathname.match(/^\/messages\/[^/]+$/) ||
                        location.pathname.startsWith('/profile/edit');
+
+  const handleSearchChange = useCallback((value: string) => {
+    if (location.pathname !== '/') {
+      if (value) {
+        navigate(`/?q=${encodeURIComponent(value)}`);
+      }
+    } else {
+      if (value) {
+        setSearchParams({ q: value });
+      } else {
+        setSearchParams({});
+      }
+    }
+  }, [location.pathname, navigate, setSearchParams]);
 
   return (
     <div className="App">
@@ -57,7 +75,11 @@ function App() {
                 </h1>
              ) : (
                 <>
-                  <SearchBar placeholder="Rechercher une salle" />
+                  <SearchBar 
+                    placeholder="Rechercher une salle" 
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                  />
                   <FilterButton onClick={() => {}} filterCount={0} />
                 </>
              )}

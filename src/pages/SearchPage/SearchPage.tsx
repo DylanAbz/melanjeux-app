@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import './SearchPage.css';
 import { SearchBar } from "../../components/SearchBar/SearchBar.tsx";
 import FilterButton from "../../components/FilterButton/FilterButton.tsx";
@@ -12,6 +12,9 @@ import type { Filters, Room } from "../../types.ts";
 const SearchPage: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get('q') || '';
+  
   const [rooms, setRooms] = useState<Room[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -39,7 +42,11 @@ const SearchPage: React.FC = () => {
     const fetchRooms = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/rooms`);
+        const url = searchQuery 
+          ? `${import.meta.env.VITE_BACKEND_URL}/rooms?search=${encodeURIComponent(searchQuery)}`
+          : `${import.meta.env.VITE_BACKEND_URL}/rooms`;
+          
+        const response = await fetch(url);
         if (!response.ok) throw new Error('Failed to fetch rooms');
         const data = await response.json();
         setRooms(data);
@@ -52,7 +59,15 @@ const SearchPage: React.FC = () => {
     };
 
     fetchRooms();
-  }, []);
+  }, [searchQuery]);
+
+  const handleSearchChange = useCallback((value: string) => {
+    if (value) {
+      setSearchParams({ q: value });
+    } else {
+      setSearchParams({});
+    }
+  }, [setSearchParams]);
 
   const handleOpenFilters = () => {
     setIsFilterOpen(true);
@@ -80,7 +95,11 @@ const SearchPage: React.FC = () => {
       <div className="mobile-only-header">
         <h1 className="search-page-title">Trouvez votre prochaine mission</h1>
         <div className="search-options">
-          <SearchBar placeholder="Rechercher" onChange={() => {}} />
+          <SearchBar 
+            placeholder="Rechercher" 
+            value={searchQuery}
+            onChange={handleSearchChange} 
+          />
           <FilterButton onClick={handleOpenFilters} filterCount={activeFilterCount} />
         </div>
       </div>

@@ -1,6 +1,6 @@
 import debounce from "lodash.debounce";
 import "./SearchBar.css";
-import React, {useState, useMemo, type FormEvent, type ChangeEvent} from "react";
+import React, {useState, useMemo, useEffect, type FormEvent, type ChangeEvent} from "react";
 import {SearchIcon} from "../../../public/SearchIcon.tsx";
 
 
@@ -22,35 +22,37 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                                                         className = "",
                                                     }) => {
     const [internalValue, setInternalValue] = useState(value ?? "");
+
+    // Sync internal value with prop value (e.g. when URL changes)
+    useEffect(() => {
+        if (value !== undefined) {
+            setInternalValue(value);
+        }
+    }, [value]);
+
     const debouncedOnChange = useMemo(
         () =>
             debounce((term: string) => {
                 onChange?.(term);
-            }, 300),
+            }, 500), // Increased to 500ms for better stability
         [onChange]
     );
 
-    const currentValue = value !== undefined ? value : internalValue;
-
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const next = e.target.value;
-        if (value === undefined) {
-            setInternalValue(next);
-        }
-        debouncedOnChange(next);
+        setInternalValue(next); // Update UI immediately
+        debouncedOnChange(next); // Debounce the URL/API update
     };
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         debouncedOnChange.flush();
-        onSubmit?.(currentValue);
+        onSubmit?.(internalValue);
     };
 
     const handleClear = () => {
-        if (value === undefined) {
-            setInternalValue("");
-        }
-        debouncedOnChange("");
+        setInternalValue("");
+        debouncedOnChange.cancel();
         onChange?.("");
     };
 
@@ -69,13 +71,13 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                     id="search-input"
                     type="search"
                     className="searchbar__input"
-                    value={currentValue}
+                    value={internalValue}
                     onChange={handleChange}
                     placeholder={placeholder}
                     autoFocus={autoFocus}
                 />
 
-                {currentValue && (
+                {internalValue && (
                     <button
                         type="button"
                         className="searchbar__clear"
